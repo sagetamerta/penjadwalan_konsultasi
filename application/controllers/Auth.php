@@ -6,7 +6,6 @@ class Auth extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('form_validation');
     }
     public function index()
     {
@@ -91,9 +90,9 @@ class Auth extends CI_Controller
         } else {
             $email = $this->input->post('email', true);
             $data = [
-                'name' => htmlspecialchars($this->input->post('name', true)),
+                'nama' => htmlspecialchars($this->input->post('name', true)),
                 'email' => htmlspecialchars($email),
-                'image' => 'default.jpg',
+                'gambar' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'role_id' => 2,
                 'is_active' => 0,

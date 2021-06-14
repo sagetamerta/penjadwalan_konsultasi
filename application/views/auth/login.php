@@ -18,15 +18,15 @@
                                 <?= $this->session->flashdata('message'); ?>
                                 <form class="user" method="post" action="<?= base_url('auth'); ?>">
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Enter Email Address..." value="<?= set_value('email'); ?>">
+                                        <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Enter Email Address..." value="<?= set_value('email'); ?>" autocomplete="email">
                                         <?=
-                                            form_error('email', '<small class="text-danger pl-3">', '</small>');
+                                        form_error('email', '<small class="text-danger pl-3">', '</small>');
                                         ?>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+                                        <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password" autocomplete="current-password">
                                         <?=
-                                            form_error('password', '<small class="text-danger pl-3">', '</small>');
+                                        form_error('password', '<small class="text-danger pl-3">', '</small>');
                                         ?>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
