@@ -1,8 +1,8 @@
 <!-- Footer -->
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Latihan Codeigniter <?= date('Y'); ?></span>
+        <div class="copyright text-center">
+            <span>Copyright &copy; Penjadwalan Konsultasi <?= date('Y'); ?></span>
         </div>
     </div>
 </footer>
@@ -54,11 +54,6 @@
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
 
-
-
-
-
-
     $('.form-check-input').on('click', function() {
         const menuId = $(this).data('menu');
         const roleId = $(this).data('role');
@@ -74,8 +69,6 @@
                 document.location.href = "<?= base_url('admin/roleaccess/'); ?>" + roleId;
             }
         });
-
-
     });
 </script>
 

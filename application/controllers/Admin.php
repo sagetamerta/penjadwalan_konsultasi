@@ -52,6 +52,14 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function roleDelete($role_id)
+    {
+        $this->db->where('id', $role_id);
+        $this->db->delete('user_role');
+
+        redirect('admin/role');
+    }
+
     public function changeAccess()
     {
         $menu_id = $this->input->post('menuId');

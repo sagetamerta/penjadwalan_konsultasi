@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/latihan-codeigniter/';
+$config['base_url'] = 'http://localhost/penjadwalan_konsultasi/';
 // Ingat diganti jika masuk hostingan
 
 /*
