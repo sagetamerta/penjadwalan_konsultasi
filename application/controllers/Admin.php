@@ -35,6 +35,48 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function roleAdd()
+    {
+        $role = htmlspecialchars($this->input->post('role'));
+
+        $data = array(
+            'role' => $role
+        );
+
+        $this->db->insert('user_role', $data);
+
+        redirect('admin/role');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        New Role has been added!</div>');
+    }
+
+    public function roleEdit()
+    {
+        $id = htmlspecialchars($this->input->post('roleid'));
+        $role = htmlspecialchars($this->input->post('role'));
+
+        $this->db->set('role', $role);
+        $this->db->where('id', $id);
+        $this->db->update('user_role');
+
+        redirect('admin/role');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        New Role has been added!</div>');
+    }
+
+    public function roleDelete($role_id)
+    {
+        $this->db->where('id', $role_id);
+        $this->db->delete('user_role');
+
+        redirect('admin/role');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Role has been deleted!</div>');
+    }
+
     public function roleAccess($role_id)
     {
         $data['title'] = 'Role Access';
@@ -50,14 +92,6 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/role-access', $data);
         $this->load->view('templates/footer');
-    }
-
-    public function roleDelete($role_id)
-    {
-        $this->db->where('id', $role_id);
-        $this->db->delete('user_role');
-
-        redirect('admin/role');
     }
 
     public function changeAccess()
