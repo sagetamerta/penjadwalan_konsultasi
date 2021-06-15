@@ -23,7 +23,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/penjadwalan_konsultasi/';
+$config['base_url'] = 'http://localhost/latihan-codeigniter/';
+// Ingat diganti jika masuk hostingan
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,8 @@ $config['base_url'] = 'http://localhost/penjadwalan_konsultasi/';
 |
 */
 $config['index_page'] = '';
+// index dikosongkan dan jika index_page kosong(dihapus), setting mod_rewritenya
+// Menggunakan file .htaccess yang dibuat di luar file application (semua folder)
 
 /*
 |--------------------------------------------------------------------------
