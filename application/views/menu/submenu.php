@@ -38,7 +38,7 @@
                             <td><?= $sm['is_active']; ?></td>
                             <td>
                                 <a href="#" class="badge badge-success">edit</a>
-                                <a href="#" class="badge badge-danger">delete</a>
+                                <a href="<?= base_url('menu/submenudelete/') . $sm['id']; ?>" class="badge badge-danger">delete</a>
                             </td>
                         </tr>
                         <?php $i++; ?>
