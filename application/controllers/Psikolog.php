@@ -3,4 +3,52 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Psikolog extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        is_logged_in();
+    }
+
+    public function index()
+    {
+        $data['title'] = 'Data Psikolog';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['psikolog'] = $this->db->get('psikolog')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('psikolog/index', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function addPsikolog()
+    {
+        $nama_psikolog = htmlspecialchars($this->input->post('nama_psikolog'));
+        $notelp_psikolog = htmlspecialchars($this->input->post('notelp_psikolog'));
+        $alamat_psikolog = htmlspecialchars($this->input->post('alamat_psikolog'));
+
+        $data = array(
+            'nama_psikolog' => $nama_psikolog,
+            'notelp_psikolog' => $notelp_psikolog,
+            'alamat_psikolog' => $alamat_psikolog
+        );
+
+        $this->db->insert('psikolog', $data);
+
+        redirect('psikolog');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        New Psikolog has been added!</div>');
+    }
+
+    public function deletePsikolog($id_psikolog)
+    {
+        $this->db->where('id_psikolog', $id_psikolog);
+        $this->db->delete('psikolog');
+
+        redirect('psikolog');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Psikolog has been deleted!</div>');
+    }
 }
