@@ -57,8 +57,9 @@ class Psikolog extends CI_Controller
     {
         // ambil jumlah psikolog dari database yang menjadi jumlah populasi
         $data['jumlah_psikolog'] = $this->db->count_all('psikolog');
-        // ambil input mutation rate
         // ambil input crossover rate
+        // ambil input mutation rate
+        // ambil input jumlah iterasi
 
         // tampilkan view form untuk buat jadwal
 
@@ -77,7 +78,7 @@ class Psikolog extends CI_Controller
         $maxData = 21;
         $temp = '';
         $random = rand();
-        $popsize = 5; //jumlah popoulasi diambil dari inputan form
+        $popsize = 5; //jumlah popoulasi diambil dari jumlah psikolog dalam db
         $cr = 0.1; //crossover rate diambil dari inputan form
         $mr = 0.5; //mutation rate diambil dari inputan form
         $iterasi = 50; //jumlah iterasi diambil dari inputan form
