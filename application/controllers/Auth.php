@@ -208,6 +208,10 @@ class Auth extends CI_Controller
     {
         $this->load->view('auth/blocked');
     }
+    public function notfound()
+    {
+        $this->load->view('auth/notfound');
+    }
 
 
     public function forgotPassword()
