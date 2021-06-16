@@ -1,3 +1,7 @@
+<!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
+</div>
 <!-- Footer -->
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">

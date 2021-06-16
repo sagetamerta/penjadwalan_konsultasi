@@ -1,6 +1,3 @@
-<!-- Begin Page Content -->
-<div class="container-fluid">
-
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
@@ -38,64 +35,58 @@
         </div>
     </div>
 
-</div>
-<!-- /.container-fluid -->
-
-</div>
-<!-- End of Main Content -->
-
-<!-- Modal Add New Role -->
-<div class="modal fade" id="newRoleModal" tabindex="-1" aria-labelledby="newRoleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newRoleModalLabel">Add New Role</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <!-- Modal Add New Role -->
+    <div class="modal fade" id="newRoleModal" tabindex="-1" aria-labelledby="newRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newRoleModalLabel">Add New Role</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('admin/roleadd'); ?>" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="role" name="role" placeholder="Role name">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
             </div>
-            <form action="<?= base_url('admin/roleadd'); ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
+        </div>
+    </div>
+
+    <!-- Modal Edit Role -->
+    <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('admin/roleedit'); ?>" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" id="roleid" name="roleid" value="11">
                         <input type="text" class="form-control" id="role" name="role" placeholder="Role name">
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Edit Role -->
-<div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+                </form>
             </div>
-            <form action="<?= base_url('admin/roleedit'); ?>" method="post">
-                <div class="modal-body">
-                    <input type="hidden" id="roleid" name="roleid" value="11">
-                    <input type="text" class="form-control" id="role" name="role" placeholder="Role name">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 
-<script>
-    $('.EditRoleDialog').click(function() {
-        //get cover id
-        var id = $(this).data('id');
-    })
-</script>
+    <script>
+        $('.EditRoleDialog').click(function() {
+            //get cover id
+            var id = $(this).data('id');
+        })
+    </script>

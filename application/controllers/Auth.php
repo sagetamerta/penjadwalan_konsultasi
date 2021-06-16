@@ -18,9 +18,9 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Login Page';
-            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/auth_header', $data);
             $this->load->view('auth/login');
-            $this->load->view('templates/auth_footer');
+            $this->load->view('auth/auth_footer');
         } else {
             // validasinya sukses
             $this->_login();
@@ -85,9 +85,9 @@ class Auth extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'User Registration';
-            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/auth_header', $data);
             $this->load->view('auth/registration');
-            $this->load->view('templates/auth_footer');
+            $this->load->view('auth/auth_footer');
         } else {
             $email = $this->input->post('email', true);
             $data = [
@@ -215,9 +215,9 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Forgot Password';
-            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/auth_header', $data);
             $this->load->view('auth/forgot-password');
-            $this->load->view('templates/auth_footer');
+            $this->load->view('auth/auth_footer');
         } else {
             $email = $this->input->post('email');
             $user = $this->db->get_where('user', ['email' => $email, 'is_active' => 1])->row_array();
@@ -277,9 +277,9 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password2', 'Repeat Password', 'trim|required|min_length[3]|matches[password1]');
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Change Password';
-            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/auth_header', $data);
             $this->load->view('auth/change-password');
-            $this->load->view('templates/auth_footer');
+            $this->load->view('auth/auth_footer');
         } else {
             $password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
             $email = $this->session->userdata('reset_email');
