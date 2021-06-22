@@ -120,12 +120,14 @@ class Psikolog extends CI_Controller
     {
         $temp = '';
         $random = rand(10, 100);
-        $this->popsize = intval("10");
-        $this->data = array_fill(0, $this->popsize, array_fill(0, $this->maxData, 0));
-        for ($i = 0; $i < $this->popsize; $i++) {
-            $arr = array_fill(0, $this->maxData, 0);
-            for ($j = 0; $j < $this->maxData; $j++) {
-                $n = $random->nextInt($this->maxKapal) + 1;
+        $rand = (object) $random;
+
+        // $this->popsize = intval("10");
+        $this->data = array_fill(0, 32, array_fill(0, 160, 0));
+        for ($i = 0; $i < 32; $i++) {
+            $arr = array_fill(0, 160, 0);
+            for ($j = 0; $j < 160; $j++) {
+                $n = $rand(32) + 1;
                 $this->data[$i][$j] = $n;
                 $arr[$j] = $this->data[$i][$j];
             }
