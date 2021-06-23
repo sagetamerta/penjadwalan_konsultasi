@@ -112,8 +112,21 @@ class Psikolog extends CI_Controller
             $this->load->view('jadwal/index', $data);
             $this->load->view('templates/footer');
         } else {
+            $fitnessSaget = 0.0;
+            $thresholdSaget = 0.0;
             $this->inisialisasi();
-            $this->getConstraint1();
+            $iterasi = 1000;
+            for ($i = 0; $i < $iterasi; $i++) {
+                $this->hitungCrossover();
+                $this->hitungMutasi();
+                $this->hitungFitness();
+                $this->seleksiElitism();
+                if ($fitnessSaget >= $thresholdSaget) {
+                    echo '<br>';
+                    echo 'Berhenti di iterasi ke : ' . ($i + 1);
+                    break;
+                }
+            }
         }
     }
 
@@ -122,7 +135,6 @@ class Psikolog extends CI_Controller
         $randArray = [];
         $popsize = 10;
         $maxData = 20;
-
 
         for ($i = 0; $i < $popsize; $i++) { //for loop populasi = 10 kebawah
             echo '<br>';
@@ -198,5 +210,21 @@ class Psikolog extends CI_Controller
                 $cons5 = $cons5 + 60;
             }
         }
+    }
+
+    public function hitungCrossover()
+    {
+    }
+
+    public function hitungMutasi()
+    {
+    }
+
+    public function hitungFitness()
+    {
+    }
+
+    public function seleksiElitism()
+    {
     }
 }
