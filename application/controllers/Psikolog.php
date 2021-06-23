@@ -118,27 +118,18 @@ class Psikolog extends CI_Controller
 
     private function inisialisasi()
     {
-        $temp = '';
-        $random = rand(1, 10);
-        $rand = (object) $random;
-        print_r($random);
+        $randArray = [];
+        $popsize = 10;
+        $maxData = 20;
 
-        // for ($i = 0; $i < 32; $i++) {
-        //     $arr = array_fill(0, 160, 0);
-        //     for ($j = 0; $j < 160; $j++) {
-        //     }
-        // }
-        $this->popsize = intval("10");
-        $this->data = array_fill(0, 32, array_fill(0, 160, 0));
-        for ($i = 0; $i < 32; $i++) {
-            $arr = array_fill(0, 160, 0);
-            for ($j = 0; $j < 160; $j++) {
-                $n = $rand(32) + 1;
-                $this->data[$i][$j] = $n;
-                $arr[$j] = $this->data[$i][$j];
+
+        for ($i = 0; $i < $popsize; $i++) { //for loop populasi = 10 kebawah
+            echo '<br>';
+            for ($j = 0; $j < $maxData; $j++) { //fpr loop kromosom dari tiap populasi = 20 kesamping
+                $value = rand(1, $maxData);
+                $randArray[] = $value;
+                echo $value . '|';
             }
-            $temp = $arr;
-            print_r($temp);
         }
     }
 }
