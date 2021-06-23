@@ -117,7 +117,7 @@ class Psikolog extends CI_Controller
         }
     }
 
-    private function inisialisasi()
+    public function inisialisasi()
     {
         $randArray = [];
         $popsize = 10;
@@ -134,7 +134,7 @@ class Psikolog extends CI_Controller
         }
     }
 
-    private function getConstraint1($array = [], $array2 = [])
+    public function getConstraint1($array = [], $array2 = [])
     {
         $cons1 = 0.0;
         for ($i = 0; $i < count($array); $i++) {
@@ -142,6 +142,60 @@ class Psikolog extends CI_Controller
                 if ($array[$i] == $array2[$j]) {
                     $cons1 = $cons1 + 10;
                 }
+            }
+        }
+    }
+
+    public function ge2($array = [], $array2 = [])
+    {
+        $cons2 = 0.0;
+        for ($i = 0; $i < count($array); $i++) {
+            for ($j = 0; $j < count($array2); $j++) {
+                if ($array[$i] == $array2[$j]) {
+                    $cons2 = $cons2 + 20;
+                }
+            }
+        }
+    }
+
+    public function getConstraint3($array = [], $array2 = [])
+    {
+        $cons3 = 0.0;
+        for ($i = 0; $i < count($array); $i++) {
+            for ($j = 0; $j < count($array2); $j++) {
+                if ($array[$i] == $array2[$j]) {
+                    $cons3 = $cons3 + 50;
+                }
+            }
+        }
+    }
+
+    public function getConstraint4($array = [])
+    {
+        $cons4 = 0.0;
+        $s2remove = [count($array)];
+        for ($i = 0; $i < count($array); $i++) {
+            for ($j = $i + 1; $j < count($array); $j++) {
+                if ($i != $j) {
+                    if ($array[$i] == $array[$j]) {
+                        if ($array[$j] == $s2remove[$j]) {
+                            continue;
+                        } else {
+                            $cons4 = $cons4 + 55;
+                            $s2remove[$j] = $array[$j];
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public function getConstraint5($array = [], $value = [])
+    {
+        $cons5 = 0.0;
+        for ($i = 0; $i < count($array); $i++) {
+            if ($array[$i] == $value) {
+                $cons5 = $cons5 + 60;
             }
         }
     }
