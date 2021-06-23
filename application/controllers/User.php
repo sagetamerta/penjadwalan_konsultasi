@@ -38,7 +38,6 @@ class User extends CI_Controller
             $name = $this->input->post('name');
             $email = $this->input->post('email');
 
-
             //cek jika ada gambar yang akan diupload
             $upload_image = $_FILES['image']['name'];
 
@@ -70,6 +69,7 @@ class User extends CI_Controller
             redirect('user');
         }
     }
+
     public function changePassword()
     {
         $data['title'] = 'Change Password';

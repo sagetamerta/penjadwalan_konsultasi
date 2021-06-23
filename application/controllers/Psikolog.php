@@ -119,10 +119,16 @@ class Psikolog extends CI_Controller
     private function inisialisasi()
     {
         $temp = '';
-        $random = rand(10, 100);
+        $random = rand(1, 10);
         $rand = (object) $random;
+        print_r($random);
 
-        // $this->popsize = intval("10");
+        // for ($i = 0; $i < 32; $i++) {
+        //     $arr = array_fill(0, 160, 0);
+        //     for ($j = 0; $j < 160; $j++) {
+        //     }
+        // }
+        $this->popsize = intval("10");
         $this->data = array_fill(0, 32, array_fill(0, 160, 0));
         for ($i = 0; $i < 32; $i++) {
             $arr = array_fill(0, 160, 0);
@@ -131,7 +137,8 @@ class Psikolog extends CI_Controller
                 $this->data[$i][$j] = $n;
                 $arr[$j] = $this->data[$i][$j];
             }
-            $temp = json_encode($arr);
+            $temp = $arr;
+            print_r($temp);
         }
     }
 }
