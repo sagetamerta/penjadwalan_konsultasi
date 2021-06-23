@@ -113,6 +113,7 @@ class Psikolog extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $this->inisialisasi();
+            $this->getConstraint1();
         }
     }
 
@@ -129,6 +130,18 @@ class Psikolog extends CI_Controller
                 $value = rand(1, $maxData);
                 $randArray[] = $value;
                 echo $value . '|';
+            }
+        }
+    }
+
+    private function getConstraint1($array = [], $array2 = [])
+    {
+        $cons1 = 0.0;
+        for ($i = 0; $i < count($array); $i++) {
+            for ($j = 0; $j < count($array2); $j++) {
+                if ($array[$i] == $array2[$j]) {
+                    $cons1 = $cons1 + 10;
+                }
             }
         }
     }
