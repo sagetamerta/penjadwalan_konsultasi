@@ -1,5 +1,6 @@
 <?php
 
+echo 'Isi form untuk ambil popsize | max data diambil dari jumlah psikolog <br>';
 // INISIALISASI
 // random arrays
 $randArray = [];
@@ -15,6 +16,7 @@ for ($i = 0; $i < $popsize; $i++) { //for loop populasi = 10 kebawah
         echo $value . '|';
     }
 }
+
 
 // hasil yang diharapkan semua beda angkanya
 // *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
