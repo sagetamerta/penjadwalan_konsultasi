@@ -122,7 +122,7 @@ class Psikolog extends CI_Controller
             $cr = 0.5; //$this->input->post('cr');
             $mr = 0.5; //$this->input->post('mr');
 
-            $this->inisialisasi($popsize, $maxData);
+            $this->inisialisasi($popsize, $maxPs);
             $iterasi = 1;
             for ($i = 0; $i < $iterasi; $i++) {
                 $this->hitungCrossover($cr, $popsize, $maxData, $maxPs);
@@ -207,7 +207,7 @@ class Psikolog extends CI_Controller
         }
     }
 
-    public function getConstraint5($array = [], $value = [])
+    public function getConstraint5($array = [], $value = 0)
     {
         $cons5 = 0.0;
         for ($i = 0; $i < count($array); $i++) {
@@ -217,7 +217,7 @@ class Psikolog extends CI_Controller
         }
     }
 
-    public function hitungCrossover($cr, $popsize, $maxData)
+    public function hitungCrossover($cr, $popsize, $maxData, $maxPs)
     {
         $temp2 = '';
         $getChildCO = -1;
@@ -226,17 +226,16 @@ class Psikolog extends CI_Controller
         $childCrossover[][] = [$ofCrossover][$maxData];
 
         while ($ofCrossover - $getChildCO != 1) {
-            $c[] = [2];
             $data = array();
-
+            $c[] = [2];
             $c[0] = rand(0, $popsize);
             $c[1] = rand(0, $popsize);
 
-            $oneCut = rand(0, $maxData);
+            $oneCut = rand(0, $maxPs);
             echo '<br>' . $c[0] . ' | ' . $c[1] . ' | ' . $oneCut;
 
             $c1 = ++$getChildCO;
-            echo $c1 . ' c1 child' . $getChildCO;
+            echo $c1 . ' || ' . $getChildCO;
 
             if ($ofCrossover - $getChildCO == 1) {
                 for ($i = 0; $i < $maxData; $i++) {
@@ -254,8 +253,6 @@ class Psikolog extends CI_Controller
             } else {
                 $c2 = ++$getChildCO;
                 echo $c2 . '  ' . $getChildCO;
-
-                // error 1
                 for ($i = 0; $i < $maxData; $i++) {
                     $childCrossover[$c1][$i] = $data[$c[0]][$i];
                     $childCrossover[$c2][$i] = $data[$c[1]][$i];
@@ -264,12 +261,11 @@ class Psikolog extends CI_Controller
                     $childCrossover[$c2][$i] = $data[$c[0]][$i];
                     $childCrossover[$c2][$i] = $data[$c[1]][$i];
                 }
-                // error 2
                 for ($i = $c1; $i <= $c2; $i++) {
-                    // echo '<br>Child ' . $i . '=';
-                    $temp2 = array($maxData);
+                    echo '<br>Child ' . $i . ' = ';
+                    $temp2[] = $maxData;
                     for ($j = 0; $j < $maxData; $j++) {
-                        // echo $childCrossover[$i][$j] . '';
+                        echo $childCrossover[$i][$j] . ' ';
                         $temp2[$j] = $childCrossover[$i][$j];
                     }
                 }
@@ -288,10 +284,16 @@ class Psikolog extends CI_Controller
             $p = rand(0, $popsize);
             $r1 = rand(0, $maxData);
             $r2 = rand(0, $maxData);
-            // $c = array(2);
-            // $data = array();
-            // $c[0] = rand($popsize, $maxData);
-            // $c[1] = rand($popsize, $maxData);
+            echo '<br>' . $p . ' | ' . $r1 . ' | ' . $r2 . ' | ';
+
+            $this->reciprocalExchangeMutation($p, $r1, $r2, $j, $maxData);
+            echo 'Child' . $j . ' = ';
+
+            $arr[] = [$maxData];
+            for ($i = 0; $i < $maxData; $i++) {
+                echo $childMutasi[$j][$i] . ' ';
+                $arr[$i] = $childMutasi[$j][$i];
+            }
         }
     }
 
