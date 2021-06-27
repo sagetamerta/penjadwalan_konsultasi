@@ -116,15 +116,17 @@ class Psikolog extends CI_Controller
         } else {
             $fitnessSaget = 0.0;
             $thresholdSaget = 0.0;
-            $popsize = 10;
-            $maxData = 20;
-            $cr = 0.5;
-            $mr = 0.5;
+            $popsize = 10; //$this->input->post('popsize');
+            $maxData = 42;
+            $maxPs = 28; //$this->db->count('psikolog');
+            $cr = 0.5; //$this->input->post('cr');
+            $mr = 0.5; //$this->input->post('mr');
+
             $this->inisialisasi($popsize, $maxData);
-            $iterasi = 1000;
+            $iterasi = 1;
             for ($i = 0; $i < $iterasi; $i++) {
-                $this->hitungCrossover($cr, $popsize, $maxData);
-                $this->hitungMutasi();
+                $this->hitungCrossover($cr, $popsize, $maxData, $maxPs);
+                $this->hitungMutasi($mr, $popsize, $maxData, $maxPs);
                 $this->hitungFitness();
                 $this->seleksiElitism();
                 if ($fitnessSaget >= $thresholdSaget) {
@@ -141,10 +143,10 @@ class Psikolog extends CI_Controller
         $randArray = [];
         for ($i = 0; $i < $popsize; $i++) { //for loop populasi = 10 kebawah
             echo '<br>';
-            for ($j = 0; $j < $maxData; $j++) { //fpr loop kromosom dari tiap populasi = 20 kesamping
+            for ($j = 0; $j < $maxData; $j++) { //for loop kromosom dari tiap populasi = 20 kesamping
                 $value = rand(1, $maxData);
                 $randArray[] = $value;
-                echo $value . '|';
+                echo $value . ' | ';
             }
         }
     }
@@ -219,21 +221,22 @@ class Psikolog extends CI_Controller
     {
         $temp2 = '';
         $getChildCO = -1;
-        $ofCrossover = round($cr * $popsize);
+        $ofCrossover = intval($cr * $popsize);
         echo '<br>Banyak Offspring Crossover = ' . $ofCrossover;
-        // $childCrossover = [$ofCrossover][$maxData];
+        $childCrossover[][] = [$ofCrossover][$maxData];
 
         while ($ofCrossover - $getChildCO != 1) {
-            $c = array();
+            $c[] = [2];
             $data = array();
-            $c[0] = rand($popsize, $maxData);
-            $c[1] = rand($popsize, $maxData);
 
-            $oneCut = rand($popsize, $maxData);
-            echo '<br>' . $c[0] . '|' . $c[1] . '|' . $oneCut;
+            $c[0] = rand(0, $popsize);
+            $c[1] = rand(0, $popsize);
+
+            $oneCut = rand(0, $maxData);
+            echo '<br>' . $c[0] . ' | ' . $c[1] . ' | ' . $oneCut;
 
             $c1 = ++$getChildCO;
-            echo $c1 . '  ' . $getChildCO;
+            echo $c1 . ' c1 child' . $getChildCO;
 
             if ($ofCrossover - $getChildCO == 1) {
                 for ($i = 0; $i < $maxData; $i++) {
@@ -242,8 +245,8 @@ class Psikolog extends CI_Controller
                 for ($i = $oneCut, $j = 0; $j < $maxData - $oneCut; $j++, $i++) {
                     $childCrossover[$c1][$i] = $data[$c[1][$i]];
                 }
-                echo 'Child' . $c1 . " = ";
-                $temp2 = array($maxData);
+                echo 'Child ' . $c1 . " = ";
+                $temp2 = [$maxData];
                 for ($i = 0; $i < $maxData; $i++) {
                     echo $childCrossover[$c1][$i] . " ";
                     $temp2[$i] = $childCrossover[$c1][$i];
@@ -263,10 +266,10 @@ class Psikolog extends CI_Controller
                 }
                 // error 2
                 for ($i = $c1; $i <= $c2; $i++) {
-                    echo '<br>Child ' . $i . '=';
+                    // echo '<br>Child ' . $i . '=';
                     $temp2 = array($maxData);
                     for ($j = 0; $j < $maxData; $j++) {
-                        echo $childCrossover[$i][$j] . '';
+                        // echo $childCrossover[$i][$j] . '';
                         $temp2[$j] = $childCrossover[$i][$j];
                     }
                 }
@@ -274,7 +277,39 @@ class Psikolog extends CI_Controller
         }
     }
 
-    public function hitungMutasi()
+    public function hitungMutasi($mr, $popsize, $maxData)
+    {
+        $temp = '';
+        $ofMutasi = intval($mr * $popsize);
+        echo '<br>Banyak Offspring Mutasi = ' . $ofMutasi;
+
+        $childMutasi =  [[$ofMutasi][$maxData]];
+        for ($j = 0; $j < $ofMutasi; $j++) {
+            $p = rand(0, $popsize);
+            $r1 = rand(0, $maxData);
+            $r2 = rand(0, $maxData);
+            // $c = array(2);
+            // $data = array();
+            // $c[0] = rand($popsize, $maxData);
+            // $c[1] = rand($popsize, $maxData);
+        }
+    }
+
+    public function reciprocalExchangeMutation($p, $r1, $r2, $j, $maxData)
+    {
+        $data = array();
+        for ($i = 0; $i < $maxData; $i++) {
+            $childMutasi[$j][$i] = $data[$p][$i];
+            if ($i == $r1) {
+                $childMutasi[$j][$i] = $data[$p][$r2];
+            }
+            if ($i == $r2) {
+                $childMutasi[$j][$i] = $data[$p][$r1];
+            }
+        }
+    }
+
+    public function getFitness()
     {
     }
 
