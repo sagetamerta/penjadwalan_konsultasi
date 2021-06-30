@@ -274,27 +274,30 @@ class Psikolog extends CI_Controller
         $this->ofMutasi = intval(round($this->mr * $this->popsize));
         echo '<br>Banyak Offspring Mutasi = ' . $this->ofMutasi;
 
-        $this->childMutasi =  [[$this->ofMutasi][$this->maxData]];
+        $this->childMutasi =  [$this->ofMutasi[$this->maxData]];
         for ($j = 0; $j < $this->ofMutasi; $j++) {
-            $p = rand(0, $this->popsize);
-            $r1 = rand(0, $this->maxData);
-            $r2 = rand(0, $this->maxData);
-            echo '<br>' . $p . ' | ' . $r1 . ' | ' . $r2 . ' | ';
+            $p = intval(rand(0, $this->popsize));
+            $r1 = intval(rand(0, $this->maxData));
+            $r2 = intval(rand(0, $this->maxData));
+            echo '<br>' . $p . ' | ' . $r1 . ' | ' . $r2;
 
-            $this->reciprocalExchangeMutation($p, $r1, $r2, $j, $this->maxData);
-            echo 'Child' . $j . ' = ';
+            $this->reciprocalExchangeMutation($p, $r1, $r2, $j);
+            echo 'ChildM ' . $j . ' = ';
 
-            $arr[] = [$this->maxData];
+            $arr = [$this->maxData];
             for ($i = 0; $i < $this->maxData; $i++) {
                 echo $this->childMutasi[$j][$i] . ' ';
                 $arr[$i] = $this->childMutasi[$j][$i];
             }
+            $temp = is_string($arr);
+            echo $this->ofCrossover . $j . 1, $p, $temp;
+            // $temp = is_array();
         }
     }
 
-    public function reciprocalExchangeMutation($p, $r1, $r2, $j, $maxData)
+    public function reciprocalExchangeMutation($p, $r1, $r2, $j)
     {
-        for ($i = 0; $i < $maxData; $i++) {
+        for ($i = 0; $i < $this->maxData; $i++) {
             $childMutasi[$j][$i] = $this->data[$p][$i];
             if ($i == $r1) {
                 $childMutasi[$j][$i] = $this->data[$p][$r2];
