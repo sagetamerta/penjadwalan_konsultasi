@@ -51,6 +51,12 @@ class Psikolog extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function phpinfo()
+    {
+        echo phpinfo();
+        exit;
+    }
+
     public function addPsikolog()
     {
         $nama_psikolog = htmlspecialchars($this->input->post('nama_psikolog'));
@@ -95,14 +101,14 @@ class Psikolog extends CI_Controller
             $this->load->view('jadwal/index', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->inisialisasi();
-            $this->iterasi();
+            $maxPs = $this->db->count_all('psikolog');
+            $this->inisialisasi($maxPs);
+            $this->iterasi($maxPs);
         }
     }
 
-    public function inisialisasi()
+    public function inisialisasi($maxPs)
     {
-        $maxPs = $this->db->count_all('psikolog');
         // $data[][] = [$this->popsize][$this->maxData];
         echo 'Populasi Awal : <br>';
         for ($i = 0; $i < $this->popsize; $i++) { //for loop populasi = 10 kebawah
@@ -121,10 +127,10 @@ class Psikolog extends CI_Controller
         }
     }
 
-    public function iterasi()
+    public function iterasi($maxPs)
     {
         for ($i = 0; $i < $this->iterasi; $i++) {
-            $this->hitungCrossover();
+            $this->hitungCrossover($maxPs);
             $this->hitungMutasi();
             $this->hitungFitness();
             $this->seleksiElitism();
@@ -202,14 +208,14 @@ class Psikolog extends CI_Controller
         }
     }
 
-    public function hitungCrossover()
+    public function hitungCrossover($maxPs)
     {
-        $temp2 = '';
-        $maxPs = $this->db->count_all('psikolog'); //$this->db->count('psikolog');
+        $temp = '';
         $this->getChildCO = -1;
         $this->ofCrossover = intval(round($this->cr * $this->popsize));
-        echo '<br>Banyak Offspring Crossover = ' . $this->ofCrossover;
-        $childCrossover[][] = [0][0]; //diganti
+        echo '<br>Banyak Offspring Crossover = ' . $this->ofCrossover; //BISA
+        $childCrossover = [$this->ofCrossover[[$this->maxData]]]; //diganti
+        // $this->console_log($childCrossover);
 
         while ($this->ofCrossover - $this->getChildCO != 1) {
             $c = [2];
@@ -217,36 +223,47 @@ class Psikolog extends CI_Controller
             $c[1] = intval(rand(0, $this->popsize));
 
             $oneCut = intval(rand(0, $maxPs));
-            echo '<br>' . $c[0] . ' | ' . $c[1] . ' | ' . $oneCut;
+            echo '<br>' . $c[0] . ' | ' . $c[1] . ' | ' . $oneCut; //BISA
 
-            $c1 = ++$this->getChildCO;
-            echo $c1 . ' || ' . $this->getChildCO;
+            $c1 = intval(++$this->getChildCO);
+            echo $c1 . ' || ' . $this->getChildCO; //BISA
 
             if ($this->ofCrossover - $this->getChildCO == 1) {
                 for ($i = 0; $i < $this->maxData; $i++) {
                     $childCrossover[$c1][$i] = $this->data[$c[0]][$i];
+                    // echo json_encode($childCrossover[$c1][$i]); //masih null
                 }
                 for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
                     $childCrossover[$c1][$i] = $this->data[$c[1][$i]];
+                    // echo json_encode($childCrossover); //masih null
                 }
                 echo 'Child ' . $c1 . " = ";
-                $temp2[] = intval([$this->maxData]);
+                // $temp2[] = array();
+                // $temp2[] = array(intval([$this->maxData]));
+                $temp2 = [$this->maxData];
+                // echo json_encode($temp2);
+                // echo ' aselole ';
                 for ($i = 0; $i < $this->maxData; $i++) {
-                    echo $childCrossover[$c1][$i] . " ";
-                    $temp2[$i] = $childCrossover[$c1][$i];
+                    // echo $childCrossover[$c1][$i] . " ";
+                    $temp2[] = $childCrossover[$c1][$i]; //kromosom child
+                    echo json_encode($temp2); //masih null
+                    echo '<br> aselole ';
                 }
                 $temp = is_string($temp2);
-                echo $c1 + 1, $c[0] . ' x ' . $c[1], $temp;
+                echo '<br>';
+                echo $c1 + 1, $c[0] . '|x|' . $c[1], $temp;
             } else {
                 $c2 = ++$this->getChildCO;
                 echo $c2 . '  ' . $this->getChildCO;
                 for ($i = 0; $i < $this->maxData; $i++) {
                     $childCrossover[$c1][$i] = $this->data[$c[0]][$i];
                     $childCrossover[$c2][$i] = $this->data[$c[1]][$i];
+                    echo json_encode($childCrossover[$c1]);
                 }
                 for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
                     $childCrossover[$c2][$i] = $this->data[$c[0]][$i];
                     $childCrossover[$c2][$i] = $this->data[$c[1]][$i];
+                    echo json_encode($childCrossover[$c2]);
                 }
                 for ($i = $c1; $i <= $c2; $i++) {
                     echo '<br>Child ' . $i . ' = ';
