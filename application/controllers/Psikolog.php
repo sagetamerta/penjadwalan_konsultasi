@@ -111,7 +111,6 @@ class Psikolog extends CI_Controller
 
     public function inisialisasi($maxPs)
     {
-        // $data[][] = [$this->popsize][$this->maxData];
         echo 'Populasi Awal : <br>';
         for ($i = 0; $i < $this->popsize; $i++) { //for loop populasi = 10 kebawah
             $arr = [$this->maxData];
@@ -120,11 +119,6 @@ class Psikolog extends CI_Controller
                 $data[$i][$j] = $n;
                 $arr[$j] = $data[$i][$j];
             }
-            // echo '<pre>';
-            // echo var_dump($arr);
-            // echo '</pre>';
-
-            // implode("|", $arr);
             echo json_encode($arr);
         }
     }
@@ -149,8 +143,7 @@ class Psikolog extends CI_Controller
         for ($i = 0; $i < count($array); $i++) {
             for ($j = 0; $j < count($array2); $j++) {
                 if ($array[$i] == $array2[$j]) {
-                    $cons1 = $this->cons1 + 10;
-                    return $cons1;
+                    $this->cons1 = $this->cons1 + 10;
                 }
             }
         }
@@ -161,8 +154,7 @@ class Psikolog extends CI_Controller
         for ($i = 0; $i < count($array); $i++) {
             for ($j = 0; $j < count($array2); $j++) {
                 if ($array[$i] == $array2[$j]) {
-                    $cons2 = $this->cons2 + 20;
-                    return  $cons2;
+                    $this->cons2 = $this->cons2 + 20;
                 }
             }
         }
@@ -173,8 +165,7 @@ class Psikolog extends CI_Controller
         for ($i = 0; $i < count($array); $i++) {
             for ($j = 0; $j < count($array2); $j++) {
                 if ($array[$i] == $array2[$j]) {
-                    $cons3 = $this->cons3 + 50;
-                    return $cons3;
+                    $this->cons3 = $this->cons3 + 50;
                 }
             }
         }
@@ -190,8 +181,7 @@ class Psikolog extends CI_Controller
                         if ($array[$j] == $s2remove[$j]) {
                             continue;
                         } else {
-                            $cons4 = $this->cons4 + 55;
-                            return $cons4;
+                            $this->cons4 = $this->cons4 + 55;
                             $s2remove[$j] = $array[$j];
                         }
                     }
@@ -204,8 +194,7 @@ class Psikolog extends CI_Controller
     {
         for ($i = 0; $i < count($array); $i++) {
             if ($array[$i] == $value) {
-                $cons5 = $this->cons5 + 60;
-                return  $cons5;
+                $this->cons5 = $this->cons5 + 60;
             }
         }
     }
@@ -242,7 +231,7 @@ class Psikolog extends CI_Controller
                     echo json_encode($childCrossover[$c1[$i]]) . " ";
                     $temp2[$i] = $childCrossover[$c1[$i]]; //kromosom child
                 }
-                $temp = is_string($temp2);
+                $temp = uri_string($temp2);
                 echo ' aselole <br>';
                 echo $c1 + 1, $c[0] . '|x|' . $c[1], $temp;
             } else {
@@ -263,7 +252,7 @@ class Psikolog extends CI_Controller
                         echo json_encode($childCrossover[$i][$j]) . ' ';
                         $temp2[$j] = $childCrossover[$i[$j]];
                     }
-                    $temp = is_string($temp2);
+                    $temp = uri_string($temp2);
                     echo $i + 1, $c[0] . '|x|' . $c[1], $temp;
                 }
             }
@@ -291,10 +280,9 @@ class Psikolog extends CI_Controller
                 echo $this->childMutasi[$j][$i] . ' ';
                 $arr[$i] = $this->childMutasi[$j][$i];
             }
-            $temp = is_string($arr);
+            $temp = uri_string($arr);
             echo 'CRX<br>';
             echo $this->ofCrossover . ' ' . $j . 1, $p, $temp;
-            // $temp = is_array();
         }
     }
 
@@ -397,7 +385,7 @@ class Psikolog extends CI_Controller
     public function hitungFitness()
     {
         try {
-            $count = 0;
+            $this->count = 0;
             $allPop = $this->popsize + $this->ofCrossover + $this->ofMutasi;
             // $gabungan = [$allPop][$this->maxData];
 
@@ -412,7 +400,7 @@ class Psikolog extends CI_Controller
                     }
                 }
             }
-            $fitness = [$allPop[7]];
+            $this->fitness = [$allPop[7]];
             $this->getFitness($this->data, $this->popsize, "Parent");
             $this->getFitness($this->childCrossover, $this->ofCrossover, "Child Crossover");
             $this->getFitness($this->childMutasi, $this->ofMutasi, "Child Mutasi");
@@ -424,44 +412,44 @@ class Psikolog extends CI_Controller
     // Mulai fungsi mengurutkan nilai fitness dari terbesar ke terkecil
     public function seleksiElitism()
     {
-        $this->newFitness = [$this->allPop][2];
+        $this->newFitness = floatval([$this->allPop[2]]);
         echo '<br> Gabungan Parent dan Child' . ' : ';
 
         for ($i = 0; $i < $this->allPop; $i++) {
             for ($j = 0; $j < 2; $j++) {
-                $this->newFitness[$i][$j] = $this->fitness[$i][$j];
+                $this->newFitness[$i[$j]] = floatval($this->fitness[$i[$j]]);
             }
-            echo $this->newFitness[$i][0] . ' || ' . $this->newFitness[$i][1];
-            $temp2 = $this->newFitness[$i][1];
-            $int_allpop = intval($temp2);
-            echo '<br>' . $int_allpop;
+            echo $this->newFitness[$i[0]] . ' || ' . $this->newFitness[$i[1]];
+            $temp = floatval($this->newFitness[$i[1]]);
+            $int_allpop = intval($temp);
+            echo '<br>' . $int_allpop . '||' . $this->newFitness[$i[0]];
         }
         for ($i = 0; $i < $this->allPop; $i++) {
             for ($j = 1; $j < $this->allPop; $j++) {
                 if ($this->newFitness[$j - 1][0] <= $this->newFitness[$j][0]) {
-                    $temp = $this->newFitness[$j - 1][0];
-                    $temp2 = $this->newFitness[$j - 1][1];
+                    $temp = floatval($this->newFitness[$j - 1][0]);
+                    $temp2 = floatval($this->newFitness[$j - 1][1]);
                     $this->newFitness[$j - 1][0] = $this->newFitness[$j][0];
                     $this->newFitness[$j - 1][1] = $this->newFitness[$j][1];
-                    $this->newFitness[$j][0] = $temp;
-                    $this->newFitness[$j][1] = $temp2;
+                    $this->newFitness[$j[0]] = $temp;
+                    $this->newFitness[$j[1]] = $temp2;
                 }
             }
         }
         echo 'Order Fitness : ';
         for ($i = 0; $i < $this->allPop; $i++) {
-            $temp = $this->newFitness[$i][1];
+            $temp = floatval($this->newFitness[$i[1]]);
             $int_allpop = intval($temp);
             echo $this->newFitness[$i][0] . ' | ' . $this->newFitness[$i][1] . ' | ';
             for ($j = 0; $j < $this->maxData; $j++) {
-                echo $this->gabungan[$int_allpop][$j] . ', ';
+                echo $this->gabungan[$int_allpop[$j]] . ', ';
             }
             echo ' ';
         }
         $this->fitnessSaget = $this->newFitness[0][0];
         $indter = floatval($this->newFitness[0][1]);
         $this->individuTerbaik = intval($indter);
-        $arr = intval([$this->maxData]);
+        $arr = [$this->maxData];
         $temp2 = '';
         for ($i = 0; $i < 1; $i++) {
             $temp = floatval($this->newFitness[$i][1]);
@@ -470,13 +458,14 @@ class Psikolog extends CI_Controller
                 $arr[$j] = $this->gabungan[$int_allpop][$j];
             }
         }
+        $temp2 = uri_string($arr);
         $this->jadwalTerbaik = $temp2;
     }
 
     public function printArray($jadwal = '', $jadwal12 = [])
     {
         echo $jadwal . '<br>';
-        echo is_string($jadwal12);
+        echo uri_string($jadwal12);
     }
 
     function console_log($data)
@@ -485,6 +474,4 @@ class Psikolog extends CI_Controller
         echo 'console.log(' . json_encode($data) . ')';
         echo '</script>';
     }
-
-    // INGET PERBAIKI VARIABELNYA BOSS
 }
