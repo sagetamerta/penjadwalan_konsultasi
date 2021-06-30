@@ -13,13 +13,15 @@ class Psikolog extends CI_Controller
     private $gabungan = [[]];
     private $newFitness = [[]];
     private $fitness = [[]];
+    private $halangan = [[]];
     // nilai fitness individu terbaik setiap iterasi
     private $individuTerbaik = 0;
     // nomor individu terbaik setiap iterasi
     // treshold yang akan diuji
     private $maxData = 42;
-    private $getChildCO, $ofCrossover, $ofMutasi, $count, $allPop = 0;
+    private $getChildCO = 0, $ofCrossover = 0, $ofMutasi = 0, $count = 0, $allPop = 0;
     private $iterasi = 10;
+    private $cHalangan = 0;
     private $cons1 = 0.0, $cons2 = 0.0, $cons3 = 0.0, $cons4 = 0.0, $cons5 = 0.0;
     private $psikolog = [];
     private $fullJadwal = [];
@@ -290,7 +292,8 @@ class Psikolog extends CI_Controller
                 $arr[$i] = $this->childMutasi[$j][$i];
             }
             $temp = is_string($arr);
-            echo $this->ofCrossover . $j . 1, $p, $temp;
+            echo 'CRX<br>';
+            echo $this->ofCrossover . ' ' . $j . 1, $p, $temp;
             // $temp = is_array();
         }
     }
@@ -298,22 +301,22 @@ class Psikolog extends CI_Controller
     public function reciprocalExchangeMutation($p, $r1, $r2, $j)
     {
         for ($i = 0; $i < $this->maxData; $i++) {
-            $childMutasi[$j][$i] = $this->data[$p][$i];
+            $childMutasi[$j[$i]] = $this->data[$p[$i]];
             if ($i == $r1) {
-                $childMutasi[$j][$i] = $this->data[$p][$r2];
+                $childMutasi[$j[$i]] = $this->data[$p[$r2]];
             }
             if ($i == $r2) {
-                $childMutasi[$j][$i] = $this->data[$p][$r1];
+                $childMutasi[$j[$i]] = $this->data[$p[$r1]];
             }
         }
     }
 
-    public function getFitness($array = [[]], $size = 0, $nama_psikolog = '')
+    public function getFitness($array = [[]], $size = 0, $nama = '')
     {
         try {
             for ($j = 0; $j < $size; $j++) {
-                echo '<br>' . $nama_psikolog . ($j + 1) . ' ';
-                $temp[] = [$this->maxData];
+                echo '<br>' . $nama . ($j + 1) . ' ';
+                $temp = [$this->maxData];
                 $a = 0;
                 $cons1 = 0.0;
                 $cons2 = 0.0;
@@ -322,33 +325,68 @@ class Psikolog extends CI_Controller
                 $cons5 = 0.0;
 
                 for ($k = 0; $k < $this->maxData; $k++) {
-                    $temp[$k] = $array[$j][$k];
+                    $temp = $array[$j[$k]];
                     if ($k == 11) {
                         $a++;
                         echo 'Hari ke-' . $a . ' : ';
+                        $this->fullJadwal = array_slice($temp, 0, 12);
+
+                        $this->jadwal1 = array_slice($this->fullJadwal, 0, count($this->fullJadwal) / 2);
+                        echo '<br>Jadwal 1 : <br>';
+                        print_r($this->jadwal1);
+                        $this->jadwal2 = array_slice($this->fullJadwal, count($this->fullJadwal) / 2, count($this->fullJadwal));
+                        echo '<br>Jadwal 2 : <br>';
+                        print_r($this->jadwal2);
+
+                        $this->getConstraint4($this->jadwal1);
+                        $this->getConstraint4($this->jadwal2);
+                        $this->getConstraint3($this->jadwal1, $this->jadwal2);
+                        if ($this->cHalangan != 0) {
+                            for ($i = 0; $i < $this->cHalangan; $i++) {
+                                if ($this->halangan[$i[1]] == $a) {
+                                    $this->getConstraint5($this->fullJadwal, $this->halangan[$i[0]]);
+                                }
+                            }
+                        }
                     } elseif (($k + 1) % 12 == 0) {
                         $a++;
                         echo 'Hari ke-' . $a . ' : ';
+                        echo '<br>Jadwal Kemarin : <br>';
+                        $this->fullJadwal = array_slice($temp, $k - 11, $k + 1);
+
+                        $this->getConstraint1($this->fullJadwal, $this->jadwal1);
+                        $this->getConstraint1($this->fullJadwal, $this->jadwal2);
+                        $this->jadwal1 = array_slice($this->fullJadwal, 0, count($this->fullJadwal) / 2);
+                        echo '<br>Jadwal 1 : <br>';
+                        $this->jadwal2 = array_slice($this->fullJadwal, count($this->fullJadwal) / 2, count($this->fullJadwal));
+                        echo '<br>Jadwal 2 : <br>';
+
+                        $this->getConstraint4($this->jadwal1);
+                        $this->getConstraint4($this->jadwal2);
+                        $this->getConstraint3($this->jadwal1, $this->jadwal2);
+                        if ($this->cHalangan != 0) {
+                            for ($i = 0; $i < $this->cHalangan; $i++) {
+                                if ($this->halangan[$i[1]] == $a) {
+                                    $this->getConstraint5($this->fullJadwal, $this->halangan[$i[0]]);
+                                }
+                            }
+                        }
                     }
                 }
-                $fitness[$this->count][0] = 1. / (1 + $cons1 + $cons2 + $cons3 + $cons4 + $cons5);
-                $fitness[$this->count][0] = $cons1;
-                $fitness[$this->count][0] = $cons2;
-                $fitness[$this->count][0] = $cons3;
-                $fitness[$this->count][0] = $cons4;
-                $fitness[$this->count][0] = $cons5;
-                $this->console_log($cons1);
-                $this->console_log($cons2);
-                $this->console_log($cons3);
-                $this->console_log($cons4);
-                $this->console_log($cons5);
+                $this->fitness[$this->count[0]] = 1. / (1 + $cons1 + $cons2 + $cons3 + $cons4 + $cons5);
+                $this->fitness[$this->count[1]] = $this->count;
+                $this->fitness[$this->count[2]] = $cons1;
+                $this->fitness[$this->count[3]] = $cons2;
+                $this->fitness[$this->count[4]] = $cons3;
+                $this->fitness[$this->count[5]] = $cons4;
+                $this->fitness[$this->count[6]] = $cons5;
                 echo '<br>';
                 echo 'Cons1 : ' . $cons1;
                 echo 'Cons1 : ' . $cons2;
                 echo 'Cons1 : ' . $cons3;
                 echo 'Cons1 : ' . $cons4;
                 echo 'Cons1 : ' . $cons5;
-                echo 'Nilai Fitness : ' . $fitness[$this->count][0];
+                echo 'Nilai Fitness : ' . $this->fitness[$this->count[0]];
                 $this->count++;
             }
         } catch (Exception $ex) {
@@ -358,26 +396,32 @@ class Psikolog extends CI_Controller
 
     public function hitungFitness()
     {
-        $data = array();
         try {
             $count = 0;
             $allPop = $this->popsize + $this->ofCrossover + $this->ofMutasi;
-            $gabungan[] = [$allPop][$this->maxData];
+            // $gabungan = [$allPop][$this->maxData];
 
             for ($i = 0; $i < $allPop; $i++) {
                 for ($j = 0; $j < $this->maxData; $j++) {
                     if ($i < $this->popsize) {
-                        $gabungan[$i][$j] = $data[$i][$j];
+                        $gabungan[$i[$j]] = $this->data[$i[$j]];
                     } elseif ($i < $this->popsize + $this->ofCrossover) {
-                        $gabungan[$i][$j] = $this->childCrossover[$i - $this->popsize][$j];
+                        $gabungan[$i[$j]] = $this->childCrossover[$i - $this->popsize[$j]];
+                    } elseif ($i < $allPop) {
+                        $gabungan[$i[$j]] = $this->childMutasi[$i - ($this->popsize + $this->ofCrossover)[$j]];
                     }
                 }
             }
+            $fitness = [$allPop[7]];
+            $this->getFitness($this->data, $this->popsize, "Parent");
+            $this->getFitness($this->childCrossover, $this->ofCrossover, "Child Crossover");
+            $this->getFitness($this->childMutasi, $this->ofMutasi, "Child Mutasi");
         } catch (Exception $ex) {
             echo 'Message: ' . $ex->getMessage();
         }
     }
 
+    // Mulai fungsi mengurutkan nilai fitness dari terbesar ke terkecil
     public function seleksiElitism()
     {
         $this->newFitness = [$this->allPop][2];
@@ -427,6 +471,12 @@ class Psikolog extends CI_Controller
             }
         }
         $this->jadwalTerbaik = $temp2;
+    }
+
+    public function printArray($jadwal = '', $jadwal12 = [])
+    {
+        echo $jadwal . '<br>';
+        echo is_string($jadwal12);
     }
 
     function console_log($data)
