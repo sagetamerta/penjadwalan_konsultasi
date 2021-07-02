@@ -15,19 +15,17 @@ class Psikolog extends CI_Controller
     private $fitness = [[]];
     private $halangan = [[]];
     // nilai fitness individu terbaik setiap iterasi
-    private $individuTerbaik = 0;
+    private $individuTerbaik;
     // nomor individu terbaik setiap iterasi
     // treshold yang akan diuji
     private $maxData = 42;
     private $getChildCO = 0, $ofCrossover = 0, $ofMutasi = 0, $count = 0, $allPop = 0;
-    private $iterasi = 10;
+    private $iterasi = 100;
     private $cHalangan = 0;
     private $cons1 = 0.0, $cons2 = 0.0, $cons3 = 0.0, $cons4 = 0.0, $cons5 = 0.0;
-    private $psikolog = [];
     private $fullJadwal = [];
     private $jadwal1 = [];
     private $jadwal2 = [];
-    private $jadwalTerbaik = '';
     private $fitnessSaget = 0.0;
     private $thresholdSaget = 0.0007;
     private $popsize = 10; //$this->input->post('popsize');
@@ -120,6 +118,7 @@ class Psikolog extends CI_Controller
                 $arr[$j] = $data[$i][$j];
             }
             echo json_encode($arr);
+            echo '<br>';
         }
     }
 
@@ -205,6 +204,19 @@ class Psikolog extends CI_Controller
         $this->getChildCO = -1;
         $this->ofCrossover = intval(round($this->cr * $this->popsize));
         echo '<br>Banyak Offspring Crossover = ' . $this->ofCrossover; //BISA
+        echo '<br> Kromosom Crossover : <br>';
+
+        for ($i = 0; $i < $this->ofCrossover; $i++) {
+            $this->childCrossover = [$this->maxData];
+            for ($j = 0; $j < $this->maxData; $j++) {
+                $n = intval(rand(1, $maxPs));
+                $data[$i][$j] = $n;
+                $this->childCrossover[$j] = $data[$i][$j];
+            }
+            echo json_encode($this->childCrossover);
+            echo '<br>';
+        }
+        // $childCrossover = [$this->ofCrossover][$this->maxData];
 
         while ($this->ofCrossover - $this->getChildCO != 1) {
             $c = [2];
@@ -219,40 +231,45 @@ class Psikolog extends CI_Controller
 
             if ($this->ofCrossover - $this->getChildCO == 1) {
                 for ($i = 0; $i < $this->maxData; $i++) {
-                    $childCrossover[$c1[$i]] = $this->data[$c[0][$i]];
+                    // $childCrossover[$c1] = $this->data[$c[0]][$i];
+                    $this->childCrossover[$i] = $data[$c[0]][$i];
                 }
+                echo json_encode($this->childCrossover);
                 for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
-                    $childCrossover[$c1[$i]] = $this->data[$c[1][$i]];
+                    // $this->childCrossover[$c1] = $this->data[$c[1][$i]];
+                    $this->childCrossover[$i] = $data[$c[1]][$i];
                 }
+                echo json_encode($this->childCrossover);
+
 
                 echo 'Child ' . $c1 . " = ";
                 $temp2 = [$this->maxData];
                 for ($i = 0; $i < $this->maxData; $i++) {
-                    echo json_encode($childCrossover[$c1[$i]]) . " ";
-                    $temp2[$i] = $childCrossover[$c1[$i]]; //kromosom child
+                    $temp2[$i] = $this->childCrossover[$c1[$i]]; //kromosom child
+                    echo json_encode($this->childCrossover) . " ";
                 }
-                $temp = uri_string($temp2);
+                $temp = strval($temp2);
                 echo ' aselole <br>';
                 echo $c1 + 1, $c[0] . '|x|' . $c[1], $temp;
             } else {
                 $c2 = ++$this->getChildCO;
                 echo $c2 . '  ' . $this->getChildCO;
                 for ($i = 0; $i < $this->maxData; $i++) {
-                    $childCrossover[$c1[$i]] = $this->data[$c[0][$i]];
-                    $childCrossover[$c2[$i]] = $this->data[$c[1][$i]];
+                    $this->childCrossover[$c1][$i] = $data[$c[0]][$i];
+                    $this->childCrossover[$c2][$i] = $data[$c[1]][$i];
                 }
                 for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
-                    $childCrossover[$c2[$i]] = $this->data[$c[0][$i]];
-                    $childCrossover[$c1[$i]] = $this->data[$c[1][$i]];
+                    $this->childCrossover[$c2][$i] = $data[$c[0]][$i];
+                    $this->childCrossover[$c1][$i] = $data[$c[1]][$i];
                 }
                 for ($i = $c1; $i <= $c2; $i++) {
                     echo '<br>Childlast ' . $i . ' = ';
                     $temp2 = [$this->maxData];
                     for ($j = 0; $j < $this->maxData; $j++) {
-                        echo json_encode($childCrossover[$i][$j]) . ' ';
-                        $temp2[$j] = $childCrossover[$i[$j]];
+                        echo json_encode($this->childCrossover[$i][$j]) . ' ';
+                        $temp2[$j] = $this->childCrossover[$i[$j]];
                     }
-                    $temp = uri_string($temp2);
+                    $temp = strval($temp2);
                     echo $i + 1, $c[0] . '|x|' . $c[1], $temp;
                 }
             }
@@ -280,9 +297,15 @@ class Psikolog extends CI_Controller
                 echo $this->childMutasi[$j][$i] . ' ';
                 $arr[$i] = $this->childMutasi[$j][$i];
             }
-            $temp = uri_string($arr);
+            // foreach ($arr as $ar) {
+            //     echo $ar[$i];
+            // }
             echo 'CRX<br>';
-            echo $this->ofCrossover . ' ' . $j . 1, $p, $temp;
+            echo $this->ofCrossover . ' ' . ($j + 1);
+            echo '<br>';
+            echo 'MUTATE ARR : ';
+            echo  json_encode($arr);
+            // $temp = strval($arr[$i]); //masih null
         }
     }
 
@@ -458,14 +481,16 @@ class Psikolog extends CI_Controller
                 $arr[$j] = $this->gabungan[$int_allpop][$j];
             }
         }
-        $temp2 = uri_string($arr);
+        $temp2 = strval($arr);
         $this->jadwalTerbaik = $temp2;
+        echo 'JADWAL TERBAIK : <br>';
+        echo json_encode($arr[$j]);
     }
 
     public function printArray($jadwal = '', $jadwal12 = [])
     {
         echo $jadwal . '<br>';
-        echo uri_string($jadwal12);
+        echo strval($jadwal12);
     }
 
     function console_log($data)
