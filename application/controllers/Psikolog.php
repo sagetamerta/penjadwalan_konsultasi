@@ -117,14 +117,26 @@ class Psikolog extends CI_Controller
         $data['title'] = 'Buat Jadwal Konsultasi';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        if ($this->form_validation->run() == true) {
+        $this->form_validation->set_rules('popsize', 'Population size', 'required', ['required' => 'Population size tidak boleh kosong!']);
+        $this->form_validation->set_rules('cr', 'Crossover rate', 'required', ['required' => 'Population size tidak boleh kosong!']);
+        $this->form_validation->set_rules('mr', 'Mutation rate', 'required', ['required' => 'Population size tidak boleh kosong!']);
+        $this->form_validation->set_rules('iterasi', 'Iterasi', 'required', ['required' => 'Population size tidak boleh kosong!']);
+        $this->form_validation->set_rules('thresholdSaget', 'Threshold', 'required', ['required' => 'Population size tidak boleh kosong!']);
+
+        if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('jadwal/index', $data);
             $this->load->view('templates/footer');
         } else {
+            $this->popsize = $this->input->post('popsize');
+            $this->cr = $this->input->post('cr');
+            $this->mr = $this->input->post('mr');
+            $this->iterasi = $this->input->post('iterasi');
+            $this->thresholdSaget = $this->input->post('thresholdSaget');
             $maxPs = $this->db->count_all('psikolog');
+
             $this->inisialisasi($maxPs);
             $this->iterasi($maxPs);
         }
@@ -138,8 +150,8 @@ class Psikolog extends CI_Controller
             $arr = [$this->maxData];
             for ($j = 0; $j < $this->maxData; $j++) { //for loop kromosom dari tiap populasi = 20 kesamping
                 $n = (int) rand(1, $maxPs);
-                $data[$i][$j] = $n;
-                $arr[$j] = $data[$i][$j];
+                $this->data[$i][$j] = $n;
+                $arr[$j] = $this->data[$i][$j];
             }
             echo json_encode($arr);
             echo '<br>';

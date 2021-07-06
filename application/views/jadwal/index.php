@@ -1,32 +1,46 @@
-<?php
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
-echo 'Isi form untuk ambil popsize | max data diambil dari jumlah psikolog <br>';
-// INISIALISASI
-// random arrays
-$randArray = [];
-$popsize = 10;
-$maxData = 20;
+    <div class="row">
+        <div class="col-lg-6">
+            <?php if (validation_errors()) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= validation_errors(); ?>
+                </div>
+            <?php endif; ?>
+            <?php $this->session->flashdata('message'); ?>
+            <br>
+            <form action="<?= base_url('psikolog/addjadwal'); ?>" method="post">
+                <div class="form-group">
+                    <label for="popsize">Population Size</label>
+                    <input type="number" class="form-control" name="popsize" id="popsize" placeholder="10" value="10">
+                    <small>Banyak populasi yang akan dibuat (popsize)</small>
+                </div>
+                <div class="form-group">
+                    <label for="cr">Crossover Rate</label>
+                    <input type="number" class="form-control" name="cr" id="cr" step="0.01" placeholder="0.5" min="0" value="0.5">
+                    <small>Nilai untuk persilangan (crossover)</small>
+                </div>
+                <div class="form-group">
+                    <label for="mr">Mutation Rate</label>
+                    <input type="number" class="form-control" name="mr" id="mr" step="0.01" placeholder="0.5" min="0" value="0.5">
+                    <small>Nilai untuk mutasi (mutation)</small>
 
+                </div>
+                <div class="form-group">
+                    <label for="iterasi">Iterasi</label>
+                    <input type="number" class="form-control" name="iterasi" id="iterasi" placeholder="1000" value="1000">
+                    <small>Seberapa banyak melakukan perulangan sebelum mencapai nilai fitness yang diinginkan</small>
 
-for ($i = 0; $i < $popsize; $i++) { //for loop populasi = 10 kebawah
-    echo '<br>';
-    for ($j = 0; $j < $maxData; $j++) { //fpr loop kromosom dari tiap populasi = 20 kesamping
-        $value = rand(1, $maxData);
-        $randArray[] = $value;
-        echo $value . '|';
-    }
-}
+                </div>
+                <div class="form-group">
+                    <label for="thresholdSaget"> Nilai Fitness Minimal</label>
+                    <input type="number" class="form-control" name="thresholdSaget" id="thresholdSaget" placeholder="0.07" step="0.01" min="0" value="0.07">
+                    <small>Batas untuk menentukan minimal kualitas dari individu</small>
 
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
 
-// hasil yang diharapkan semua beda angkanya
-// *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
-// *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
-// *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
-// *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
-// *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
-// *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
-// *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
-// *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
-// *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
-// *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
-// *|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|
+        </div>
+    </div>
