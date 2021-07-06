@@ -7,13 +7,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Psikolog extends CI_Controller
 {
-    private $data = [[]];
-    private $childMutasi = [[]];
-    private $childCrossover = [[]];
-    private $gabungan = [[]];
-    private $newFitness = [[]];
-    private $fitness = [[]];
-    private $halangan = [[]];
+    // private $data = [[]];
+    // private $childMutasi = [[]];
+    // private $childCrossover = [[]];
+    // private $gabungan = [[]];
+    // private $newFitness = [[]];
+    // private $fitness = [[]];
+    // private $halangan = [[]];
     // nilai fitness individu terbaik setiap iterasi
     private $individuTerbaik;
     // nomor individu terbaik setiap iterasi
@@ -23,9 +23,9 @@ class Psikolog extends CI_Controller
     private $iterasi = 100;
     private $cHalangan = 0;
     private $cons1 = 0.0, $cons2 = 0.0, $cons3 = 0.0, $cons4 = 0.0, $cons5 = 0.0;
-    private $fullJadwal = [];
-    private $jadwal1 = [];
-    private $jadwal2 = [];
+    // private $fullJadwal = [];
+    // private $jadwal1 = [];
+    // private $jadwal2 = [];
     private $fitnessSaget = 0.0;
     private $thresholdSaget = 0.0007;
     private $popsize = 10; //$this->input->post('popsize');
@@ -36,25 +36,48 @@ class Psikolog extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Psikolog_model');
     }
 
     public function index()
     {
         $data['title'] = 'Data Psikolog';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['psikolog'] = $this->db->get('psikolog')->result_array();
+        // $data['psikolog'] = $this->db->get('psikolog')->result_array();
+
+
+        $this->load->library('pagination');
+        $config['first_link']       = 'First';
+        $config['last_link']        = 'Last';
+        $config['next_link']        = 'Next';
+        $config['prev_link']        = 'Prev';
+        $config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close']   = '</ul></nav></div>';
+        $config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close']    = '</span></li>';
+        $config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
+        $config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
+        $config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close']  = '</span>Next</li>';
+        $config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close'] = '</span></li>';
+        $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['last_tagl_close']  = '</span></li>';
+
+        $config['base_url'] = base_url() . 'psikolog/index';
+        $config['total_rows'] = $this->db->count_all('psikolog');
+        $config['per_page'] = 5;
+        $from = $this->uri->segment(3);
+        $this->pagination->initialize($config);
+        $data['psikolog'] = $this->Psikolog_model->data($config['per_page'], $from);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('psikolog/index', $data);
         $this->load->view('templates/footer');
-    }
-
-    public function phpinfo()
-    {
-        echo phpinfo();
-        exit;
     }
 
     public function addPsikolog()
@@ -110,10 +133,11 @@ class Psikolog extends CI_Controller
     public function inisialisasi($maxPs)
     {
         echo 'Populasi Awal : <br>';
+        $temp = '';
         for ($i = 0; $i < $this->popsize; $i++) { //for loop populasi = 10 kebawah
             $arr = [$this->maxData];
             for ($j = 0; $j < $this->maxData; $j++) { //for loop kromosom dari tiap populasi = 20 kesamping
-                $n = intval(rand(1, $maxPs));
+                $n = (int) rand(1, $maxPs);
                 $data[$i][$j] = $n;
                 $arr[$j] = $data[$i][$j];
             }
@@ -202,45 +226,47 @@ class Psikolog extends CI_Controller
     {
         $temp = '';
         $this->getChildCO = -1;
-        $this->ofCrossover = intval(round($this->cr * $this->popsize));
+        $this->ofCrossover = (int)round($this->cr * $this->popsize);
         echo '<br>Banyak Offspring Crossover = ' . $this->ofCrossover; //BISA
-        echo '<br> Kromosom Crossover : <br>';
 
+        echo '<br> Kromosom Crossover : <br>';
         for ($i = 0; $i < $this->ofCrossover; $i++) {
             $this->childCrossover = [$this->maxData];
             for ($j = 0; $j < $this->maxData; $j++) {
-                $n = intval(rand(1, $maxPs));
+                $n = (int)rand(1, $maxPs);
                 $data[$i][$j] = $n;
                 $this->childCrossover[$j] = $data[$i][$j];
             }
             echo json_encode($this->childCrossover);
             echo '<br>';
         }
-        // $childCrossover = [$this->ofCrossover][$this->maxData];
 
         while ($this->ofCrossover - $this->getChildCO != 1) {
             $c = [2];
-            $c[0] = intval(rand(0, $this->popsize));
-            $c[1] = intval(rand(0, $this->popsize));
+            $c[0] = (int)rand(0, $this->popsize);
+            $c[1] = (int)rand(0, $this->popsize);
 
-            $oneCut = intval(rand(1, $maxPs));
+            $oneCut = (int)rand(1, $maxPs);
             echo '<br>' . $c[0] . ' | ' . $c[1] . ' | ' . $oneCut; //BISA
 
             $c1 = ++$this->getChildCO;
             echo $c1 . ' || ' . $this->getChildCO; //BISA
 
             if ($this->ofCrossover - $this->getChildCO == 1) {
-                for ($i = 0; $i < $this->maxData; $i++) {
-                    // $childCrossover[$c1] = $this->data[$c[0]][$i];
-                    $this->childCrossover[$i] = $data[$c[0]][$i];
+                for ($c1 = 0; $c1 < $this->maxData; $c1++) {
+                    $this->childCrossover = [$this->maxData];
+                    for ($i = 0; $i < $this->maxData; $i++) {
+                        $n = (int)rand(1, $maxPs);
+                        $data[$i][$j] = $n;
+                        $this->childCrossover[$c1] = $data[$c[0]][$i];
+                    }
+                    echo json_encode($this->childCrossover);
+                    echo '<br>';
                 }
-                echo json_encode($this->childCrossover);
-                for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
-                    // $this->childCrossover[$c1] = $this->data[$c[1][$i]];
-                    $this->childCrossover[$i] = $data[$c[1]][$i];
-                }
-                echo json_encode($this->childCrossover);
 
+                for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
+                    $this->childCrossover[$c1][$i] = $this->data[$c[1][$i]];
+                }
 
                 echo 'Child ' . $c1 . " = ";
                 $temp2 = [$this->maxData];
@@ -248,15 +274,29 @@ class Psikolog extends CI_Controller
                     $temp2[$i] = $this->childCrossover[$c1[$i]]; //kromosom child
                     echo json_encode($this->childCrossover) . " ";
                 }
-                $temp = strval($temp2);
-                echo ' aselole <br>';
-                echo $c1 + 1, $c[0] . '|x|' . $c[1], $temp;
+                // $temp = strval($temp2);
+                echo $c1 + 1, $c[0] . '|x|' . $c[1], $temp2;
             } else {
                 $c2 = ++$this->getChildCO;
                 echo $c2 . '  ' . $this->getChildCO;
                 for ($i = 0; $i < $this->maxData; $i++) {
-                    $this->childCrossover[$c1][$i] = $data[$c[0]][$i];
-                    $this->childCrossover[$c2][$i] = $data[$c[1]][$i];
+                    $this->childCrossover = [$this->maxData];
+                    for ($c1 = 0; $c1 < $this->maxData; $c1++) {
+                        $n = (int)rand(1, $maxPs);
+                        $data[$i][$c1] = $n;
+                        $this->childCrossover[$c1] = $data[$i][$c1];
+                    }
+                    echo '<br> c1: ';
+                    echo json_encode($this->childCrossover);
+                    echo '<br>';
+                    for ($c2 = 0; $c2 < $this->maxData; $c2++) {
+                        $n = (int)rand(1, $maxPs);
+                        $data[$i][$c2] = $n;
+                        $this->childCrossover[$c2] = $data[$i][$c2];
+                    }
+                    echo '<br> c2: ';
+                    echo json_encode($this->childCrossover);
+                    echo '<br>';
                 }
                 for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
                     $this->childCrossover[$c2][$i] = $data[$c[0]][$i];
@@ -266,10 +306,12 @@ class Psikolog extends CI_Controller
                     echo '<br>Childlast ' . $i . ' = ';
                     $temp2 = [$this->maxData];
                     for ($j = 0; $j < $this->maxData; $j++) {
-                        echo json_encode($this->childCrossover[$i][$j]) . ' ';
-                        $temp2[$j] = $this->childCrossover[$i[$j]];
+                        $n = (int)rand(1, $maxPs);
+                        $data[$i][$j] = $n;
+                        $temp2[$j] = $data[$i][$j];
                     }
-                    $temp = strval($temp2);
+                    echo json_encode($temp2) . ' ';
+                    // $temp = strval($temp2);
                     echo $i + 1, $c[0] . '|x|' . $c[1], $temp;
                 }
             }
@@ -279,14 +321,14 @@ class Psikolog extends CI_Controller
     public function hitungMutasi()
     {
         $temp = '';
-        $this->ofMutasi = intval(round($this->mr * $this->popsize));
+        $this->ofMutasi = (int)round($this->mr * $this->popsize);
         echo '<br>Banyak Offspring Mutasi = ' . $this->ofMutasi;
 
         $this->childMutasi =  [$this->ofMutasi[$this->maxData]];
         for ($j = 0; $j < $this->ofMutasi; $j++) {
-            $p = intval(rand(0, $this->popsize));
-            $r1 = intval(rand(0, $this->maxData));
-            $r2 = intval(rand(0, $this->maxData));
+            $p = (int)rand(0, $this->popsize);
+            $r1 = (int)rand(0, $this->maxData);
+            $r2 = (int)rand(0, $this->maxData);
             echo '<br>' . $p . ' | ' . $r1 . ' | ' . $r2;
 
             $this->reciprocalExchangeMutation($p, $r1, $r2, $j);
@@ -444,7 +486,7 @@ class Psikolog extends CI_Controller
             }
             echo $this->newFitness[$i[0]] . ' || ' . $this->newFitness[$i[1]];
             $temp = floatval($this->newFitness[$i[1]]);
-            $int_allpop = intval($temp);
+            $int_allpop = (int)$temp;
             echo '<br>' . $int_allpop . '||' . $this->newFitness[$i[0]];
         }
         for ($i = 0; $i < $this->allPop; $i++) {
@@ -462,7 +504,7 @@ class Psikolog extends CI_Controller
         echo 'Order Fitness : ';
         for ($i = 0; $i < $this->allPop; $i++) {
             $temp = floatval($this->newFitness[$i[1]]);
-            $int_allpop = intval($temp);
+            $int_allpop = (int)$temp;
             echo $this->newFitness[$i][0] . ' | ' . $this->newFitness[$i][1] . ' | ';
             for ($j = 0; $j < $this->maxData; $j++) {
                 echo $this->gabungan[$int_allpop[$j]] . ', ';
@@ -471,12 +513,12 @@ class Psikolog extends CI_Controller
         }
         $this->fitnessSaget = $this->newFitness[0][0];
         $indter = floatval($this->newFitness[0][1]);
-        $this->individuTerbaik = intval($indter);
+        $this->individuTerbaik = (int)$indter;
         $arr = [$this->maxData];
         $temp2 = '';
         for ($i = 0; $i < 1; $i++) {
             $temp = floatval($this->newFitness[$i][1]);
-            $int_allpop = intval($temp);
+            $int_allpop = (int)$temp;
             for ($j = 0; $j < $this->maxData; $j++) {
                 $arr[$j] = $this->gabungan[$int_allpop][$j];
             }

@@ -11,6 +11,13 @@
 
             <?php $this->session->flashdata('message'); ?>
             <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newPsikologModal">Add New Psikolog</a>
+
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <?php echo $this->pagination->create_links(); ?>
+                </ul>
+            </nav>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -22,22 +29,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i = 1; ?>
+                    <?php $i = $this->uri->segment('3') + 1; ?>
                     <?php foreach ($psikolog as $p) : ?>
                         <tr>
-                            <th scope="row"><?= $i; ?></th>
-                            <td><?= $p['nama_psikolog']; ?></td>
-                            <td><?= $p['notelp_psikolog']; ?></td>
-                            <td><?= $p['alamat_psikolog']; ?></td>
+                            <th scope="row"><?= $i++; ?></th>
+                            <td><?= $p->nama_psikolog ?></td>
+                            <td><?= $p->notelp_psikolog ?></td>
+                            <td><?= $p->alamat_psikolog ?></td>
                             <td>
-                                <a href="<?= base_url('psikolog/edit/') . $p['id_psikolog']; ?>" class="badge badge-warning">edit</a>
-                                <a href="<?= base_url('psikolog/deletepsikolog/') . $p['id_psikolog']; ?>" class="badge badge-danger">delete</a>
+                                <a href="<?= base_url('psikolog/edit/') . $p->id_psikolog ?>" class="badge badge-warning">edit</a>
+                                <a href="<?= base_url('psikolog/deletepsikolog/') . $p->id_psikolog ?>" class="badge badge-danger">delete</a>
                             </td>
                         </tr>
-                        <?php $i++; ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <br>
+
         </div>
     </div>
 
