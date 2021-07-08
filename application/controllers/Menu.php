@@ -31,24 +31,24 @@ class Menu extends CI_Controller
         }
     }
 
-    public function menudelete($menu_id)
+    public function menuDelete($menu_id)
     {
         $this->Menu_model->deleteMenu($menu_id);
         redirect('menu');
     }
 
-    public function submenudelete($sub_menu_id)
+    public function subMenudelete($sub_menu_id)
     {
         $this->Menu_model->deleteSubmenu($sub_menu_id);
         redirect('menu/submenu');
     }
 
-    public function submenu()
+    public function subMenu()
     {
         $data['title'] = 'Submenu Management';
         $data['user'] = $this->User_model->user();
         $data['subMenu'] = $this->Menu_model->getSubMenu();
-        $data['menu'] = $this->db->get('user_menu')->result_array();
+        $data['menu'] = $this->Menu_model->getMenu();
 
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('menu_id', 'Menu', 'required');
@@ -62,17 +62,18 @@ class Menu extends CI_Controller
             $this->load->view('menu/submenu', $data);
             $this->load->view('templates/footer');
         } else {
-            $data = [
-                'title' => $this->input->post('title'),
-                'menu_id' => $this->input->post('menu_id'),
-                'url' => $this->input->post('url'),
-                'icon' => $this->input->post('icon'),
-                'is_active' => $this->input->post('is_active')
-            ];
-            $this->db->insert('user_sub_menu', $data);
+            $this->Menu_model->addSubmenu();
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
                     New sub menu added!</div>');
             redirect('menu/submenu');
         }
+    }
+
+    public function subMenuedit()
+    {
+        $this->Menu_model->subMenuedit();
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Sub menu Edited!</div>');
+        redirect('menu/submenu');
     }
 }
