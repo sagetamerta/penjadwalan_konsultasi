@@ -71,14 +71,14 @@ class Psikolog extends CI_Controller
             $this->load->view('jadwal/index', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->popsize = $this->input->post('popsize');
-            $this->cr = $this->input->post('cr');
-            $this->mr = $this->input->post('mr');
-            $this->iterasi = $this->input->post('iterasi');
-            $this->thresholdSaget = $this->input->post('thresholdSaget');
-            $this->maxPs = $this->Psikolog_model->jumlah_psikolog();
+            $popsize = $this->input->post('popsize');
+            $cr = $this->input->post('cr');
+            $mr = $this->input->post('mr');
+            $iterasi = $this->input->post('iterasi');
+            $thresholdSaget = (float)$this->input->post('thresholdSaget');
+            $maxPs = $this->Psikolog_model->jumlah_psikolog();
 
-            $this->algoritma->inisialisasi();
+            $this->algoritma->run($popsize, $cr, $mr, $iterasi, $thresholdSaget, $maxPs);
         }
     }
 

@@ -2,67 +2,56 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-
-
 class algoritma
 {
 
-    // private $data = [[]];
-    // private $childMutasi = [[]];
-    // private $childCrossover = [[]];
-    // private $gabungan = [[]];
-    // private $newFitness = [[]];
-    // private $fitness = [[]];
-    // private $halangan = [[]];
+    private $data = [];
+    private $childMutasi = [];
+    private $childCrossover = [];
+    private $gabungan = [];
+    private $newFitness = [];
+    private $fitness = [];
+    private $halangan = [];
     // nilai fitness individu terbaik setiap iterasi
     private $individuTerbaik;
     // nomor individu terbaik setiap iterasi
     // treshold yang akan diuji
     private $maxData = 42;
     private $getChildCO = 0, $ofCrossover = 0, $ofMutasi = 0, $count = 0, $allPop = 0;
-    private $iterasi = 100;
     private $cHalangan = 0;
     private $cons1 = 0.0, $cons2 = 0.0, $cons3 = 0.0, $cons4 = 0.0, $cons5 = 0.0;
-    // private $fullJadwal = [];
-    // private $jadwal1 = [];
-    // private $jadwal2 = [];
+    private $fullJadwal = [];
+    private $jadwal1 = [];
+    private $jadwal2 = [];
     private $fitnessSaget = 0.0;
-    private $thresholdSaget = 0.0007;
-    private $popsize = 10; //$this->input->post('popsize');
-    private $cr = 0.5; //$this->input->post('cr');
-    private $mr = 0.5; //$this->input->post('mr');
 
-    function inisialisasi()
+    function run($popsize, $cr, $mr, $iterasi, $thresholdSaget, $maxPs)
     {
-        $temp = '';
-        echo 'Populasi Awal : <br>';
-        for ($i = 0; $i < $this->popsize; $i++) { //banyak individu
-            $arr = [$this->maxData];
-            for ($j = 0; $j < $this->maxData; $j++) { //banyak kromosom
-                $n = (int) rand(1, $this->maxPs); //generate random number
-                $data[$i][$j] = $n;
-                $arr[$j] = $data[$i][$j];
+        $this->inisialisasi($popsize, $maxPs);
+        for ($i = 0; $i < $iterasi; $i++) {
+            $this->hitungCrossover($cr);
+            // $this->hitungMutasi($mr);
+            // $this->seleksiElitism();
+            // $this->hitungFitness();
+            if ($this->fitnessSaget >= $thresholdSaget) {
+                echo '<br>';
+                echo 'Berhenti di iterasi ke : ' . ($i + 1);
+                break;
             }
-            $temp =  strval(json_encode($arr));
-            // var_dump($temp);
-            // var_dump($temp);
-            // $temp = substr($temp), 10);
-            echo substr($temp, 100) . ',...<br>';
         }
     }
 
-    function iterasi()
+    function inisialisasi($popsize, $maxPs)
     {
-        for ($i = 0; $i < $this->iterasi; $i++) {
-            $this->hitungCrossover();
-            // $this->hitungMutasi();
-            // $this->seleksiElitism();
-            // $this->hitungFitness();
-            // if ($this->fitnessSaget >= $this->thresholdSaget) {
-            //     echo '<br>';
-            //     echo 'Berhenti di iterasi ke : ' . ($i + 1);
-            //     break;
-            // }
+        echo 'Populasi Awal : <br>';
+        for ($i = 0; $i < $popsize; $i++) { //banyak individu
+            $arr = [$this->maxData];
+            for ($j = 0; $j < $this->maxData; $j++) { //banyak kromosom
+                $n = (int) rand(1, $maxPs); //generate random number
+                $data[$i][$j] = $n;
+                $arr[$j] = $data[$i][$j];
+            }
+            echo json_encode($arr);
         }
     }
 
