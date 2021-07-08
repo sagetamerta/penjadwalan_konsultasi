@@ -10,7 +10,10 @@
             <?php endif; ?>
 
             <?php $this->session->flashdata('message'); ?>
-            <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newPsikologModal">Add New Psikolog</a>
+
+            <?php if ($user['role_id'] == 1) : ?>
+                <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newPsikologModal">Add New Psikolog</a>
+            <?php endif; ?>
 
 
             <nav aria-label="Page navigation">
@@ -25,7 +28,9 @@
                         <th scope="col">Nama</th>
                         <th scope="col">No Telp</th>
                         <th scope="col">Alamat</th>
-                        <th scope="col">Action</th>
+                        <?php if ($user['role_id'] == 1) : ?>
+                            <th scope="col">Action</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,10 +41,12 @@
                             <td><?= $p->nama_psikolog ?></td>
                             <td><?= $p->notelp_psikolog ?></td>
                             <td><?= $p->alamat_psikolog ?></td>
-                            <td>
-                                <a href="<?= base_url('psikolog/edit/') . $p->id_psikolog ?>" class="badge badge-warning">edit</a>
-                                <a href="<?= base_url('psikolog/deletepsikolog/') . $p->id_psikolog ?>" class="badge badge-danger">delete</a>
-                            </td>
+                            <?php if ($user['role_id'] == 1) : ?>
+                                <td>
+                                    <a href="<?= base_url('psikolog/edit/') . $p->id_psikolog ?>" class="badge badge-warning">edit</a>
+                                    <a href="<?= base_url('psikolog/deletepsikolog/') . $p->id_psikolog ?>" class="badge badge-danger">delete</a>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

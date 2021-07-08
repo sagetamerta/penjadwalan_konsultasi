@@ -42,36 +42,9 @@ class Psikolog extends CI_Controller
     public function index()
     {
         $data['title'] = 'Data Psikolog';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        // $data['psikolog'] = $this->db->get('psikolog')->result_array();
+        $data['user'] = $this->User_model->user();
 
-
-        $this->load->library('pagination');
-        $config['first_link']       = 'First';
-        $config['last_link']        = 'Last';
-        $config['next_link']        = 'Next';
-        $config['prev_link']        = 'Prev';
-        $config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
-        $config['full_tag_close']   = '</ul></nav></div>';
-        $config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
-        $config['num_tag_close']    = '</span></li>';
-        $config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
-        $config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
-        $config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
-        $config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
-        $config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
-        $config['prev_tagl_close']  = '</span>Next</li>';
-        $config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
-        $config['first_tagl_close'] = '</span></li>';
-        $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
-        $config['last_tagl_close']  = '</span></li>';
-
-        $config['base_url'] = base_url() . 'psikolog/index';
-        $config['total_rows'] = $this->db->count_all('psikolog');
-        $config['per_page'] = 5;
-        $from = $this->uri->segment(3);
-        $this->pagination->initialize($config);
-        $data['psikolog'] = $this->Psikolog_model->data($config['per_page'], $from);
+        $data['psikolog'] = $this->pagination();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -101,9 +74,7 @@ class Psikolog extends CI_Controller
 
     public function deletePsikolog($id_psikolog)
     {
-        $this->db->where('id_psikolog', $id_psikolog);
-        $this->db->delete('psikolog');
-
+        $this->Psikolog_model->delete($id_psikolog);
         redirect('psikolog');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
@@ -113,9 +84,9 @@ class Psikolog extends CI_Controller
     public function addJadwal()
     {
         // ambil jumlah psikolog dari database yang menjadi jumlah populasi
-        $data['jumlah_psikolog'] = $this->db->count_all('psikolog');
+        $data['jumlah_psikolog'] = $this->Psikolog_model->jumlah_psikolog();
         $data['title'] = 'Buat Jadwal Konsultasi';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->User_model->user();
 
         $this->form_validation->set_rules('popsize', 'Population size', 'required', ['required' => 'Population size tidak boleh kosong!']);
         $this->form_validation->set_rules('cr', 'Crossover rate', 'required', ['required' => 'Population size tidak boleh kosong!']);
@@ -135,20 +106,19 @@ class Psikolog extends CI_Controller
             $this->mr = $this->input->post('mr');
             $this->iterasi = $this->input->post('iterasi');
             $this->thresholdSaget = $this->input->post('thresholdSaget');
-            $maxPs = $this->db->count_all('psikolog');
+            $maxPs = $data['jumlah_psikolog'];
 
             $this->inisialisasi($maxPs);
-            $this->iterasi($maxPs);
+            // $this->iterasi($maxPs);
         }
     }
 
     public function inisialisasi($maxPs)
     {
         echo 'Populasi Awal : <br>';
-        $temp = '';
-        for ($i = 0; $i < $this->popsize; $i++) { //for loop populasi = 10 kebawah
+        for ($i = 0; $i < $this->popsize; $i++) {
             $arr = [$this->maxData];
-            for ($j = 0; $j < $this->maxData; $j++) { //for loop kromosom dari tiap populasi = 20 kesamping
+            for ($j = 0; $j < $this->maxData; $j++) {
                 $n = (int) rand(1, $maxPs);
                 $this->data[$i][$j] = $n;
                 $arr[$j] = $this->data[$i][$j];
@@ -287,6 +257,7 @@ class Psikolog extends CI_Controller
                     echo json_encode($this->childCrossover) . " ";
                 }
                 // $temp = strval($temp2);
+                echo "<br>";
                 echo $c1 + 1, $c[0] . '|x|' . $c[1], $temp2;
             } else {
                 $c2 = ++$this->getChildCO;
@@ -324,6 +295,7 @@ class Psikolog extends CI_Controller
                     }
                     echo json_encode($temp2) . ' ';
                     // $temp = strval($temp2);
+                    echo "<br>";
                     echo $i + 1, $c[0] . '|x|' . $c[1], $temp;
                 }
             }
@@ -349,7 +321,7 @@ class Psikolog extends CI_Controller
             $arr = [$this->maxData];
             for ($i = 0; $i < $this->maxData; $i++) {
                 echo $this->childMutasi[$j][$i] . ' ';
-                $arr[$i] = $this->childMutasi[$j][$i];
+                $arr[$j] = $this->childMutasi[$j][$i];
             }
             // foreach ($arr as $ar) {
             //     echo $ar[$i];
@@ -552,5 +524,34 @@ class Psikolog extends CI_Controller
         echo '<script>';
         echo 'console.log(' . json_encode($data) . ')';
         echo '</script>';
+    }
+
+    private function pagination()
+    {
+        $this->load->library('pagination');
+        $config['first_link']       = 'First';
+        $config['last_link']        = 'Last';
+        $config['next_link']        = 'Next';
+        $config['prev_link']        = 'Prev';
+        $config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close']   = '</ul></nav></div>';
+        $config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close']    = '</span></li>';
+        $config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
+        $config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
+        $config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close']  = '</span>Next</li>';
+        $config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close'] = '</span></li>';
+        $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['last_tagl_close']  = '</span></li>';
+        $config['base_url'] = base_url() . 'psikolog/index';
+        $config['total_rows'] = $this->db->count_all('psikolog');
+        $config['per_page'] = 5;
+        $from = $this->uri->segment(3);
+        $this->pagination->initialize($config);
+        return $this->Psikolog_model->data($config['per_page'], $from);
     }
 }
