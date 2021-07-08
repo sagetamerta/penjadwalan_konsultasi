@@ -7,13 +7,13 @@ class Menu extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Menu_model');
     }
     public function index()
     {
         $data['title'] = 'Menu Management';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
-        $data['menu'] = $this->db->get('user_menu')->result_array();
+        $data['user'] = $this->User_model->user();
+        $data['menu'] = $this->Menu_model->getMenu();
 
         $this->form_validation->set_rules('menu', 'Menu', 'required');
 
@@ -24,7 +24,7 @@ class Menu extends CI_Controller
             $this->load->view('menu/index', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->db->insert('user_menu', ['menu' => $this->input->post('menu')]);
+            $this->Menu_model->addMenu();
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
                     New menu added!</div>');
             redirect('menu');
@@ -33,26 +33,21 @@ class Menu extends CI_Controller
 
     public function menudelete($menu_id)
     {
-        $this->db->where('id', $menu_id);
-        $this->db->delete('user_menu');
-
+        $this->Menu_model->deleteMenu($menu_id);
         redirect('menu');
     }
 
     public function submenudelete($sub_menu_id)
     {
-        $this->db->where('id', $sub_menu_id);
-        $this->db->delete('user_sub_menu');
-
+        $this->Menu_model->deleteSubmenu($sub_menu_id);
         redirect('menu/submenu');
     }
 
     public function submenu()
     {
         $data['title'] = 'Submenu Management';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->User_model->user();
 
-        $this->load->model('Menu_model', 'menu');
 
         $data['subMenu'] = $this->menu->getSubMenu();
         $data['menu'] = $this->db->get('user_menu')->result_array();
