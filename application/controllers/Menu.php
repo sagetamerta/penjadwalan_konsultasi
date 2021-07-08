@@ -47,9 +47,7 @@ class Menu extends CI_Controller
     {
         $data['title'] = 'Submenu Management';
         $data['user'] = $this->User_model->user();
-
-
-        $data['subMenu'] = $this->menu->getSubMenu();
+        $data['subMenu'] = $this->Menu_model->getSubMenu();
         $data['menu'] = $this->db->get('user_menu')->result_array();
 
         $this->form_validation->set_rules('title', 'Title', 'required');
