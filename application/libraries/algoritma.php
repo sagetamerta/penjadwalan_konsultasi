@@ -29,10 +29,10 @@ class algoritma
     {
         $this->inisialisasi($popsize, $maxPs);
         for ($i = 0; $i < $iterasi; $i++) {
-            $this->hitungCrossover($cr);
-            // $this->hitungMutasi($mr);
-            // $this->seleksiElitism();
             // $this->hitungFitness();
+            // $this->seleksiElitism();
+            $this->hitungCrossover($cr, $popsize, $maxPs);
+            // $this->hitungMutasi($mr);
             if ($this->fitnessSaget >= $thresholdSaget) {
                 echo '<br>';
                 echo 'Berhenti di iterasi ke : ' . ($i + 1);
@@ -116,101 +116,105 @@ class algoritma
         }
     }
 
-    function hitungCrossover()
+    function hitungCrossover($cr, $popsize, $maxPs)
     {
-        $temp = '';
-        $this->getChildCO = -1;
-        $this->ofCrossover = (int)round($this->cr * $this->popsize);
-        echo '<br>Banyak Offspring Crossover = ' . $this->ofCrossover; //BISA
+        try {
+            $temp = '';
+            $this->getChildCO = -1;
+            $this->ofCrossover = (int)round($cr * $popsize);
+            echo '<br>Banyak Offspring Crossover = ' . $this->ofCrossover; //BISA
 
-        echo '<br> Kromosom Crossover : <br>';
-        for ($i = 0; $i < $this->ofCrossover; $i++) {
-            $this->childCrossover = [$this->maxData];
-            for ($j = 0; $j < $this->maxData; $j++) {
-                $n = (int)rand(1, $this->maxPs);
-                $data[$i][$j] = $n;
-                $this->childCrossover[$j] = $data[$i][$j];
+            echo '<br> Kromosom Crossover : <br>';
+            for ($i = 0; $i < $this->ofCrossover; $i++) {
+                $this->childCrossover = [$this->maxData];
+                for ($j = 0; $j < $this->maxData; $j++) {
+                    $n = (int)rand(1, $maxPs);
+                    $data[$i][$j] = $n;
+                    $this->childCrossover[$j] = $data[$i][$j];
+                }
+                echo json_encode($this->childCrossover);
+                echo '<br>';
             }
-            echo json_encode($this->childCrossover);
-            echo '<br>';
-        }
 
-        while ($this->ofCrossover - $this->getChildCO != 1) {
-            $c = [2];
-            $c[0] = (int)rand(0, $this->popsize);
-            $c[1] = (int)rand(0, $this->popsize);
+            while ($this->ofCrossover - $this->getChildCO != 1) {
+                $c = [2];
+                $c[0] = (int)rand(0, $this->popsize);
+                $c[1] = (int)rand(0, $this->popsize);
 
-            $oneCut = (int)rand(1, $this->maxPs);
-            echo '<br>' . $c[0] . ' | ' . $c[1] . ' | ' . $oneCut; //BISA
+                $oneCut = (int)rand(1, $this->maxPs);
+                echo '<br>' . $c[0] . ' | ' . $c[1] . ' | ' . $oneCut; //BISA
 
-            $c1 = ++$this->getChildCO;
-            echo $c1 . ' || ' . $this->getChildCO; //BISA
+                $c1 = ++$this->getChildCO;
+                echo $c1 . ' || ' . $this->getChildCO; //BISA
 
-            if ($this->ofCrossover - $this->getChildCO == 1) {
-                for ($c1 = 0; $c1 < $this->maxData; $c1++) {
-                    $this->childCrossover = [$this->maxData];
-                    for ($i = 0; $i < $this->maxData; $i++) {
-                        $n = (int)rand(1, $this->maxPs);
-                        $data[$i][$j] = $n;
-                        $this->childCrossover[$c1] = $data[$c[0]][$i];
-                    }
-                    echo json_encode($this->childCrossover);
-                    echo '<br>';
-                }
-
-                for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
-                    $this->childCrossover[$c1][$i] = $this->data[$c[1][$i]];
-                }
-
-                echo 'Child ' . $c1 . " = ";
-                $temp2 = [$this->maxData];
-                for ($i = 0; $i < $this->maxData; $i++) {
-                    $temp2[$i] = $this->childCrossover[$c1[$i]]; //kromosom child
-                    echo json_encode($this->childCrossover) . " ";
-                }
-                // $temp = strval($temp2);
-                echo "<br>";
-                echo $c1 + 1, $c[0] . '|x|' . $c[1], $temp2;
-            } else {
-                $c2 = ++$this->getChildCO;
-                echo $c2 . '  ' . $this->getChildCO;
-                for ($i = 0; $i < $this->maxData; $i++) {
-                    $this->childCrossover = [$this->maxData];
+                if ($this->ofCrossover - $this->getChildCO == 1) {
                     for ($c1 = 0; $c1 < $this->maxData; $c1++) {
-                        $n = (int)rand(1, $this->maxPs);
-                        $data[$i][$c1] = $n;
-                        $this->childCrossover[$c1] = $data[$i][$c1];
+                        $this->childCrossover = [$this->maxData];
+                        for ($i = 0; $i < $this->maxData; $i++) {
+                            $n = (int)rand(1, $this->maxPs);
+                            $data[$i][$j] = $n;
+                            $this->childCrossover[$c1] = $data[$c[0]][$i];
+                        }
+                        echo json_encode($this->childCrossover);
+                        echo '<br>';
                     }
-                    echo '<br> c1: ';
-                    echo json_encode($this->childCrossover);
-                    echo '<br>';
-                    for ($c2 = 0; $c2 < $this->maxData; $c2++) {
-                        $n = (int)rand(1, $this->maxPs);
-                        $data[$i][$c2] = $n;
-                        $this->childCrossover[$c2] = $data[$i][$c2];
+
+                    for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
+                        $this->childCrossover[$c1][$i] = $this->data[$c[1][$i]];
                     }
-                    echo '<br> c2: ';
-                    echo json_encode($this->childCrossover);
-                    echo '<br>';
-                }
-                for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
-                    $this->childCrossover[$c2][$i] = $data[$c[0]][$i];
-                    $this->childCrossover[$c1][$i] = $data[$c[1]][$i];
-                }
-                for ($i = $c1; $i <= $c2; $i++) {
-                    echo '<br>Childlast ' . $i . ' = ';
+
+                    echo 'Child ' . $c1 . " = ";
                     $temp2 = [$this->maxData];
-                    for ($j = 0; $j < $this->maxData; $j++) {
-                        $n = (int)rand(1, $this->maxPs);
-                        $data[$i][$j] = $n;
-                        $temp2[$j] = $data[$i][$j];
+                    for ($i = 0; $i < $this->maxData; $i++) {
+                        $temp2[$i] = $this->childCrossover[$c1[$i]]; //kromosom child
+                        echo json_encode($this->childCrossover) . " ";
                     }
-                    echo json_encode($temp2) . ' ';
                     // $temp = strval($temp2);
                     echo "<br>";
-                    echo $i + 1, $c[0] . '|x|' . $c[1], $temp;
+                    echo $c1 + 1, $c[0] . '|x|' . $c[1], $temp2;
+                } else {
+                    $c2 = ++$this->getChildCO;
+                    echo $c2 . '  ' . $this->getChildCO;
+                    for ($i = 0; $i < $this->maxData; $i++) {
+                        $this->childCrossover = [$this->maxData];
+                        for ($c1 = 0; $c1 < $this->maxData; $c1++) {
+                            $n = (int)rand(1, $this->maxPs);
+                            $data[$i][$c1] = $n;
+                            $this->childCrossover[$c1] = $data[$i][$c1];
+                        }
+                        echo '<br> c1: ';
+                        echo json_encode($this->childCrossover);
+                        echo '<br>';
+                        for ($c2 = 0; $c2 < $this->maxData; $c2++) {
+                            $n = (int)rand(1, $this->maxPs);
+                            $data[$i][$c2] = $n;
+                            $this->childCrossover[$c2] = $data[$i][$c2];
+                        }
+                        echo '<br> c2: ';
+                        echo json_encode($this->childCrossover);
+                        echo '<br>';
+                    }
+                    for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
+                        $this->childCrossover[$c2][$i] = $data[$c[0]][$i];
+                        $this->childCrossover[$c1][$i] = $data[$c[1]][$i];
+                    }
+                    for ($i = $c1; $i <= $c2; $i++) {
+                        echo '<br>Childlast ' . $i . ' = ';
+                        $temp2 = [$this->maxData];
+                        for ($j = 0; $j < $this->maxData; $j++) {
+                            $n = (int)rand(1, $this->maxPs);
+                            $data[$i][$j] = $n;
+                            $temp2[$j] = $data[$i][$j];
+                        }
+                        echo json_encode($temp2) . ' ';
+                        // $temp = strval($temp2);
+                        echo "<br>";
+                        echo $i + 1, $c[0] . '|x|' . $c[1], $temp;
+                    }
                 }
             }
+        } catch (Throwable $th) {
+            throw $th;
         }
     }
 
