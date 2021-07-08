@@ -29,7 +29,7 @@ class algoritma
     {
         $this->inisialisasi($popsize, $maxPs);
         for ($i = 0; $i < $iterasi; $i++) {
-            // $this->hitungFitness($popsize);
+            $this->hitungFitness($popsize);
             // $this->seleksiElitism();
             // $this->hitungCrossover($cr, $popsize, $maxPs);
             // $this->hitungMutasi($mr);
@@ -44,37 +44,40 @@ class algoritma
     function inisialisasi($popsize, $maxPs)
     {
         $temp = '';
-        echo 'Populasi Awal : <br>';
+        echo 'Populasi Awal sebanyak ' . $popsize . ' individu <br>';
         for ($i = 0; $i < $popsize; $i++) { //banyak individu
             $arr = [$this->maxData];
             for ($j = 0; $j < $this->maxData; $j++) { //banyak kromosom
                 $n = (int) rand(1, $maxPs); //generate random number
                 $data[$i][$j] = $n;
                 $arr[$j] = $data[$i][$j];
-                $temp2 = array_chunk($arr, 21); //split into two array bcs maxData = 42 and i take 21, its half
             }
-            echo json_encode($arr);
-            // echo json_encode($temp2);
-            echo ' : <br>';
-            // echo ' => ';
+            // $temp = implode(' ', $arr); //convert array menjadi string
 
-            // echo json_encode(array_slice($arr, 0, 21));
-            // echo ' || ';
-            // echo json_encode(array_splice($arr, -21));
+            // $output = implode(', ', array_map(
+            //     function ($v, $k) {
+            //         return sprintf("%s=%s", $k, $v);
+            //     },
+            //     $arr,
+            //     array_keys($arr)
+            // ));
 
-            // $child1[$i] = [(array_slice($arr, 0, 21))][array_splice($arr, -21)];
-            // $child2[$i + 1] = [(array_splice($arr, 0, 21))][array_slice($arr, -21)];
+            // echo var_dump($output);
+            // echo ' <br> ';
 
-            // $parent2 = array_splice($arr, -21);
-            // $parent1 = array_slice($arr, 0, 21);
-
-            //lets make a new population that 
+            echo $i + 1 . ' ';
+            echo json_encode($arr); //hasil populasi awal berupa array
+            // echo ' = ';
+            // $temp = substr($temp, 0, 42); //substr()untuk memotong array
+            // echo $temp;
+            echo '<br>';
         }
     }
 
     function hitungFitness($popsize)
     {
         try {
+            echo '<br>Melakukan fitness dari populasi awal ';
             $this->count = 0;
             // $allPop = $this->popsize + $this->ofCrossover + $this->ofMutasi;
             $allPop = $popsize;
@@ -169,6 +172,16 @@ class algoritma
             $this->getChildCO = -1;
             $this->ofCrossover = (int)round($cr * $popsize);
             echo '<br>Banyak Offspring Crossover = ' . $this->ofCrossover; //BISA
+            // echo json_encode(array_slice($arr, 0, 21));
+            // echo ' || ';
+            // echo json_encode(array_splice($arr, -21));
+
+            // $child1[$i] = [(array_slice($arr, 0, 21))][array_splice($arr, -21)];
+            // $child2[$i + 1] = [(array_splice($arr, 0, 21))][array_slice($arr, -21)];
+
+            // $parent2 = array_splice($arr, -21);
+            // $parent1 = array_slice($arr, 0, 21);
+
 
             echo '<br> Kromosom Crossover : <br>';
             for ($i = 0; $i < $this->ofCrossover; $i++) {
