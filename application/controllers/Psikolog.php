@@ -13,7 +13,7 @@ class Psikolog extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Data Psikolog';
+        $data['title'] = 'Daftar Psikolog';
         $data['user'] = $this->User_model->user();
 
         $data['psikolog'] = $this->pagination();

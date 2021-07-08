@@ -8,7 +8,7 @@ class algoritma
     private $data = [];
     private $childMutasi = [];
     private $childCrossover = [];
-    private $gabungan = [];
+    // private $gabungan = [];
     private $newFitness = [];
     private $fitness = [];
     private $halangan = [];
@@ -27,7 +27,7 @@ class algoritma
 
     function run($popsize, $cr, $mr, $iterasi, $thresholdSaget, $maxPs)
     {
-        $this->inisialisasi($popsize, $maxPs);
+        // $this->inisialisasi($popsize, $maxPs);
         for ($i = 0; $i < $iterasi; $i++) {
             $this->hitungFitness($popsize);
             // $this->seleksiElitism();
@@ -72,37 +72,64 @@ class algoritma
             // echo $temp;
             echo '<br>';
         }
+
+        $allPop = $popsize;
+        for ($i = 0; $i < $allPop; $i++) {
+            for ($j = 0; $j < $this->maxData; $j++) {
+                if ($i < $popsize) {
+                    $gabungan[$j] = $data[$i][$j];
+                }
+            }
+        }
+        $this->getFitness($data, $popsize, "Parent");
     }
 
     function hitungFitness($popsize)
     {
         try {
-            echo '<br>Melakukan fitness dari populasi awal ';
             $this->count = 0;
-            // $allPop = $this->popsize + $this->ofCrossover + $this->ofMutasi;
             $allPop = $popsize;
-
             for ($i = 0; $i < $allPop; $i++) {
-                $gabungan = [$this->maxData];
                 for ($j = 0; $j < $this->maxData; $j++) {
                     if ($i < $popsize) {
-                        $gabungan[$j] = $this->data[$i][$j];
+                        // $gabungan[$j] = $data[$i][$j];
                     }
-                    // elseif ($i < $popsize + $this->ofCrossover) {
-                    //     $gabungan[$j] = $this->childCrossover[$i - $popsize[$j]];
-                    // } elseif ($i < $allPop) {
-                    //     $gabungan[$j] = $this->childMutasi[$i - ($popsize + $this->ofCrossover)[$j]];
-                    // }
                 }
             }
-            $this->fitness[] = [$allPop][7];
-            $this->getFitness($this->data, $popsize, "Parent");
-            $this->getFitness($this->childCrossover, $this->ofCrossover, "Child Crossover");
-            $this->getFitness($this->childMutasi, $this->ofMutasi, "Child Mutasi");
         } catch (Exception $ex) {
             echo 'Message: ' . $ex->getMessage();
         }
     }
+
+    // function hitungFitness($popsize)
+    // {
+    //     try {
+    //         echo '<br>Melakukan fitness dari populasi awal ';
+    //         $this->count = 0;
+    //         // $allPop = $this->popsize + $this->ofCrossover + $this->ofMutasi;
+    //         $allPop = $popsize;
+
+    //         for ($i = 0; $i < $allPop; $i++) {
+    //             $gabungan = [$this->maxData];
+    //             for ($j = 0; $j < $this->maxData; $j++) {
+    //                 if ($i < $popsize) {
+    //                     $gabungan[$j] = $this->data[$i][$j];
+    //                 }
+    //                 // elseif ($i < $popsize + $this->ofCrossover) {
+    //                 //     $gabungan[$j] = $this->childCrossover[$i - $popsize[$j]];
+    //                 // } elseif ($i < $allPop) {
+    //                 //     $gabungan[$j] = $this->childMutasi[$i - ($popsize + $this->ofCrossover)[$j]];
+    //                 // }
+    //             }
+    //         }
+    //         $this->fitness[] = [$allPop][7];
+    //         $this->getFitness($this->data, $popsize, "Parent");
+    //         $this->getFitness($this->childCrossover, $this->ofCrossover, "Child Crossover");
+    //         $this->getFitness($this->childMutasi, $this->ofMutasi, "Child Mutasi");
+    //     } catch (Exception $ex) {
+    //         echo 'Message: ' . $ex->getMessage();
+    //     }
+    // }
 
     function getConstraint1($array = [], $array2 = [])
     {
