@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Admin_model');
     }
 
     public function index()
@@ -37,14 +38,7 @@ class Admin extends CI_Controller
 
     public function roleAdd()
     {
-        $role = htmlspecialchars($this->input->post('role'));
-
-        $data = array(
-            'role' => $role
-        );
-
-        $this->db->insert('user_role', $data);
-
+        $this->Admin_model->roleAdd();
         redirect('admin/role');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
@@ -53,13 +47,7 @@ class Admin extends CI_Controller
 
     public function roleEdit()
     {
-        $id = htmlspecialchars($this->input->post('roleid'));
-        $role = htmlspecialchars($this->input->post('role'));
-
-        $this->db->set('role', $role);
-        $this->db->where('id', $id);
-        $this->db->update('user_role');
-
+        $this->Admin_model->roleEdit();
         redirect('admin/role');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">

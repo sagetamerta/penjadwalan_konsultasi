@@ -24,7 +24,7 @@
                             <td><?= $r['role']; ?></td>
                             <td>
                                 <a href="<?= base_url('admin/roleaccess/') . $r['id']; ?>" class="badge badge-warning">access</a>
-                                <a href="" data-toggle="modal" data-id="<?php $id = $r['id']; ?>" data-target="#editRoleModal" class="EditRoleDialog badge badge-success">edit</a>
+                                <a href="javascript:;" data-id="<?php echo $r['id'] ?>" data-role="<?php echo $r['role'] ?>" data-toggle="modal" data-target="#editRoleModal" class="badge badge-info">edit</a>
                                 <a href="<?= base_url('admin/roledelete/') . $r['id']; ?>" class="badge badge-danger">delete</a>
                             </td>
                         </tr>
@@ -72,7 +72,7 @@
                 </div>
                 <form action="<?= base_url('admin/roleedit'); ?>" method="post">
                     <div class="modal-body">
-                        <input type="hidden" id="roleid" name="roleid" value="11">
+                        <input type="hidden" id="id" name="id">
                         <input type="text" class="form-control" id="role" name="role" placeholder="Role name">
                     </div>
                     <div class="modal-footer">
@@ -85,8 +85,15 @@
     </div>
 
     <script>
-        $('.EditRoleDialog').click(function() {
-            //get cover id
-            var id = $(this).data('id');
-        })
+        $(document).ready(function() {
+            // Untuk sunting
+            $('#editRoleModal').on('show.bs.modal', function(event) {
+                var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+                var modal = $(this)
+
+                // Isi nilai pada field
+                modal.find('#id').attr("value", div.data('id'));
+                modal.find('#role').attr("value", div.data('role'));
+            });
+        });
     </script>
