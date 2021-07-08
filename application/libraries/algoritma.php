@@ -29,9 +29,9 @@ class algoritma
     {
         $this->inisialisasi($popsize, $maxPs);
         for ($i = 0; $i < $iterasi; $i++) {
-            // $this->hitungFitness();
+            // $this->hitungFitness($popsize);
             // $this->seleksiElitism();
-            $this->hitungCrossover($cr, $popsize, $maxPs);
+            // $this->hitungCrossover($cr, $popsize, $maxPs);
             // $this->hitungMutasi($mr);
             if ($this->fitnessSaget >= $thresholdSaget) {
                 echo '<br>';
@@ -43,6 +43,7 @@ class algoritma
 
     function inisialisasi($popsize, $maxPs)
     {
+        $temp = '';
         echo 'Populasi Awal : <br>';
         for ($i = 0; $i < $popsize; $i++) { //banyak individu
             $arr = [$this->maxData];
@@ -50,8 +51,53 @@ class algoritma
                 $n = (int) rand(1, $maxPs); //generate random number
                 $data[$i][$j] = $n;
                 $arr[$j] = $data[$i][$j];
+                $temp2 = array_chunk($arr, 21); //split into two array bcs maxData = 42 and i take 21, its half
             }
             echo json_encode($arr);
+            // echo json_encode($temp2);
+            echo ' : <br>';
+            // echo ' => ';
+
+            // echo json_encode(array_slice($arr, 0, 21));
+            // echo ' || ';
+            // echo json_encode(array_splice($arr, -21));
+
+            // $child1[$i] = [(array_slice($arr, 0, 21))][array_splice($arr, -21)];
+            // $child2[$i + 1] = [(array_splice($arr, 0, 21))][array_slice($arr, -21)];
+
+            // $parent2 = array_splice($arr, -21);
+            // $parent1 = array_slice($arr, 0, 21);
+
+            //lets make a new population that 
+        }
+    }
+
+    function hitungFitness($popsize)
+    {
+        try {
+            $this->count = 0;
+            // $allPop = $this->popsize + $this->ofCrossover + $this->ofMutasi;
+            $allPop = $popsize;
+
+            for ($i = 0; $i < $allPop; $i++) {
+                $gabungan = [$this->maxData];
+                for ($j = 0; $j < $this->maxData; $j++) {
+                    if ($i < $popsize) {
+                        $gabungan[$j] = $this->data[$i][$j];
+                    }
+                    // elseif ($i < $popsize + $this->ofCrossover) {
+                    //     $gabungan[$j] = $this->childCrossover[$i - $popsize[$j]];
+                    // } elseif ($i < $allPop) {
+                    //     $gabungan[$j] = $this->childMutasi[$i - ($popsize + $this->ofCrossover)[$j]];
+                    // }
+                }
+            }
+            $this->fitness[] = [$allPop][7];
+            $this->getFitness($this->data, $popsize, "Parent");
+            $this->getFitness($this->childCrossover, $this->ofCrossover, "Child Crossover");
+            $this->getFitness($this->childMutasi, $this->ofMutasi, "Child Mutasi");
+        } catch (Exception $ex) {
+            echo 'Message: ' . $ex->getMessage();
         }
     }
 
@@ -347,33 +393,7 @@ class algoritma
         }
     }
 
-    function hitungFitness()
-    {
-        try {
-            $this->count = 0;
-            // $allPop = $this->popsize + $this->ofCrossover + $this->ofMutasi;
-            $allPop = $this->popsize;
-            $gabungan[] = [$allPop][$this->maxData];
 
-            for ($i = 0; $i < $allPop; $i++) {
-                for ($j = 0; $j < $this->maxData; $j++) {
-                    if ($i < $this->popsize) {
-                        $gabungan[$j] = $this->data[$i[$j]];
-                    } elseif ($i < $this->popsize + $this->ofCrossover) {
-                        $gabungan[$j] = $this->childCrossover[$i - $this->popsize[$j]];
-                    } elseif ($i < $allPop) {
-                        $gabungan[$j] = $this->childMutasi[$i - ($this->popsize + $this->ofCrossover)[$j]];
-                    }
-                }
-            }
-            $this->fitness[] = [$allPop][7];
-            $this->getFitness($this->data, $this->popsize, "Parent");
-            $this->getFitness($this->childCrossover, $this->ofCrossover, "Child Crossover");
-            $this->getFitness($this->childMutasi, $this->ofMutasi, "Child Mutasi");
-        } catch (Exception $ex) {
-            echo 'Message: ' . $ex->getMessage();
-        }
-    }
 
     // Mulai fungsi mengurutkan nilai fitness dari terbesar ke terkecil
     function seleksiElitism()
