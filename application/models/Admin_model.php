@@ -23,4 +23,10 @@ class Admin_model extends CI_Model
 
         $this->db->set('role', $role)->where('id', $id)->update('user_role');
     }
+
+    public function roleDelete($role_id)
+    {
+        $this->db->where('id', $role_id);
+        $this->db->delete('user_role');
+    }
 }
