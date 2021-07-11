@@ -4,35 +4,34 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Algoritma
 {
-    private $data = [];
-    private $fullJadwal = [];
-    private $jadwal1 = [];
-    private $jadwal2 = [];
-    private $fitness = [];
-    private $newFitness = [];
-    private $gabungan = [];
-    private $childCrossover = [];
-    private $childMutasi = [];
-    private $maxData = 35;
-    private $fitnessSaget = 0.0;
-    private $individuTerbaik = 0;
-    private $getChildCO = 0;
-    private $ofCrossover = 0;
-    private $ofMutasi = 0;
-    private $count = 0;
-    private $allPop = 0;
-    private $cons1 = 0.0;
-    private $cons2 = 0.0;
-    private $cons3 = 0.0;
-    private $cons4 = 0.0;
-    private $cons5 = 0.0;
-    private $jadwalTerbaik = '';
+    public $data = [];
+    public $fullJadwal = [];
+    public $jadwal1 = [];
+    public $jadwal2 = [];
+    public $fitness = [];
+    public $newFitness = [];
+    public $gabungan = [];
+    public $childCrossover = [];
+    public $childMutasi = [];
+    public $maxData = 35;
+    public $fitnessSaget = 0.0;
+    public $individuTerbaik = 0;
+    public $getChildCO = 0;
+    public $ofCrossover = 0;
+    public $ofMutasi = 0;
+    public $count = 0;
+    public $allPop = 0;
+    public $cons1 = 0.0;
+    public $cons2 = 0.0;
+    public $cons3 = 0.0;
+    public $cons4 = 0.0;
+    public $cons5 = 0.0;
+    public $jadwalTerbaik = '';
 
-
-    function run($popsize, $cr, $mr, $iterasi, $thresholdSaget, $maxPs)
+    public function run($popsize, $cr, $mr, $iterasi, $thresholdSaget, $maxPs)
     {
-        $this->population($popsize, $maxPs);
-        for ($i = 0; $i < 10; $i++) {
+        $this->createPopulation($popsize, $maxPs);
+        for ($i = 0; $i < $iterasi; $i++) {
             $this->hitungCrossover($cr, $popsize, $maxPs);
             // $this->hitungFitness($popsize);
             // $this->seleksiElitism();
@@ -45,21 +44,23 @@ class Algoritma
         }
     }
 
-    function population($popsize, $maxPs) //menghasilkan populasi
+    public function createPopulation($popsize, $maxPs)
     {
         try {
-            echo 'Populasi Awal sebanyak ', $popsize, ' individu <br>';
+            echo 'Populasi Awal sebanyak ', $popsize, ' individu';
             for ($i = 0; $i < $popsize; $i++) { //banyak individu
                 $gen = $this->gen($maxPs); //disini kita mengambil nilai tiap individu
-                echo json_encode($gen);
+                echo '<br />';
+                echo implode(' | ', $gen);
             }
             return $gen; //mengembalikan populasi berupa array
+            // masalahnya hanya return value paling akhir dari for loop
         } catch (\Exception $e) {
             die($e->getMessage());
         }
     }
 
-    function gen($maxPs) //menghasilkan individu
+    public function gen($maxPs) //menghasilkan individu
     {
         $arr = [];
         for ($j = 0; $j < $this->maxData; $j++) { //banyak kromosom
@@ -68,25 +69,15 @@ class Algoritma
         }
         return $arr; //mengembalikan nilai kromosom untuk tiap gen
     }
+    
 
-    function hitungCrossover($cr, $popsize, $maxPs)
+    public function hitungCrossover($cr, $popsize, $maxPs)
     {
         try {
             $getChildCO = -1;
             $ofCrossover = (int)round($cr * $popsize);
             echo '<br><br>Banyak Offspring Crossover = ', $ofCrossover; //BISA
-            // echo json_encode(array_slice($arr, 0, 21));
-            // echo ' || ';
-            // echo json_encode(array_splice($arr, -21));
-
-            // $child1[$i] = [(array_slice($arr, 0, 21))][array_splice($arr, -21)];
-            // $child2[$i + 1] = [(array_splice($arr, 0, 21))][array_slice($arr, -21)];
-
-            // $parent2 = array_splice($arr, -21);
-            // $parent1 = array_slice($arr, 0, 21);
-
-            // echo json_encode($population);
-            echo '<br><br> Kromosom Crossover : ';
+            echo '<br><br>Kromosom Crossover : ';
 
 
             while ($ofCrossover - $getChildCO != 1) {
@@ -98,41 +89,29 @@ class Algoritma
                 echo '<br>', $c[0], ' | ', $c[1], ' | ', $oneCut; //BISA
 
                 $c1 = ++$getChildCO;
-                echo $c1, ' || ', $getChildCO; //BISA
+                echo '<br>', $c1, '  ', $getChildCO, '<br>'; //BISA
 
                 if ($ofCrossover - $getChildCO == 1) {
                     for ($i = 0; $i < $this->maxData; $i++) {
-                        // $this->childCrossover[$c1] = $c1;
-                        // $this->childCrossover[$i] = $i;
-                        // $this->data[$c[0]] = $c[0];
-                        // $this->data[$i] = $i;
                         $this->childCrossover[$c1] = [$i];
                         $this->data[$c[0]] = [$i];
                         $this->childCrossover = $this->data;
-                        // $this->childCrossover[$c1][$i] = $this->data[$c[0]][$i];
                     }
                     for ($i = $oneCut; $j = 0; $j < $this->maxData - $oneCut, $j++, $i++) {
-                        // $this->childCrossover[$c1] = $c1;
-                        // $this->childCrossover[$i] = $i;
-                        // $this->data[$c[1]] = $c[1];
-                        // $this->data[$i] = $i;
                         $this->childCrossover[$c1] = [$i];
                         $this->data[$c[1]] = [$i];
                         $this->childCrossover = $this->data;
-                        // $this->childCrossover[$c1][$i] = $this->data[$c[1]][$i];
                     }
                     echo '<br>Child ', $c1, " = ";
                     $temp2[] = [$this->maxData];
                     for ($i = 0; $i < $this->maxData; $i++) {
-                        // $this->childCrossover[$c1] = $c1;
-                        // $this->childCrossover[$i] = $i;
                         $this->childCrossover[$c1] = [$i];
-                        $this->console_log($temp2);
+                        // $this->console_log($temp2);
                     }
                     $temp2[] = $this->childCrossover[$c1]; //kromosom child
-                    $temp = implode(" ", $temp2);
+                    // $temp = implode(" ", $temp2);
                     // $this->console_log($temp);
-                    echo $c1 + 1, $c[0], ' x ', $c[1], $temp;
+                    // echo $c1 + 1, $c[0], ' x ', $c[1], $temp;
                     // echo json_encode($temp2);
                 } else {
                     // $c2 = ++$this->getChildCO;
@@ -162,7 +141,7 @@ class Algoritma
         }
     }
 
-    function hitungFitness($popsize)
+    public function hitungFitness($popsize)
     {
         $data = [];
         try {
@@ -192,7 +171,7 @@ class Algoritma
         }
     }
 
-    function getConstraint1($array = [], $array2 = [])
+    public function getConstraint1($array = [], $array2 = [])
     {
         for ($i = 0; $i < count($array); $i++) {
             for ($j = 0; $j < count($array2); $j++) {
@@ -203,7 +182,7 @@ class Algoritma
         }
     }
 
-    function ge2($array = [], $array2 = [])
+    public function ge2($array = [], $array2 = [])
     {
         for ($i = 0; $i < count($array); $i++) {
             for ($j = 0; $j < count($array2); $j++) {
@@ -214,7 +193,7 @@ class Algoritma
         }
     }
 
-    function getConstraint3($array = [], $array2 = [])
+    public function getConstraint3($array = [], $array2 = [])
     {
         for ($i = 0; $i < count($array); $i++) {
             for ($j = 0; $j < count($array2); $j++) {
@@ -225,7 +204,7 @@ class Algoritma
         }
     }
 
-    function getConstraint4($array = [])
+    public function getConstraint4($array = [])
     {
         $s2remove = [count($array)];
         for ($i = 0; $i < count($array); $i++) {
@@ -245,7 +224,7 @@ class Algoritma
         }
     }
 
-    function getConstraint5($array = [], $value = 0)
+    public function getConstraint5($array = [], $value = 0)
     {
         for ($i = 0; $i < count($array); $i++) {
             if ($array[$i] == $value) {
@@ -256,7 +235,7 @@ class Algoritma
 
 
 
-    function hitungMutasi()
+    public function hitungMutasi()
     {
         $temp = '';
         $this->ofMutasi = (int)round($this->mr * $this->popsize);
@@ -289,7 +268,7 @@ class Algoritma
         }
     }
 
-    function reciprocalExchangeMutation($p, $r1, $r2, $j)
+    public function reciprocalExchangeMutation($p, $r1, $r2, $j)
     {
         for ($i = 0; $i < $this->maxData; $i++) {
             // $childMutasi[$j[$i]] = $data[$p[$i]];
@@ -302,7 +281,7 @@ class Algoritma
         }
     }
 
-    function getFitness($array = [], $size = 0, $nama = '')
+    public function getFitness($array = [], $size = 0, $nama = '')
     {
         try {
             for ($j = 0; $j < $size; $j++) {
@@ -388,7 +367,7 @@ class Algoritma
 
 
     // Mulai fungsi mengurutkan nilai fitness dari terbesar ke terkecil
-    function seleksiElitism()
+    public function seleksiElitism()
     {
         $this->newFitness = floatval([$this->allPop[2]]);
         echo '<br> Gabungan Parent dan Child' . ' : ';
@@ -442,13 +421,13 @@ class Algoritma
         echo json_encode($arr[$j]);
     }
 
-    function printArray($jadwal = '', $jadwal12 = [])
+    public function printArray($jadwal = '', $jadwal12 = [])
     {
         echo $jadwal . '<br>';
         echo strval($jadwal12);
     }
 
-    function console_log($data)
+    public function console_log($data)
     {
         echo '<script>';
         echo 'console.log(' . json_encode($data) . ')';
