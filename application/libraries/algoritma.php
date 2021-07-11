@@ -5,30 +5,31 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class algoritma
 {
 
-    private $data = [];
-    private $childMutasi = [];
-    private $childCrossover = [];
-    // private $gabungan = [];
-    private $newFitness = [];
-    private $fitness = [];
-    private $halangan = [];
+    // public $data = [];
+    public $childMutasi = [];
+    public $childCrossover = [];
+    // public $gabungan = [];
+    public $newFitness = [];
+    public $fitness = [];
+    public $halangan = [];
     // nilai fitness individu terbaik setiap iterasi
-    private $individuTerbaik;
+    public $individuTerbaik;
     // nomor individu terbaik setiap iterasi
     // treshold yang akan diuji
-    private $maxData = 42;
-    private $getChildCO = 0, $ofCrossover = 0, $ofMutasi = 0, $count = 0, $allPop = 0;
-    private $cHalangan = 0;
-    private $cons1 = 0.0, $cons2 = 0.0, $cons3 = 0.0, $cons4 = 0.0, $cons5 = 0.0;
-    private $fullJadwal = [];
-    private $jadwal1 = [];
-    private $jadwal2 = [];
-    private $fitnessSaget = 0.0;
+    public $maxData = 42;
+    public $getChildCO = 0, $ofCrossover = 0, $ofMutasi = 0, $count = 0, $allPop = 0;
+    public $cHalangan = 0;
+    public $cons1 = 0.0, $cons2 = 0.0, $cons3 = 0.0, $cons4 = 0.0, $cons5 = 0.0;
+    public $fullJadwal = [];
+    public $jadwal1 = [];
+    public $jadwal2 = [];
+    public $fitnessSaget = 0.0;
 
     function run($popsize, $cr, $mr, $iterasi, $thresholdSaget, $maxPs)
     {
-        // $this->inisialisasi($popsize, $maxPs);
+        $this->inisialisasi($popsize, $maxPs);
         for ($i = 0; $i < $iterasi; $i++) {
+
             $this->hitungFitness($popsize);
             // $this->seleksiElitism();
             // $this->hitungCrossover($cr, $popsize, $maxPs);
@@ -41,6 +42,7 @@ class algoritma
         }
     }
 
+
     function inisialisasi($popsize, $maxPs)
     {
         $temp = '';
@@ -52,84 +54,40 @@ class algoritma
                 $data[$i][$j] = $n;
                 $arr[$j] = $data[$i][$j];
             }
-            // $temp = implode(' ', $arr); //convert array menjadi string
-
-            // $output = implode(', ', array_map(
-            //     function ($v, $k) {
-            //         return sprintf("%s=%s", $k, $v);
-            //     },
-            //     $arr,
-            //     array_keys($arr)
-            // ));
-
-            // echo var_dump($output);
-            // echo ' <br> ';
-
-            echo $i + 1 . ' ';
             echo json_encode($arr); //hasil populasi awal berupa array
-            // echo ' = ';
-            // $temp = substr($temp, 0, 42); //substr()untuk memotong array
-            // echo $temp;
             echo '<br>';
         }
-
-        $allPop = $popsize;
-        for ($i = 0; $i < $allPop; $i++) {
-            for ($j = 0; $j < $this->maxData; $j++) {
-                if ($i < $popsize) {
-                    $gabungan[$j] = $data[$i][$j];
-                }
-            }
-        }
-        $this->getFitness($data, $popsize, "Parent");
     }
 
     function hitungFitness($popsize)
     {
+        $data = [];
         try {
             $this->count = 0;
-            $allPop = $popsize;
+            $allPop = $this->popsize + $this->ofCrossover + $this->ofMutasi;
+            // $gabungan[] = [$allPop][$this->maxData];
+            // $gabungan = new $gabungan();
+
             for ($i = 0; $i < $allPop; $i++) {
+                $gabungan = [$this->maxData];
                 for ($j = 0; $j < $this->maxData; $j++) {
                     if ($i < $popsize) {
-                        // $gabungan[$j] = $data[$i][$j];
+                        $gabungan[$j] = $data[$i][$j];
+                    } elseif ($i < $popsize + $this->ofCrossover) {
+                        $gabungan[$j] = $this->childCrossover[$i - $popsize[$j]];
+                    } elseif ($i < $allPop) {
+                        $gabungan[$j] = $this->childMutasi[$i - ($popsize + $this->ofCrossover)[$j]];
                     }
                 }
             }
+            $this->fitness[] = [$allPop][7];
+            $this->getFitness($data, $popsize, "Parent");
+            $this->getFitness($this->childCrossover, $this->ofCrossover, "Child Crossover");
+            $this->getFitness($this->childMutasi, $this->ofMutasi, "Child Mutasi");
         } catch (Exception $ex) {
             echo 'Message: ' . $ex->getMessage();
         }
     }
-
-    // function hitungFitness($popsize)
-    // {
-    //     try {
-    //         echo '<br>Melakukan fitness dari populasi awal ';
-    //         $this->count = 0;
-    //         // $allPop = $this->popsize + $this->ofCrossover + $this->ofMutasi;
-    //         $allPop = $popsize;
-
-    //         for ($i = 0; $i < $allPop; $i++) {
-    //             $gabungan = [$this->maxData];
-    //             for ($j = 0; $j < $this->maxData; $j++) {
-    //                 if ($i < $popsize) {
-    //                     $gabungan[$j] = $this->data[$i][$j];
-    //                 }
-    //                 // elseif ($i < $popsize + $this->ofCrossover) {
-    //                 //     $gabungan[$j] = $this->childCrossover[$i - $popsize[$j]];
-    //                 // } elseif ($i < $allPop) {
-    //                 //     $gabungan[$j] = $this->childMutasi[$i - ($popsize + $this->ofCrossover)[$j]];
-    //                 // }
-    //             }
-    //         }
-    //         $this->fitness[] = [$allPop][7];
-    //         $this->getFitness($this->data, $popsize, "Parent");
-    //         $this->getFitness($this->childCrossover, $this->ofCrossover, "Child Crossover");
-    //         $this->getFitness($this->childMutasi, $this->ofMutasi, "Child Mutasi");
-    //     } catch (Exception $ex) {
-    //         echo 'Message: ' . $ex->getMessage();
-    //     }
-    // }
 
     function getConstraint1($array = [], $array2 = [])
     {
@@ -175,6 +133,7 @@ class algoritma
                             continue;
                         } else {
                             $this->cons4 = $this->cons4 + 55;
+                            echo $this->cons4;
                             $s2remove[$j] = $array[$j];
                         }
                     }
@@ -246,7 +205,7 @@ class algoritma
                     }
 
                     for ($i = $oneCut, $j = 0; $j < $this->maxData - $oneCut; $j++, $i++) {
-                        $this->childCrossover[$c1][$i] = $this->data[$c[1][$i]];
+                        $this->childCrossover[$c1][$i] = $data[$c[1][$i]];
                     }
 
                     echo 'Child ' . $c1 . " = ";
@@ -340,12 +299,12 @@ class algoritma
     function reciprocalExchangeMutation($p, $r1, $r2, $j)
     {
         for ($i = 0; $i < $this->maxData; $i++) {
-            $childMutasi[$j[$i]] = $this->data[$p[$i]];
+            // $childMutasi[$j[$i]] = $data[$p[$i]];
             if ($i == $r1) {
-                $childMutasi[$j[$i]] = $this->data[$p[$r2]];
+                // $childMutasi[$j[$i]] = $data[$p[$r2]];
             }
             if ($i == $r2) {
-                $childMutasi[$j[$i]] = $this->data[$p[$r1]];
+                // $childMutasi[$j[$i]] = $data[$p[$r1]];
             }
         }
     }
