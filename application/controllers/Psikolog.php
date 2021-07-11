@@ -58,11 +58,11 @@ class Psikolog extends CI_Controller
         $data['title'] = 'Buat Jadwal Konsultasi';
         $data['user'] = $this->User_model->user();
 
-        $this->form_validation->set_rules('popsize', 'Population size', 'required', ['required' => 'Population size tidak boleh kosong!']);
-        $this->form_validation->set_rules('cr', 'Crossover rate', 'required', ['required' => 'Population size tidak boleh kosong!']);
-        $this->form_validation->set_rules('mr', 'Mutation rate', 'required', ['required' => 'Population size tidak boleh kosong!']);
-        $this->form_validation->set_rules('iterasi', 'Iterasi', 'required', ['required' => 'Population size tidak boleh kosong!']);
-        $this->form_validation->set_rules('thresholdSaget', 'Threshold', 'required', ['required' => 'Population size tidak boleh kosong!']);
+        $this->form_validation->set_rules('popsize', 'Population size', 'required');
+        $this->form_validation->set_rules('cr', 'Crossover rate', 'required|decimal');
+        $this->form_validation->set_rules('mr', 'Mutation rate', 'required|decimal');
+        $this->form_validation->set_rules('iterasi', 'Iterasi', 'required',);
+        $this->form_validation->set_rules('thresholdSaget', 'Threshold', 'required|decimal');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -71,12 +71,12 @@ class Psikolog extends CI_Controller
             $this->load->view('jadwal/index', $data);
             $this->load->view('templates/footer');
         } else {
-            $popsize = $this->input->post('popsize');
-            $cr = $this->input->post('cr');
-            $mr = $this->input->post('mr');
-            $iterasi = $this->input->post('iterasi');
+            $popsize = (int)$this->input->post('popsize');
+            $cr = (float)$this->input->post('cr');
+            $mr = (float)$this->input->post('mr');
+            $iterasi = (int)$this->input->post('iterasi');
             $thresholdSaget = (float)$this->input->post('thresholdSaget');
-            $maxPs = $this->Psikolog_model->jumlah_psikolog();
+            $maxPs = (int)$this->Psikolog_model->jumlah_psikolog();
 
             $this->algoritma->run($popsize, $cr, $mr, $iterasi, $thresholdSaget, $maxPs);
         }
