@@ -69,7 +69,7 @@ class Algoritma
         }
         return $arr; //mengembalikan nilai kromosom untuk tiap gen
     }
-    
+
 
     public function hitungCrossover($cr, $popsize, $maxPs)
     {
@@ -106,7 +106,6 @@ class Algoritma
                     $temp2[] = [$this->maxData];
                     for ($i = 0; $i < $this->maxData; $i++) {
                         $this->childCrossover[$c1] = [$i];
-                        // $this->console_log($temp2);
                     }
                     $temp2[] = $this->childCrossover[$c1]; //kromosom child
                     // $temp = implode(" ", $temp2);

@@ -44,3 +44,5 @@
 
         </div>
     </div>
+
+    <script src="<?= base_url(); ?>assets/js/algoritma.js"></script>

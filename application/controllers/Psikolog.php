@@ -25,6 +25,7 @@ class Psikolog extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+
     public function addPsikolog()
     {
         $nama_psikolog = htmlspecialchars($this->input->post('nama_psikolog'));
