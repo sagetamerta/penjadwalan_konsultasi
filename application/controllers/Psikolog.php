@@ -58,6 +58,7 @@ class Psikolog extends CI_Controller
     {
         $data['title'] = 'Buat Jadwal Konsultasi';
         $data['user'] = $this->User_model->user();
+        $data['maxPs'] = $this->Psikolog_model->jumlah_psikolog();
 
         $this->form_validation->set_rules('popsize', 'Population size', 'required');
         $this->form_validation->set_rules('cr', 'Crossover rate', 'required|decimal');
@@ -80,7 +81,7 @@ class Psikolog extends CI_Controller
             $maxPs = (int)$this->Psikolog_model->jumlah_psikolog();
 
 
-            // $this->algoritma->run($popsize, $cr, $mr, $iterasi, $thresholdSaget, $maxPs);
+            $this->algoritma->run($popsize, $cr, $mr, $iterasi, $thresholdSaget, $maxPs);
         }
     }
 
