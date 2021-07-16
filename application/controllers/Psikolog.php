@@ -79,7 +79,8 @@ class Psikolog extends CI_Controller
             $thresholdSaget = (float)$this->input->post('thresholdSaget');
             $maxPs = (int)$this->Psikolog_model->jumlah_psikolog();
 
-            $this->algoritma->run($popsize, $cr, $mr, $iterasi, $thresholdSaget, $maxPs);
+
+            // $this->algoritma->run($popsize, $cr, $mr, $iterasi, $thresholdSaget, $maxPs);
         }
     }
 
