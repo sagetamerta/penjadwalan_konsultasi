@@ -41,16 +41,77 @@
             
             while (ofCrossover - getChildCO != 1) {
                 let c = new Array(2); //Worked!
+                c[0] = getRandomInt(1, popsize); //misal = 7
                 c[1] = getRandomInt(1, popsize);
-                c[2] = getRandomInt(1, popsize);
 
                 let oneCut = getRandomInt(1, maxPs);
-                let c1 = ++getChildCO;
+                let c1 = ++getChildCO; //misal = 0
 
-                if (ofCrossover - getChildCO == 1) {   
-                    for (let i = 0; i < maxData; i++) { //asli
-                        childCrossover[c1][i] = data[c[1]][i];
+                if (ofCrossover - getChildCO == 1) { 
+                    for (let i = 0; i < c1; i++) { //lakukan perulangan sebanyak maxData
+                        // childCrossover[c1][i] = data[c[0]][i]; //dan hasilkan sebuah array multi
+                        childCrossover[i] = [];
+                        let dataC = [c[0]];
+                        for (let j = 0; j < c[0]; j++) {
+                            data[c[0]] = [c[0]];
+                        }
+                        //childCrossover[c1][i]
+                        /*
+                        childCrossover = 
+                        [
+                            [1],
+                            [2],
+                            [3],
+                            [4],
+                            [5],
+                            [6],
+                            ...sampe 35
+                        ]
+                        =
+                        data[c[0]][i]
+                        data = 
+                        [
+                            [1],
+                            [2],
+                            [3],
+                            [4],
+                            [5],
+                            [6],
+                            ...sampe 35
+                        ],
+                        [
+                            [1],
+                            [2],
+                            [3],
+                            [4],
+                            [5],
+                            [6],
+                            ...sampe 35
+                        ],
+                        [
+                            [1],
+                            [2],
+                            [3],
+                            [4],
+                            [5],
+                            [6],
+                            ...sampe 35
+                        ],
+                        [
+                            [1],
+                            [2],
+                            [3],
+                            [4],
+                            [5],
+                            [6],
+                            ...sampe 35
+                        ],
+                        ... sampe 7
+                        */
                     }
+                    // for (let i = 0; i < maxData; i++) { //asli
+                    //     childCrossover[c1][i] = data[c[1]][i];
+                    // }
 
                     // for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) { //asli
                     //     childCrossover[c1][i] = data[c[2]][i];
@@ -64,7 +125,7 @@
         function run() {
             getData();
             population();
-            // crossover();
+            crossover();
 
         }
 
