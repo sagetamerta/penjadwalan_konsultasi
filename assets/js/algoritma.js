@@ -1,10 +1,11 @@
-        var popsize;
-        var cr;
-        var mr;
-        var iterasi;
-        var thresholdSaget;
-        var maxPs;
-        var maxData = 35;
+        let popsize;
+        let cr;
+        let mr;
+        let iterasi;
+        let thresholdSaget;
+        let maxPs;
+        let maxData = 35;
+        let data = [popsize][maxData];
 
 
         function getData() {
@@ -19,52 +20,71 @@
         }
 
         function population() {
-            let data = getData();
+
+            /*  [
+                popsize = [
+                    maxData
+                ],
+                popsize = [
+                    maxData
+                ],
+                popsize = [
+                    maxData
+                ],
+                popsize = [
+                    maxData
+                ],
+            ]
+            */
+            data = [popsize][maxData];
 
             for (let i = 0; i < popsize; i++) {
-                let arr = [];
-                for (let j = 0; j < window.maxData; j++) {
-
-                    var n = getRandomInt(1, maxPs);
-                    arr[j] = n;
+                let arr = [maxData];
+                // data = [i];
+                for (let j = 0; j < maxData; j++) {
+                    let n = getRandomInt(1, maxPs);
+                    data[i][j] = n;
+                    arr[j] = data[i][j];
+                    // arr[j] = n;
+                    console.log(arr);
                 }
-                console.log(arr); //Worked!
             }
         }
 
         function crossover() {
-            temp = '';
-            getChildCO = -1;
-            ofCrossover = Math.round(cr * popsize);
-            childCrossover = new Array(2); //Worked!
+            let temp = '';
+            let getChildCO = -1;
+            let ofCrossover = Math.round(cr * popsize);
+            let childCrossover = new Array(2); //Worked!
             childCrossover[0] = ofCrossover; //Worked!
             childCrossover[1] = maxData; //Worked!
-
+            
             while (ofCrossover - getChildCO != 1) {
-                c = new Array(2); //Worked!
-                c[0] = getRandomInt(1, popsize);
+                let c = new Array(2); //Worked!
                 c[1] = getRandomInt(1, popsize);
+                c[2] = getRandomInt(1, popsize);
 
-                oneCut = getRandomInt(1, maxPs);
-                c1 = ++getChildCO;
+                let oneCut = getRandomInt(1, maxPs);
+                let c1 = ++getChildCO;
 
-                if (ofCrossover - getChildCO == 1) {
-                    for (let i = 0; i < maxData; i++) {
-                        data = new Array(2);
-                        // childCrossover[c1][i] = data[c[0]][i];
+                if (ofCrossover - getChildCO == 1) {   
+                    for (let i = 0; i < maxData; i++) { //asli
+                        childCrossover[c1][i] = data[c[1]][i];
                     }
-                    // for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) {
-                    //     childCrossover[c1][i] = data[c[1]][i];
-                    //     console.log(data);
+
+                    // for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) { //asli
+                    //     childCrossover[c1][i] = data[c[2]][i];
                     // }
+
                 }
 
             }
         }
 
         function run() {
+            getData();
             population();
-            crossover();
+            // crossover();
 
         }
 

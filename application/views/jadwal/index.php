@@ -41,6 +41,7 @@
                 </div>
                 <input type="hidden" value="<?= $maxPs; ?>" id="maxPs">
                 <button type="button" onclick="run()" class="btn btn-primary">Submit</button>
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
             </form>
 
         </div>
