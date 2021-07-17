@@ -6,8 +6,6 @@
         let maxPs;
         let maxData = 35;
         let data = [];
-        // data[popsize] = [maxData];
-
 
         function getData() {
             popsize = document.getElementById("popsize").value;
