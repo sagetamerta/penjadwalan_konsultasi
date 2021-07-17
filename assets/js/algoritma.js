@@ -5,7 +5,8 @@
         let thresholdSaget;
         let maxPs;
         let maxData = 35;
-        let data = [popsize][maxData];
+        let data = [];
+        // data[popsize] = [maxData];
 
 
         function getData() {
@@ -20,34 +21,15 @@
         }
 
         function population() {
-
-            /*  [
-                popsize = [
-                    maxData
-                ],
-                popsize = [
-                    maxData
-                ],
-                popsize = [
-                    maxData
-                ],
-                popsize = [
-                    maxData
-                ],
-            ]
-            */
-            data = [popsize][maxData];
-
             for (let i = 0; i < popsize; i++) {
+                data[i] = [];
                 let arr = [maxData];
-                // data = [i];
                 for (let j = 0; j < maxData; j++) {
                     let n = getRandomInt(1, maxPs);
                     data[i][j] = n;
                     arr[j] = data[i][j];
-                    // arr[j] = n;
-                    console.log(arr);
                 }
+                console.log(arr); //FIXED!!!!!
             }
         }
 
