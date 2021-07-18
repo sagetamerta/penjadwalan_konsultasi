@@ -176,9 +176,7 @@
                             }
                         }
                     }
-                    
                 }
-                
             }
         }
 
@@ -186,6 +184,44 @@
             for (let i = 0; i < array.length; i++) {
                 if (array[i] == value) {
                     cons5 = cons5 + 60;
+                }
+            }
+        }
+
+        function mutation(){
+            let temp = '';
+            ofMutasi = Math.round(mr * popsize);
+            console.log("Banyak Offspring Mutasi = " + ofMutasi);
+
+            childMutasi = new Array(2);
+            childMutasi[0] = ofMutasi;
+            childMutasi[1] = maxData;
+            
+            for (let j = 0; j < ofMutasi; j++) {
+                let p = getRandomInt(1, popsize);
+                let r1 = getRandomInt(1, maxData);
+                let r2 = getRandomInt(1, maxData);
+                console.log(p + " | " + r1 + " | " + r2);
+
+                reciprocalExchangeMutation(p, r1, r2, j);
+                console.log("Child " + j + " = ");
+
+                let arr = new Array(maxData);
+                for (let i = 0; i < maxData; i++) {
+                    console.log(childMutasi[j][i] + " ");
+                    arr[i] = childMutasi[j][i];
+                }
+            }
+        }
+
+        function reciprocalExchangeMutation(p, r1, r2, j) {
+            for (let i = 0; i < maxData; i++) {
+                childMutasi[j][i] = data[p][i];
+                if (i == r1) {
+                    childMutasi[j][i] = data[p][r2];
+                }
+                if (i = r2) {
+                    childMutasi[j][i] = data[p][r1];
                 }
             }
         }
