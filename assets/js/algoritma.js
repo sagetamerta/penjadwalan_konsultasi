@@ -49,66 +49,20 @@
 
                 if (ofCrossover - getChildCO == 1) { 
                     for (let i = 0; i < c1; i++) { //lakukan perulangan sebanyak maxData
-                        // childCrossover[c1][i] = data[c[0]][i]; //dan hasilkan sebuah array multi
                         childCrossover[i] = [];
-                        let dataC = [c[0]];
-                        for (let j = 0; j < c[0]; j++) {
-                            data[c[0]] = [c[0]];
+                        for (let j = 0; j < maxData; j++) {
+                            childCrossover[i][j] = data[c[0]][j]
                         }
-                        //childCrossover[c1][i]
-                        /*
-                        childCrossover = 
-                        [
-                            [1],
-                            [2],
-                            [3],
-                            [4],
-                            [5],
-                            [6],
-                            ...sampe 35
-                        ]
-                        =
-                        data[c[0]][i]
-                        data = 
-                        [
-                            [1],
-                            [2],
-                            [3],
-                            [4],
-                            [5],
-                            [6],
-                            ...sampe 35
-                        ],
-                        [
-                            [1],
-                            [2],
-                            [3],
-                            [4],
-                            [5],
-                            [6],
-                            ...sampe 35
-                        ],
-                        [
-                            [1],
-                            [2],
-                            [3],
-                            [4],
-                            [5],
-                            [6],
-                            ...sampe 35
-                        ],
-                        [
-                            [1],
-                            [2],
-                            [3],
-                            [4],
-                            [5],
-                            [6],
-                            ...sampe 35
-                        ],
-                        ... sampe 7
-                        */
                     }
+                    // console.log(childCrossover);
+                    for (let i = 0; i < c1; i++) { //lakukan perulangan sebanyak maxData
+                        // childCrossover[c1][i] = data[c[1]][i]; //dan hasilkan sebuah array multi
+                        childCrossover[i] = [];
+                        for (let j = 0; j < maxData; j++) {
+                            childCrossover[i][j] = data[c[1]][j]
+                        }
+                    }
+                    // console.log(childCrossover);
                     // for (let i = 0; i < maxData; i++) { //asli
                     //     childCrossover[c1][i] = data[c[1]][i];
                     // }
