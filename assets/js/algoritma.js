@@ -4,6 +4,7 @@
         let gabungan = [];
         let newFitness = [];
         let fitness = [];
+        let fitnessSaget = 0.0;
         let individuTerbaik = 0;
         let thresholdSaget = 0.0;
         let indexTerbaik = 0;
@@ -340,11 +341,75 @@
             }
         }
 
+        function seleksiElitism(){
+            newFitness = new Array(2);
+            newFitness[0] = [allPop];
+            newFitness[1] = 2;
+            console.log("Gabungan Parent dan Child");
+
+            for (let i = 0; i < allPop; i++) {
+                newFitness = [i];
+                fitness = [i];
+                for (let j = 0; j < 2; j++) {
+                    newFitness[i][j] = new Array(fitness[i][j]);
+                }
+                console.log(newFitness[i][0] + " || " + newFitness[i][1]);
+                let temp = newFitness[i][1];
+                let int_allpop = parseInt(temp) ;
+                console.log(int_allpop, newFitness[i][0]);
+            }
+            for (let i = 0; i < allPop; i++) {
+                newFitness[i] = []
+                for (let j = 1; j < allPop; j++) {
+                    if (newFitness[j - 1][0] <= newFitness[j][0]) {
+                        let temp = newFitness[j - 1][0];
+                        let temp2 = newFitness[j - 1][1];
+                        newFitness[j - 1][0] = newFitness[j][0];
+                        newFitness[j - 1][1] = newFitness[j][1];
+                        newFitness[j][0] = temp;
+                        newFitness[j][1] = temp2;
+                    }
+                }
+                
+            }
+            console.log("Order Fitness : ");
+            for (let i = 0; i < allPop; i++) {
+                let temp = newFitness[i][1];
+                let int_allpop = parseInt(temp);
+                console.log(newFitness[i][0] + " | " + newFitness[i][1] + " | ");
+                for (let j = 0; j < maxData; j++) {
+                    console.log(gabungan[int_allpop][j] + ", ");
+                }
+                console.log(" ");
+            }
+            fitnessSaget = newFitness[0][0];
+            let indter = newFitness[0][1];
+            individuTerbaik = parseInt(indter);
+            let arr = new Array(maxData);
+            let temp2 = "";
+            for (let i = 0; i < 1; i++) {
+                let temp = newFitness[i][1];
+                let int_allpop = parseInt(temp);
+                for (let j = 0; j < maxData; j++) {
+                    arr[j] = gabungan[int_allpop][j];
+                }
+            }
+            jadwalTerbaik = temp2;
+        }
+
         function run() {
             getData();
             population();
-            crossover();
-            mutation();
+            for (let i = 0; i < iterasi; i++) {
+                crossover();
+                mutation();
+                hitungFitness();
+                console.log(i+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
+                if (fitnessSaget >= thresholdSaget) {
+                    console.log("Berhenti di iterasi ke : " + (i + 1));
+                    break;
+                }
+            }
         }
 
         function getRandomInt(min, max) {
