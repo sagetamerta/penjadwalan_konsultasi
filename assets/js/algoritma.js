@@ -404,6 +404,7 @@
                 crossover();
                 mutation();
                 hitungFitness();
+                seleksiElitism();
                 console.log(i+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
                 if (fitnessSaget >= thresholdSaget) {
                     console.log("Berhenti di iterasi ke : " + (i + 1));
