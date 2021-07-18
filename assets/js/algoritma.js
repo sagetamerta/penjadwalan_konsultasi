@@ -90,6 +90,7 @@
                     for (let i = 0; i < maxData; i++) {
                         temp2[i] = childCrossover[c1][i];
                     }
+                    console.log(temp2);
                 } else {
                     let c2 = ++getChildCO;
                     for (let i = 0; i < maxData; i++) {
@@ -118,7 +119,6 @@
                         }
                     }
                 }
-                ++getChildCO;
             }
         }
 
@@ -230,8 +230,7 @@
             getData();
             population();
             crossover();
-
-
+            mutation();
         }
 
         function getRandomInt(min, max) {
