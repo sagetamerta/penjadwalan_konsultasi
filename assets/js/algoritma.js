@@ -1,11 +1,32 @@
-        let popsize;
-        let cr;
-        let mr;
-        let iterasi;
-        let thresholdSaget;
-        let maxPs;
-        let maxData = 35;
         let data = [];
+        let childMutasi = [];
+        let childCrossover = [];
+        let gabungan = [];
+        let newFitness = [];
+        let fitness = [];
+        let individuTerbaik = 0;
+        let thresholdSaget = 0.0;
+        let indexTerbaik = 0;
+        let maxData = 0;
+        let maxPs = 0;
+        let getChildCO = 0;
+        let ofCrossover = 0;
+        let ofMutasi = 0;
+        let popsize = 0;
+        let iterasi = 0;
+        let count = 0;
+        let allPop = 0;
+        let cons1 = 0.0;
+        let cons2 = 0.0;
+        let cons3 = 0.0;
+        let cons4 = 0.0;
+        let cons5 = 0.0;
+        let fullJadwal = [];
+        let jadwal1 = [];
+        let jadwal2 = [];
+        let cr = 0.0;
+        let mr = 0.0;
+        let jadwalTerbaik = "";
 
         function getData() {
             popsize = document.getElementById("popsize").value;
@@ -14,8 +35,9 @@
             iterasi = document.getElementById("iterasi").value;
             thresholdSaget = document.getElementById("thresholdSaget").value;
             maxPs = document.getElementById("maxPs").value;
+            maxData = document.getElementById("maxData").value;
 
-            return [popsize, cr, mr, iterasi, thresholdSaget, maxPs];
+            return [popsize, cr, mr, iterasi, thresholdSaget, maxPs,maxData];
         }
 
         function population() {
@@ -33,10 +55,10 @@
 
         function crossover() {
             let temp = '';
-            let getChildCO = -1;
-            let ofCrossover = Math.round(cr * popsize);
+            getChildCO = -1;
+            ofCrossover = Math.round(cr * popsize);
             console.log("Banyak Offspring Crossover = ", ofCrossover);
-            let childCrossover = new Array(2); //Worked!
+            childCrossover = new Array(2); //Worked!
             childCrossover[0] = ofCrossover; //Worked!
             childCrossover[1] = maxData; //Worked!
             
@@ -48,7 +70,7 @@
                 let oneCut = getRandomInt(1, maxPs);
                 console.log(c[0] + " | " +  c[1] + " | " + oneCut);
 
-                let c1 = getChildCO; //misal = 0
+                let c1 = ++getChildCO; //misal = 0
                 console.log(c1 + " " + getChildCO);
 
                 //harus melakukan perulangan terlebih dahulu baru boleh bertambah
@@ -68,9 +90,8 @@
                     for (let i = 0; i < maxData; i++) {
                         temp2[i] = childCrossover[c1][i];
                     }
-                    console.log(temp2);
                 } else {
-                    let c2 = getChildCO;
+                    let c2 = ++getChildCO;
                     for (let i = 0; i < maxData; i++) {
                         childCrossover[i] = [];
                         for (let j = 0; j < c1; j++) {
@@ -95,10 +116,77 @@
                         for (let j = 0; j < maxData; j++) {
                             temp2[j] = childCrossover[i][j];
                         }
-                        temp = temp2.toString();
                     }
                 }
                 ++getChildCO;
+            }
+        }
+
+        function getConstraint1(array = [], array2 = []) {
+            for (let i = 0; i < array.length; i++) {
+                array[i] = [];
+                for (let j = 0; j < array2.length; j++) {
+                    array2[j] = [];
+                    if (array[i] == array2[j]) {
+                        cons1 = cons1 + 10;
+                        // return cons1;
+                    }
+                }
+            }
+        }
+
+        function ge2(array = [], array2 = []) {
+            for (let i = 0; i < array.length; i++) {
+                array[i] = [];
+                for (let j = 0; j < array2.length; j++) {
+                    array2[j] = [];
+                    if (array[i] == array2[j]) {
+                        cons2 = cons2 + 20;
+                        // return cons2;
+                    }
+                }
+            }
+        }
+
+        function getConstraint3(array = [], array2 = []) {
+            for (let i = 0; i < array.length; i++) {
+                array[i] = [];
+                for (let j = 0; j < array2.length; j++) {
+                    array2[j] = [];
+                    if (array[i] == array2[j]) {
+                        cons3 = cons3 + 30;
+                        // return cons3;
+                    }
+                }
+            }
+        }
+
+        function getConstraint4(array = []) {
+            let s2remove =  new Array(array.length);
+            for (let i = 0; i < array.length; i++) {
+                for (let j = i + 1; j < array.length; j++) {
+                    array[i] = [];
+                    if (i != j) {
+                        if (array[i] == array[j]) {
+                            if (array[j] == s2remove[j]) {
+                                continue;
+                            } else{
+                                cons4 = cons4 + 55;
+                                s2remove[j] = array[j];
+                            }
+                        }
+                    }
+                    
+                }
+                
+            }
+        }
+
+        function getConstraint5(array = [], value = 0) {
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] == value) {
+                    cons5 = cons5 + 60;
+                }
             }
         }
 
@@ -106,6 +194,7 @@
             getData();
             population();
             crossover();
+
 
         }
 

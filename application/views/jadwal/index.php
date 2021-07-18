@@ -37,7 +37,11 @@
                     <label for="thresholdSaget"> Nilai Fitness Minimal</label>
                     <input type="number" class="form-control" name="thresholdSaget" id="thresholdSaget" placeholder="ex : 0.07" step="0.01" value="0.07">
                     <small>Batas untuk menentukan minimal kualitas dari individu</small>
-
+                </div>
+                <div class="form-group">
+                    <label for="maxData"> Nilai Maksimal Data</label>
+                    <input type="number" class="form-control" name="maxData" id="maxData" placeholder="ex : 35" value="35">
+                    <small>Nilai maksimal untuk menentukan seberapa banyak psikolog yang akan tampil di jadwal</small>
                 </div>
                 <input type="hidden" value="<?= $maxPs; ?>" id="maxPs">
                 <button type="button" onclick="run()" class="btn btn-primary">Submit</button>
