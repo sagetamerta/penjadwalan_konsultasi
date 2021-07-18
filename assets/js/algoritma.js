@@ -309,6 +309,37 @@
             }
         }
 
+        function hitungFitness(){
+            try {
+                count = 0;
+                allPop = popsize + ofCrossover + ofMutasi;
+                gabungan = new Array(2);
+                gabungan[0] = [allPop];
+                gabungan[1] = [maxData];
+                for (let i = 0; i < allPop; i++) {
+                    gabungan = [i];
+                    for (let j = 0; j < maxData; j++) {
+                        if (i < popsize) {
+                            gabungan[i][j] = data[i][j];
+                        } else if (i < popsize + ofCrossover){
+                            gabungan[i][j] = childCrossover[i - popsize][j];
+                        } else if (i < allPop){
+                            gabungan[i][j] = childMutasi[i - (popsize + ofCrossover)][j];
+                        }
+                    }
+                }
+                fitness = new Array(2);
+                fitness[0] = [allPop];
+                fitness[1]=  7;
+
+                getFitness(data, popsize, "Parent");
+                getFitness(childCrossover, ofCrossover, "Child Crossover");
+                getFitness(childMutasi, ofMutasi, "Child Mutasi");
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+
         function run() {
             getData();
             population();
