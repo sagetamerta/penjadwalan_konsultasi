@@ -27,6 +27,8 @@
         let cr = 0.0;
         let mr = 0.0;
         let jadwalTerbaik = "";
+        let cHalangan = 0;
+        let halangan = [];
 
         function getData() {
             popsize = document.getElementById("popsize").value;
@@ -211,6 +213,7 @@
                     console.log(childMutasi[j][i] + " ");
                     arr[i] = childMutasi[j][i];
                 }
+                console.log(arr);
             }
         }
 
@@ -219,10 +222,90 @@
                 childMutasi[j][i] = data[p][i];
                 if (i == r1) {
                     childMutasi[j][i] = data[p][r2];
+                    return childMutasi[j][i];
                 }
                 if (i = r2) {
                     childMutasi[j][i] = data[p][r1];
+                    return childMutasi[j][i];
                 }
+            }
+        }
+
+        function getFitness(array = [], size = 0, nama = '') {
+            try {
+                for (let j = 0; j < size; j++) {
+                    console.log(nama + (j+1) + " ");
+                    let temp = new Array(maxData);
+                    let a = 0;
+                    cons1 = 0.0;
+                    cons2 = 0.0;
+                    cons3 = 0.0;
+                    cons4 = 0.0;
+                    cons5 = 0.0;
+
+                    array = [j];
+                    for (let k = 0; k < maxData; k++) {
+                        temp[k] = array[j][k];
+                        if (k == 1) {
+                            a++;
+                            console.log("Hari ke-" + a + " : ");
+                            fullJadwal = temp.slice(0,12);
+
+                            jadwal1 = fullJadwal.slice(0,fullJadwal.length / 2);
+                            printArray("Jadwal 1", jadwal1);
+                            jadwal2 = fullJadwal.slice(fullJadwal.length / 2, fullJadwal.length);
+                            printArray("Jadwal 2", jadwal2);
+
+                            getConstraint4(jadwal1);
+                            getConstraint4(jadwal2);
+                            getConstraint3(jadwal1, jadwal2);
+                            if(cHalangan != 0){
+                                for (let i = 0; i < cHalangan; i++) {
+                                    if (halangan[i][1] == a) {
+                                        getConstraint5(fullJadwal, halangan[i][0]);
+                                    }                                    
+                                }
+                            }
+                        } else if((k + 1) % 12 == 0){
+                            a++;
+                            console.log("Hari ke-" + a + " : ");
+                            printArray("Jadwal Kemarin", fullJadwal);
+                            fullJadwal = temp.slice(k - 11, k + 1);
+                            
+                            getConstraint1(fullJadwal, jadwal1);
+                            getConstraint1(fullJadwal, jadwal2);
+                            jadwal1 = fullJadwal.slice(0, fullJadwal.length / 2);
+                            printArray("Jadwal 1", jadwal1);
+                            jadwal2 = fullJadwal.slice(fullJadwal.length / 2, fullJadwal.length);
+                            printArray("Jadwal 2", jadwal2);
+                            
+                            getConstraint4(jadwal1);
+                            getConstraint4(jadwal2);
+                            getConstraint3(jadwal1, jadwal2);
+                            if (cHalangan != 0) {
+                                for (let i = 0; i < cHalangan; i++) {
+                                    getConstraint5(fullJadwal, halangan[i][0]);
+                                }
+                            }
+                        }
+                    }
+                    fitness[count][0] = 1. / (1 + cons1 + cons2 + cons3 + cons4 + cons5);
+                    fitness[count][1] = count;
+                    fitness[count][2] = cons1;
+                    fitness[count][3] = cons2;
+                    fitness[count][4] = cons3;
+                    fitness[count][5] = cons4;
+                    fitness[count][6] = cons5;
+                    console.log("Cons1 : " + cons1);
+                    console.log("Cons2 : " + cons2);
+                    console.log("Cons3 : " + cons3);
+                    console.log("Cons4 : " + cons4);
+                    console.log("Cons5 : " + cons5);
+                    console.log("Nilai fitness : " + fitness[count][0]);
+                    count++;
+                }
+            } catch (error) {
+                console.log(error.message);
             }
         }
 
@@ -237,4 +320,9 @@
             min = Math.ceil(min);
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        function printArray(jadwal = '', jadwal12 = []){
+            console.log(jadwal);
+            console.log(jadwal12.slice);
         }
