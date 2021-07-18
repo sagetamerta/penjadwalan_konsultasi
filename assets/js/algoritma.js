@@ -35,6 +35,7 @@
             let temp = '';
             let getChildCO = -1;
             let ofCrossover = Math.round(cr * popsize);
+            console.log("Banyak Offspring Crossover = ", ofCrossover);
             let childCrossover = new Array(2); //Worked!
             childCrossover[0] = ofCrossover; //Worked!
             childCrossover[1] = maxData; //Worked!
@@ -45,34 +46,59 @@
                 c[1] = getRandomInt(1, popsize);
 
                 let oneCut = getRandomInt(1, maxPs);
-                let c1 = ++getChildCO; //misal = 0
+                console.log(c[0] + " | " +  c[1] + " | " + oneCut);
 
-                if (ofCrossover - getChildCO == 1) { 
-                    for (let i = 0; i < c1; i++) { //lakukan perulangan sebanyak maxData
+                let c1 = getChildCO; //misal = 0
+                console.log(c1 + " " + getChildCO);
+
+                //harus melakukan perulangan terlebih dahulu baru boleh bertambah
+                if (ofCrossover - getChildCO == 1) {
+                    for (let i = 0; i < maxData; i++) {
                         childCrossover[i] = [];
-                        for (let j = 0; j < maxData; j++) {
-                            childCrossover[i][j] = data[c[0]][j]
+                        for (let j = 0; j < c1; j++) {
+                            childCrossover[c1][i] = data[c[0]][i];
                         }
                     }
-                    // console.log(childCrossover);
-                    for (let i = 0; i < c1; i++) { //lakukan perulangan sebanyak maxData
-                        // childCrossover[c1][i] = data[c[1]][i]; //dan hasilkan sebuah array multi
+                    for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) {
                         childCrossover[i] = [];
-                        for (let j = 0; j < maxData; j++) {
-                            childCrossover[i][j] = data[c[1]][j]
+                        childCrossover[c1][i] = data[c[1]][i];
+                    }
+                    console.log("Child " + c1 + " = ");
+                    let temp2 = new Array(maxData);
+                    for (let i = 0; i < maxData; i++) {
+                        temp2[i] = childCrossover[c1][i];
+                    }
+                    console.log(temp2);
+                } else {
+                    let c2 = getChildCO;
+                    for (let i = 0; i < maxData; i++) {
+                        childCrossover[i] = [];
+                        for (let j = 0; j < c1; j++) {
+                            childCrossover[j][i] = data[c[0]][i];
+                        }
+                        for (let j = 0; j < c2; j++) {
+                            childCrossover[j][i] = data[c[1]][i];
                         }
                     }
-                    // console.log(childCrossover);
-                    // for (let i = 0; i < maxData; i++) { //asli
-                    //     childCrossover[c1][i] = data[c[1]][i];
-                    // }
-
-                    // for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) { //asli
-                    //     childCrossover[c1][i] = data[c[2]][i];
-                    // }
-
+                    for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) {
+                        childCrossover[i] = [];
+                        for (let k = 0; k < c2; k++) {
+                            childCrossover[k][i] = data[c[0]][i];
+                        }
+                        for (let k = 0; k < c1; k++) {
+                            childCrossover[k][i] = data[c[1]][i];
+                        }
+                    }
+                    for (let i = c1; i <= c2; i++) {
+                        let temp2 = new Array(maxData);
+                        childCrossover[i] = [];
+                        for (let j = 0; j < maxData; j++) {
+                            temp2[j] = childCrossover[i][j];
+                        }
+                        temp = temp2.toString();
+                    }
                 }
-
+                ++getChildCO;
             }
         }
 
