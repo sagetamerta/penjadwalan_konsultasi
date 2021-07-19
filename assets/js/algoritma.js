@@ -192,20 +192,16 @@
         function mutation(){
             let temp = '';
             ofMutasi = Math.round(mr * popsize);
-            console.log("Banyak Offspring Mutasi = " + ofMutasi);
+            console.log("Banyak Offspring Mutasi = ", ofMutasi);
 
-            childMutasi = new Array(2);
-            childMutasi[0] = ofMutasi;
-            childMutasi[1] = maxData;
-            
             for (let j = 0; j < ofMutasi; j++) {
-                let p = getRandomInt(1, popsize);
+                let p = getRandomInt(1, popsize - 1);
                 let r1 = getRandomInt(1, maxData);
                 let r2 = getRandomInt(1, maxData);
-                console.log(p + " | " + r1 + " | " + r2);
+                console.log(p , " | " , r1 , " | " , r2);
 
                 reciprocalExchangeMutation(p, r1, r2, j);
-                console.log("Child " + j + " = ");
+                console.log("Child " , j , " = ");
 
                 let arr = new Array(maxData);
                 for (let i = 0; i < maxData; i++) {
@@ -400,8 +396,8 @@
             for (let a = 0; a < 10; a++) {
                 crossover();
                 mutation();
-                hitungFitness();
-                seleksiElitism();
+                // hitungFitness();
+                // seleksiElitism();
                 console.log(a+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
                 if (fitnessSaget >= thresholdSaget) {
                     console.log("Berhenti di iterasi ke : " + (a + 1));
