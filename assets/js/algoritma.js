@@ -71,10 +71,10 @@
                 c[1] = getRandomInt(1, popsize);
 
                 let oneCut = getRandomInt(1, maxPs);
-                console.log(c[0] + " | " +  c[1] + " | " + oneCut);
+                console.log(c[0] , " | " ,  c[1] , " | " , oneCut);
 
                 let c1 = ++getChildCO; //misal = 0
-                console.log(c1 + " " + getChildCO);
+                console.log(c1, getChildCO);
 
                 //harus melakukan perulangan terlebih dahulu baru boleh bertambah
                 if (ofCrossover - getChildCO == 1) {
@@ -88,7 +88,7 @@
                         childCrossover[i] = [];
                         childCrossover[c1][i] = data[c[1]][i];
                     }
-                    console.log("Child " + c1 + " = ");
+                    console.log("Child " , c1 , " = ", c[0], " x " , c[1]);
                     let temp2 = new Array(maxData);
                     for (let i = 0; i < maxData; i++) {
                         temp2[i] = childCrossover[c1][i];
@@ -211,7 +211,7 @@
 
                 let arr = new Array(maxData);
                 for (let i = 0; i < maxData; i++) {
-                    console.log(childMutasi[j][i] + " ");
+                    console.log(childMutasi[j][i]);
                     arr[i] = childMutasi[j][i];
                 }
                 console.log(arr);
@@ -235,7 +235,7 @@
         function getFitness(array = [], size = 0, nama = '') {
             try {
                 for (let j = 0; j < size; j++) {
-                    console.log(nama + (j+1) + " ");
+                    console.log(nama + (j+1));
                     let temp = new Array(maxData);
                     let a = 0;
                     cons1 = 0.0;
@@ -380,7 +380,6 @@
                 for (let j = 0; j < maxData; j++) {
                     console.log(gabungan[int_allpop][j] + ", ");
                 }
-                console.log(" ");
             }
             fitnessSaget = newFitness[0][0];
             let indter = newFitness[0][1];
@@ -400,14 +399,14 @@
         function run() {
             getData();
             population();
-            for (let i = 0; i < iterasi; i++) {
+            for (let a = 0; a < 10; a++) {
                 crossover();
-                mutation();
-                hitungFitness();
-                seleksiElitism();
-                console.log(i+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
+                // mutation();
+                // hitungFitness();
+                // seleksiElitism();
+                console.log(a+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
                 if (fitnessSaget >= thresholdSaget) {
-                    console.log("Berhenti di iterasi ke : " + (i + 1));
+                    console.log("Berhenti di iterasi ke : " + (a + 1));
                     break;
                 }
             }
