@@ -46,7 +46,9 @@
         function population() {
             for (let i = 0; i < popsize; i++) {
                 data[i] = [];
-                let arr = [maxData];
+                // let arr = [maxData]; //yang dibaca adalah buat array yg dimana index 0 adalah 35(nilai maxData)
+                // let arr = new Array(maxData); //ternyata array tidak bisa diinitialize
+                let arr = [];
                 for (let j = 0; j < maxData; j++) {
                     let n = getRandomInt(1, maxPs);
                     data[i][j] = n;
@@ -61,14 +63,15 @@
             getChildCO = -1;
             ofCrossover = Math.round(cr * popsize);
             console.log("Banyak Offspring Crossover = ", ofCrossover);
-            childCrossover = new Array(2); //Worked!
-            childCrossover[0] = ofCrossover; //Worked!
-            childCrossover[1] = maxData; //Worked!
+            // tidak bisa menginitialize array
+            // childCrossover = new Array(2); //Worked! 
+            // childCrossover[0] = ofCrossover; //Worked!
+            // childCrossover[1] = maxData; //Worked!
             
             while (ofCrossover - getChildCO != 1) {
                 let c = new Array(2); //Worked!
-                c[0] = getRandomInt(1, popsize); //misal = 7
-                c[1] = getRandomInt(1, popsize);
+                c[0] = getRandomInt(1, popsize - 1); //misal = 7
+                c[1] = getRandomInt(1, popsize - 1);
 
                 let oneCut = getRandomInt(1, maxPs);
                 console.log(c[0] , " | " ,  c[1] , " | " , oneCut);
