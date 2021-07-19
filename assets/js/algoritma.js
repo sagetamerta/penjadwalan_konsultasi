@@ -223,7 +223,7 @@
                     childMutasi[j][i] = data[p][r2];
                     return childMutasi[j][i];
                 }
-                if (i = r2) {
+                if (i == r2) {
                     childMutasi[j][i] = data[p][r1];
                     return childMutasi[j][i];
                 }
@@ -399,9 +399,9 @@
             population();
             for (let a = 0; a < 10; a++) {
                 crossover();
-                // mutation();
-                // hitungFitness();
-                // seleksiElitism();
+                mutation();
+                hitungFitness();
+                seleksiElitism();
                 console.log(a+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
                 if (fitnessSaget >= thresholdSaget) {
                     console.log("Berhenti di iterasi ke : " + (a + 1));
