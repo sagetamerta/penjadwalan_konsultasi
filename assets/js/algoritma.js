@@ -397,6 +397,5 @@
         }
         
         function printArray(jadwal = '', jadwal12 = []){
-            console.log(jadwal);
-            console.log(jadwal12.slice());
+            console.log(jadwal, " => ", jadwal12.slice());
         }
