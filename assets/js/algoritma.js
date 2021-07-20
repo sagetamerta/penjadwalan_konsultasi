@@ -74,16 +74,15 @@
                 console.log(c1, getChildCO);
 
                 //harus melakukan perulangan terlebih dahulu baru boleh bertambah
-                if (ofCrossover - getChildCO == 1) {
+                if (ofCrossover - getChildCO == 1) { //IF SUDAH MAU CHILD TERAKHIR!!
+                    childCrossover[c1] = [];
                     for (let i = 0; i < maxData; i++) {
-                        childCrossover[c1] = [];
                         childCrossover[c1][i] = data[c[0]-1][i];
                     }
                     for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) {
-                        childCrossover[c1] = [];
                         childCrossover[c1][i] = data[c[1]-1][i];
                     }
-                    // console.log(childCrossover);
+                    // console.log(childCrossover); //ada datanya
                     let temp2 = [];
                     for (let i = 0; i < maxData; i++) {
                         temp2[i] = childCrossover[c1][i];
