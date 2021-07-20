@@ -52,7 +52,8 @@
                     data[i][j] = n;
                     arr[j] = data[i][j];
                 }
-                console.log(arr); //FIXED!!!!!
+                arr2 = arr.toString();
+                console.log(i+1, arr2);
             }
         }
 
@@ -64,17 +65,17 @@
             
             while (ofCrossover - getChildCO != 1) {
                 let c = [];
-                c[0] = getRandomInt(1, popsize); //misal = 7
+                c[0] = getRandomInt(1, popsize);
                 c[1] = getRandomInt(1, popsize);
 
                 let oneCut = getRandomInt(1, maxPs);
                 console.log(c[0] , " | " ,  c[1] , " | " , oneCut);
 
-                let c1 = ++getChildCO; //misal = 0
+                let c1 = ++getChildCO; 
                 console.log(c1, getChildCO);
 
-                //harus melakukan perulangan terlebih dahulu baru boleh bertambah
-                if (ofCrossover - getChildCO == 1) { //IF SUDAH MAU CHILD TERAKHIR!!
+                
+                if (ofCrossover - getChildCO == 1) {
                     childCrossover[c1] = [];
                     for (let i = 0; i < maxData; i++) {
                         childCrossover[c1][i] = data[c[0]-1][i];
@@ -82,12 +83,12 @@
                     for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) {
                         childCrossover[c1][i] = data[c[1]-1][i];
                     }
-                    // console.log(childCrossover); //ada datanya
                     let temp2 = [];
                     for (let i = 0; i < maxData; i++) {
                         temp2[i] = childCrossover[c1][i];
                     }
-                    console.log("Child " , c1+1 , " = ", c[0], " x " , c[1]," => " , temp2);
+                    temp = temp2.toString();
+                    console.log("Child " , c1+1 , " = ", c[0], " x " , c[1]," => " , temp);
                 } else {
                     let c2 = getChildCO;
                     childCrossover[c1] = [];
@@ -104,14 +105,14 @@
                     for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) {
                         childCrossover[c1][i] = data[c[1]-1][i];
                     }
-                    // console.log(childCrossover);
                     let temp2 = [];
                     for (let i = c1; i <= c2; i++) {
                         for (let j = 0; j < maxData; j++) {
                             temp2[j] = childCrossover[i][j];
                         }
                     }
-                    console.log("Child " , c1+1 , " = ", c[0], " x " , c[1]," => " , temp2);
+                    temp = temp2.toString();
+                    console.log("Child " , c1+1 , " = ", c[0], " x " , c[1]," => " , temp);
                 }
             }
         }
