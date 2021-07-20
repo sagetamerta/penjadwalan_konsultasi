@@ -32,13 +32,13 @@
         let halangan = [];
 
         function getData() {
-            popsize = document.getElementById("popsize").value;
-            cr = document.getElementById("cr").value;
-            mr = document.getElementById("mr").value;
-            iterasi = document.getElementById("iterasi").value;
-            thresholdSaget = document.getElementById("thresholdSaget").value;
-            maxPs = document.getElementById("maxPs").value;
-            maxData = document.getElementById("maxData").value;
+            popsize = document.getElementById("popsize").value  * 1;
+            cr = document.getElementById("cr").value * 1;
+            mr = document.getElementById("mr").value * 1;
+            iterasi = document.getElementById("iterasi").value * 1;
+            thresholdSaget = document.getElementById("thresholdSaget").value * 1;
+            maxPs = document.getElementById("maxPs").value * 1;
+            maxData = document.getElementById("maxData").value * 1;
 
             return [popsize, cr, mr, iterasi, thresholdSaget, maxPs,maxData];
         }
@@ -297,7 +297,7 @@
         }
 
         function hitungFitness(){
-            // try {
+            try {
                 count = 0;
                 allPop = popsize + ofCrossover + ofMutasi;
                 for (let i = 0; i < allPop; i++) {
@@ -305,9 +305,9 @@
                     for (let j = 0; j < maxData; j++) {
                         if (i < popsize) {
                             gabungan[i][j] = data[i][j];
-                        } else if (i < popsize + ofCrossover){
-                            gabungan[i][j] = childCrossover[i-popsize][j];
-                        } else if (i < allPop){
+                        } else if (i < popsize + ofCrossover) {
+                            gabungan[i][j] = childCrossover[i - popsize][j];
+                        } else if (i < allPop) {
                             gabungan[i][j] = childMutasi[i - (popsize + ofCrossover)][j];
                         }
                     }
@@ -315,9 +315,9 @@
                 getFitness(data, popsize, "Parent");
                 getFitness(childCrossover, ofCrossover, "Child Crossover");
                 getFitness(childMutasi, ofMutasi, "Child Mutasi");
-            // } catch (error) {
-            //     console.error(error);
-            // }
+            } catch (error) {
+                console.error(error);
+            }
         }
 
         function seleksiElitism(){
@@ -378,7 +378,7 @@
             for (let a = 0; a < 1; a++) {
                 crossover();
                 mutation();
-                // hitungFitness();
+                hitungFitness();
                 // seleksiElitism();
                 // console.log(a+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
                 if (fitnessSaget >= thresholdSaget) {
