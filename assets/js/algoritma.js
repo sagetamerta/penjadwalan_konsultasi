@@ -90,28 +90,23 @@
                     console.log("Child " , c1+1 , " = ", c[0], " x " , c[1]," => " , temp2);
                 } else {
                     let c2 = getChildCO;
+                    childCrossover[c1] = [];
+                    childCrossover[c2] = [];
                     for (let i = 0; i < maxData; i++) {
-                        childCrossover[i] = [];
-                        for (let j = 0; j < c1; j++) {
-                            childCrossover[j][i] = data[c[0]-1][i];
-                        }
-                        for (let j = 0; j < c2; j++) {
-                            childCrossover[j][i] = data[c[1]-1][i];
-                        }
+                        childCrossover[c1][i] = data[c[0]-1][i];
+                    }
+                    for (let i = 0; i < maxData; i++) {
+                        childCrossover[c2][i] = data[c[1]-1][i];
                     }
                     for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) {
-                        childCrossover[i] = [];
-                        for (let k = 0; k < c2; k++) {
-                            childCrossover[k][i] = data[c[0]-1][i];
-                        }
-                        for (let k = 0; k < c1; k++) {
-                            childCrossover[k][i] = data[c[1]-1][i];
-                        }
+                        childCrossover[c2][i] = data[c[0]-1][i];
+                    }
+                    for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) {
+                        childCrossover[c1][i] = data[c[1]-1][i];
                     }
                     // console.log(childCrossover);
                     let temp2 = [];
                     for (let i = c1; i <= c2; i++) {
-                        childCrossover[i] = [];
                         for (let j = 0; j < maxData; j++) {
                             temp2[j] = childCrossover[i][j];
                         }
