@@ -195,27 +195,25 @@
                 console.log(p , " | " , r1 , " | " , r2);
 
                 reciprocalExchangeMutation(p, r1, r2, j);
-                console.log("Child " , j , " = ");
-
+                
                 let arr = [];
                 for (let i = 0; i < maxData; i++) {
                     arr[i] = childMutasi[j][i];
                 }
-                console.log(arr);
+                temp = arr.toString();
+                console.log("Child M" , j+1 , " = ", ofCrossover + j + 1, " x ", p, " => ", temp);
             }
         }
 
-        function reciprocalExchangeMutation(p, r1, r2, j) {
+        function reciprocalExchangeMutation(p = 0, r1 = 0, r2 = 0, j = 0) {
+            childMutasi[j] = [];
             for (let i = 0; i < maxData; i++) {
-                childMutasi[j] = [];
                 childMutasi[j][i] = data[p-1][i];
                 if (i == r1) {
                     childMutasi[j][i] = data[p-1][r2];
-                    return childMutasi[j][i];
                 }
                 if (i == r2) {
                     childMutasi[j][i] = data[p-1][r1];
-                    return childMutasi[j][i];
                 }
             }
         }
