@@ -120,7 +120,6 @@
         function getConstraint1(array = [], array2 = []) {
             for (let i = 0; i < array.length; i++) {
                 for (let j = 0; j < array2.length; j++) {
-                    array2[j] = [];
                     if (array[i] == array2[j]) {
                         cons1 = cons1 + 10;
                         return cons1;
@@ -132,7 +131,6 @@
         function ge2(array = [], array2 = []) {
             for (let i = 0; i < array.length; i++) {
                 for (let j = 0; j < array2.length; j++) {
-                    array2[j] = [];
                     if (array[i] == array2[j]) {
                         cons2 = cons2 + 20;
                         return cons2;
@@ -144,7 +142,6 @@
         function getConstraint3(array = [], array2 = []) {
             for (let i = 0; i < array.length; i++) {
                 for (let j = 0; j < array2.length; j++) {
-                    array2[j] = [];
                     if (array[i] == array2[j]) {
                         cons3 = cons3 + 30;
                         return cons3;
