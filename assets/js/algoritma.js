@@ -324,6 +324,7 @@
 
         function seleksiElitism(){
             console.log("Gabungan Parent dan Child : ");
+            console.log(fitness);
 
             for (let i = 0; i < allPop; i++) {
                 newFitness[i] = [];
@@ -377,17 +378,26 @@
         function run() {
             getData();
             population();
-            for (let a = 0; a < 1; a++) {
+            iteration();
+        }
+
+        function iteration(){
+            let i = 0;
+            setTimeout(function() {
                 crossover();
                 mutation();
                 hitungFitness();
                 // seleksiElitism();
-                // console.log(a+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
+                // console.log(i+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
                 if (fitnessSaget >= thresholdSaget) {
-                    console.log("Berhenti di iterasi ke : " + (a + 1));
-                    break;
+                    console.log("Berhenti di iterasi ke : " + (i));
+                    i = iterasi;
                 }
-            }
+            i++;                    
+            if (i <= iterasi) {      
+                iteration();             
+            }                    
+            }, 1000) //satuan ms, misal 1000ms = 1 detik
         }
 
         function getRandomInt(min = 0, max = 0) {
