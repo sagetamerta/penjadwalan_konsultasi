@@ -233,14 +233,14 @@
                     array[j] = [];
                     for (let k = 0; k < maxData; k++) {
                         temp[k] = array[j][k];
-                        if (k == 1) {
+                        if (k == 11) {
                             a++;
-                            console.log("Hari ke-" + a + " : ");
-                            fullJadwal = temp.slice(0,12);
+                            console.log("Hari ke-", a, " : ");
+                            fullJadwal = temp.slice();
 
-                            jadwal1 = fullJadwal.slice(0,fullJadwal.length / 2);
+                            jadwal1 = fullJadwal.slice();
                             printArray("Jadwal 1", jadwal1);
-                            jadwal2 = fullJadwal.slice(fullJadwal.length / 2, fullJadwal.length);
+                            jadwal2 = fullJadwal.slice();
                             printArray("Jadwal 2", jadwal2);
 
                             getConstraint4(jadwal1);
@@ -257,13 +257,13 @@
                             a++;
                             console.log("Hari ke-" + a + " : ");
                             printArray("Jadwal Kemarin", fullJadwal);
-                            fullJadwal = temp.slice(k - 11, k + 1);
+                            fullJadwal = temp.slice();
                             
                             getConstraint1(fullJadwal, jadwal1);
                             getConstraint1(fullJadwal, jadwal2);
-                            jadwal1 = fullJadwal.slice(0, fullJadwal.length / 2);
+                            jadwal1 = fullJadwal.slice();
                             printArray("Jadwal 1", jadwal1);
-                            jadwal2 = fullJadwal.slice(fullJadwal.length / 2, fullJadwal.length);
+                            jadwal2 = fullJadwal.slice();
                             printArray("Jadwal 2", jadwal2);
                             
                             getConstraint4(jadwal1);
@@ -276,6 +276,7 @@
                             }
                         }
                     }
+                    fitness[count] = [];
                     fitness[count][0] = 1. / (1 + cons1 + cons2 + cons3 + cons4 + cons5);
                     fitness[count][1] = count;
                     fitness[count][2] = cons1;
@@ -291,7 +292,8 @@
                     console.log("Nilai fitness : " + fitness[count][0]);
                     count++;
                 }
-            } catch (error) {
+            } 
+            catch (error) {
                 console.log(error.message);
             }
         }
@@ -396,5 +398,5 @@
         
         function printArray(jadwal = '', jadwal12 = []){
             console.log(jadwal);
-            console.log(jadwal12.slice);
+            console.log(jadwal12.slice());
         }
