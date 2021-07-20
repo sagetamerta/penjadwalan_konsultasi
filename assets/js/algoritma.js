@@ -124,7 +124,7 @@
                     array2[j] = [];
                     if (array[i] == array2[j]) {
                         cons1 = cons1 + 10;
-                        // return cons1;
+                        return cons1;
                     }
                 }
             }
@@ -137,7 +137,7 @@
                     array2[j] = [];
                     if (array[i] == array2[j]) {
                         cons2 = cons2 + 20;
-                        // return cons2;
+                        return cons2;
                     }
                 }
             }
@@ -150,7 +150,7 @@
                     array2[j] = [];
                     if (array[i] == array2[j]) {
                         cons3 = cons3 + 30;
-                        // return cons3;
+                        return cons3;
                     }
                 }
             }
@@ -159,8 +159,8 @@
         function getConstraint4(array = []) {
             let s2remove =  [];
             for (let i = 0; i < array.length; i++) {
+                array[i] = [];
                 for (let j = i + 1; j < array.length; j++) {
-                    array[i] = [];
                     if (i != j) {
                         if (array[i] == array[j]) {
                             if (array[j] == s2remove[j]) {
@@ -168,6 +168,7 @@
                             } else{
                                 cons4 = cons4 + 55;
                                 s2remove[j] = array[j];
+                                return cons4;
                             }
                         }
                     }
@@ -179,6 +180,7 @@
             for (let i = 0; i < array.length; i++) {
                 if (array[i] == value) {
                     cons5 = cons5 + 60;
+                    return cons5;
                 }
             }
         }
@@ -230,17 +232,16 @@
                     cons4 = 0.0;
                     cons5 = 0.0;
 
-                    array[j] = [];
                     for (let k = 0; k < maxData; k++) {
                         temp[k] = array[j][k];
                         if (k == 11) {
                             a++;
                             console.log("Hari ke-", a, " : ");
-                            fullJadwal = temp.slice();
+                            fullJadwal = temp.slice(0,12);
 
-                            jadwal1 = fullJadwal.slice();
+                            jadwal1 = fullJadwal.slice(0, fullJadwal.length / 2);
                             printArray("Jadwal 1", jadwal1);
-                            jadwal2 = fullJadwal.slice();
+                            jadwal2 = fullJadwal.slice(fullJadwal.length / 2, fullJadwal.length);
                             printArray("Jadwal 2", jadwal2);
 
                             getConstraint4(jadwal1);
@@ -248,34 +249,39 @@
                             getConstraint3(jadwal1, jadwal2);
                             if(cHalangan != 0){
                                 for (let i = 0; i < cHalangan; i++) {
+                                    halangan[i] = [];
                                     if (halangan[i][1] == a) {
                                         getConstraint5(fullJadwal, halangan[i][0]);
                                     }                                    
                                 }
                             }
-                        } else if((k + 1) % 12 == 0){
+                        } else if ((k + 1) % 12 == 0) {
                             a++;
-                            console.log("Hari ke-" + a + " : ");
+                            console.log("Hari ke-" , a , " : ");
+                            fullJadwal = temp.slice(k - 11, k + 1);
                             printArray("Jadwal Kemarin", fullJadwal);
-                            fullJadwal = temp.slice();
                             
+                            jadwal1 = fullJadwal.slice(0, fullJadwal.length / 2);
+                            printArray("Jadwal 1", jadwal1);
+                            jadwal2 = fullJadwal.slice(fullJadwal.length / 2, fullJadwal.length);
+                            printArray("Jadwal 2", jadwal2);
+
                             getConstraint1(fullJadwal, jadwal1);
                             getConstraint1(fullJadwal, jadwal2);
-                            jadwal1 = fullJadwal.slice();
-                            printArray("Jadwal 1", jadwal1);
-                            jadwal2 = fullJadwal.slice();
-                            printArray("Jadwal 2", jadwal2);
-                            
                             getConstraint4(jadwal1);
                             getConstraint4(jadwal2);
                             getConstraint3(jadwal1, jadwal2);
                             if (cHalangan != 0) {
                                 for (let i = 0; i < cHalangan; i++) {
-                                    getConstraint5(fullJadwal, halangan[i][0]);
+                                    halangan[i] = [];
+                                    if (halangan[i][1] == a) {
+                                        getConstraint5(fullJadwal, halangan[i][0]);
+                                    }
                                 }
                             }
                         }
                     }
+                    count = 0;
                     fitness[count] = [];
                     fitness[count][0] = 1. / (1 + cons1 + cons2 + cons3 + cons4 + cons5);
                     fitness[count][1] = count;
@@ -323,7 +329,7 @@
         }
 
         function seleksiElitism(){
-            console.log("Gabungan Parent dan Child");
+            console.log("Gabungan Parent dan Child : ");
 
             for (let i = 0; i < allPop; i++) {
                 newFitness[i] = [];
