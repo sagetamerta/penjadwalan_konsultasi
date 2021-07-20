@@ -63,9 +63,9 @@
             console.log("Banyak Offspring Crossover = ", ofCrossover);
             
             while (ofCrossover - getChildCO != 1) {
-                let c = new Array(2); //Worked!
-                c[0] = getRandomInt(1, popsize - 1); //misal = 7
-                c[1] = getRandomInt(1, popsize - 1);
+                let c = [];
+                c[0] = getRandomInt(1, popsize); //misal = 7
+                c[1] = getRandomInt(1, popsize);
 
                 let oneCut = getRandomInt(1, maxPs);
                 console.log(c[0] , " | " ,  c[1] , " | " , oneCut);
@@ -76,41 +76,40 @@
                 //harus melakukan perulangan terlebih dahulu baru boleh bertambah
                 if (ofCrossover - getChildCO == 1) {
                     for (let i = 0; i < maxData; i++) {
-                        childCrossover[i] = [];
-                        for (let j = 0; j < c1; j++) {
-                            childCrossover[c1][i] = data[c[0]][i];
-                        }
+                        childCrossover[c1] = [];
+                        childCrossover[c1][i] = data[c[0]-1][i];
                     }
                     for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) {
-                        childCrossover[i] = [];
-                        childCrossover[c1][i] = data[c[1]][i];
+                        childCrossover[c1] = [];
+                        childCrossover[c1][i] = data[c[1]-1][i];
                     }
-                    console.log("Child " , c1 , " = ", c[0], " x " , c[1]);
+                    // console.log(childCrossover);
                     let temp2 = [];
                     for (let i = 0; i < maxData; i++) {
                         temp2[i] = childCrossover[c1][i];
                     }
-                    console.log(temp2);
+                    console.log("Child " , c1+1 , " = ", c[0], " x " , c[1]," => " , temp2);
                 } else {
-                    let c2 = ++getChildCO;
+                    let c2 = getChildCO;
                     for (let i = 0; i < maxData; i++) {
                         childCrossover[i] = [];
                         for (let j = 0; j < c1; j++) {
-                            childCrossover[j][i] = data[c[0]][i];
+                            childCrossover[j][i] = data[c[0]-1][i];
                         }
                         for (let j = 0; j < c2; j++) {
-                            childCrossover[j][i] = data[c[1]][i];
+                            childCrossover[j][i] = data[c[1]-1][i];
                         }
                     }
                     for (let i = oneCut, j = 0; j < maxData - oneCut; j++, i++) {
                         childCrossover[i] = [];
                         for (let k = 0; k < c2; k++) {
-                            childCrossover[k][i] = data[c[0]][i];
+                            childCrossover[k][i] = data[c[0]-1][i];
                         }
                         for (let k = 0; k < c1; k++) {
-                            childCrossover[k][i] = data[c[1]][i];
+                            childCrossover[k][i] = data[c[1]-1][i];
                         }
                     }
+                    // console.log(childCrossover);
                     let temp2 = [];
                     for (let i = c1; i <= c2; i++) {
                         childCrossover[i] = [];
@@ -118,7 +117,7 @@
                             temp2[j] = childCrossover[i][j];
                         }
                     }
-                    console.log(temp2);
+                    console.log("Child " , c1+1 , " = ", c[0], " x " , c[1]," => " , temp2);
                 }
             }
         }
@@ -163,7 +162,7 @@
         }
 
         function getConstraint4(array = []) {
-            let s2remove =  new Array(array.length);
+            let s2remove =  [];
             for (let i = 0; i < array.length; i++) {
                 for (let j = i + 1; j < array.length; j++) {
                     array[i] = [];
@@ -195,7 +194,7 @@
             console.log("Banyak Offspring Mutasi = ", ofMutasi);
 
             for (let j = 0; j < ofMutasi; j++) {
-                let p = getRandomInt(1, popsize - 1);
+                let p = getRandomInt(1, popsize);
                 let r1 = getRandomInt(1, maxData);
                 let r2 = getRandomInt(1, maxData);
                 console.log(p , " | " , r1 , " | " , r2);
@@ -203,9 +202,8 @@
                 reciprocalExchangeMutation(p, r1, r2, j);
                 console.log("Child " , j , " = ");
 
-                let arr = new Array(maxData);
+                let arr = [];
                 for (let i = 0; i < maxData; i++) {
-                    console.log(childMutasi[j][i]);
                     arr[i] = childMutasi[j][i];
                 }
                 console.log(arr);
@@ -214,13 +212,14 @@
 
         function reciprocalExchangeMutation(p, r1, r2, j) {
             for (let i = 0; i < maxData; i++) {
-                childMutasi[j][i] = data[p][i];
+                childMutasi[j] = [];
+                childMutasi[j][i] = data[p-1][i];
                 if (i == r1) {
-                    childMutasi[j][i] = data[p][r2];
+                    childMutasi[j][i] = data[p-1][r2];
                     return childMutasi[j][i];
                 }
                 if (i == r2) {
-                    childMutasi[j][i] = data[p][r1];
+                    childMutasi[j][i] = data[p-1][r1];
                     return childMutasi[j][i];
                 }
             }
@@ -229,8 +228,8 @@
         function getFitness(array = [], size = 0, nama = '') {
             try {
                 for (let j = 0; j < size; j++) {
-                    console.log(nama + (j+1));
-                    let temp = new Array(maxData);
+                    console.log(nama , (j+1));
+                    let temp = [];
                     let a = 0;
                     cons1 = 0.0;
                     cons2 = 0.0;
@@ -238,7 +237,7 @@
                     cons4 = 0.0;
                     cons5 = 0.0;
 
-                    array = [j];
+                    array[j] = [];
                     for (let k = 0; k < maxData; k++) {
                         temp[k] = array[j][k];
                         if (k == 1) {
@@ -305,47 +304,36 @@
         }
 
         function hitungFitness(){
-            try {
+            // try {
                 count = 0;
                 allPop = popsize + ofCrossover + ofMutasi;
-                gabungan = new Array(2);
-                gabungan[0] = [allPop];
-                gabungan[1] = [maxData];
                 for (let i = 0; i < allPop; i++) {
-                    gabungan = [i];
+                    gabungan[i] = [];
                     for (let j = 0; j < maxData; j++) {
                         if (i < popsize) {
                             gabungan[i][j] = data[i][j];
                         } else if (i < popsize + ofCrossover){
-                            gabungan[i][j] = childCrossover[i - popsize][j];
+                            gabungan[i][j] = childCrossover[i-popsize][j];
                         } else if (i < allPop){
                             gabungan[i][j] = childMutasi[i - (popsize + ofCrossover)][j];
                         }
                     }
                 }
-                fitness = new Array(2);
-                fitness[0] = [allPop];
-                fitness[1]=  7;
-
                 getFitness(data, popsize, "Parent");
                 getFitness(childCrossover, ofCrossover, "Child Crossover");
                 getFitness(childMutasi, ofMutasi, "Child Mutasi");
-            } catch (error) {
-                console.log(error.message);
-            }
+            // } catch (error) {
+            //     console.error(error);
+            // }
         }
 
         function seleksiElitism(){
-            newFitness = new Array(2);
-            newFitness[0] = [allPop];
-            newFitness[1] = 2;
             console.log("Gabungan Parent dan Child");
 
             for (let i = 0; i < allPop; i++) {
-                newFitness = [i];
-                fitness = [i];
+                newFitness[i] = [];
                 for (let j = 0; j < 2; j++) {
-                    newFitness[i][j] = new Array(fitness[i][j]);
+                    newFitness[i][j] = fitness[i][j];
                 }
                 console.log(newFitness[i][0] + " || " + newFitness[i][1]);
                 let temp = newFitness[i][1];
@@ -378,7 +366,7 @@
             fitnessSaget = newFitness[0][0];
             let indter = newFitness[0][1];
             individuTerbaik = parseInt(indter);
-            let arr = new Array(maxData);
+            let arr = [];
             let temp2 = "";
             for (let i = 0; i < 1; i++) {
                 let temp = newFitness[i][1];
@@ -387,18 +375,19 @@
                     arr[j] = gabungan[int_allpop][j];
                 }
             }
+            temp2 = Array.toString(arr);
             jadwalTerbaik = temp2;
         }
 
         function run() {
             getData();
             population();
-            for (let a = 0; a < 10; a++) {
+            for (let a = 0; a < 1; a++) {
                 crossover();
-                mutation();
+                // mutation();
                 // hitungFitness();
                 // seleksiElitism();
-                console.log(a+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
+                // console.log(a+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
                 if (fitnessSaget >= thresholdSaget) {
                     console.log("Berhenti di iterasi ke : " + (a + 1));
                     break;
