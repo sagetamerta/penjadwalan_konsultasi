@@ -88,7 +88,7 @@
                         temp2[i] = childCrossover[c1][i];
                     }
                     temp = temp2.toString();
-                    console.log("Child " , c1+1 , " = ", c[0], " x " , c[1]," => " , temp);
+                    console.log("Child CO" , c1+1 , " = ", c[0], " x " , c[1]," => " , temp);
                 } else {
                     let c2 = getChildCO;
                     childCrossover[c1] = [];
@@ -112,7 +112,7 @@
                         }
                     }
                     temp = temp2.toString();
-                    console.log("Child " , c1+1 , " = ", c[0], " x " , c[1]," => " , temp);
+                    console.log("Child CO" , c1+1 , " = ", c[0], " x " , c[1]," => " , temp);
                 }
             }
         }
@@ -379,7 +379,7 @@
             population();
             for (let a = 0; a < 1; a++) {
                 crossover();
-                // mutation();
+                mutation();
                 // hitungFitness();
                 // seleksiElitism();
                 // console.log(a+1, individuTerbaik + 1, fitnessSaget, jadwalTerbaik);
@@ -390,7 +390,7 @@
             }
         }
 
-        function getRandomInt(min, max) {
+        function getRandomInt(min = 0, max = 0) {
             min = Math.ceil(min);
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min + 1)) + min;
