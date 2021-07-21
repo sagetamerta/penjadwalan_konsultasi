@@ -292,7 +292,7 @@
                     console.log("Nilai fitness : " + fitness[count][0]);
                     count++;
                 }
-            } 
+            }
             catch (error) {
                 console.log(error.message);
             }
@@ -397,7 +397,7 @@
             if (i <= iterasi) {      
                 iteration();             
             }                    
-            }, 1000) //satuan ms, misal 1000ms = 1 detik
+            }, 2000) //satuan ms, misal 1000ms = 1 detik
         }
 
         function getRandomInt(min = 0, max = 0) {
@@ -406,6 +406,6 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
         
-        function printArray(jadwal = '', jadwal12 = []){
-            console.log(jadwal, " => ", jadwal12.slice());
+        function printArray(jadwal = '', jadwalarr = []){
+            console.log(jadwal, " => ", jadwalarr.slice().toString());
         }
