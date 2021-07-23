@@ -44,9 +44,15 @@
                     <small>Nilai maksimal untuk menentukan seberapa banyak psikolog yang akan tampil di jadwal</small>
                 </div>
                 <input type="hidden" value="<?= $maxPs; ?>" id="maxPs">
-                <button type="button" onclick="run()" class="btn btn-primary">Submit</button>
+                <button type="button" onclick="run()" class="btn btn-primary">Hitung Jadwal</button>
             </form>
+        </div>
+    </div>
 
+    <div class="card mt-2" style="width: 600px;">
+        <div class="card-body">
+            <h5 class="card-title">Jadwal Terbaik</h5>
+            <p id="jadwalTerbaik"></p>
         </div>
     </div>
 
