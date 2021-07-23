@@ -13,34 +13,34 @@
             <form action="<?= base_url('psikolog/addjadwal'); ?>" method="post">
                 <div class="form-group">
                     <label for="popsize">Population Size</label>
-                    <input type="number" class="form-control" name="popsize" id="popsize" placeholder="ex : 10" value="10">
+                    <input type="text" class="form-control" name="popsize" id="popsize" placeholder="ex : 10" aria-required="true">
                     <small>Banyak populasi yang akan dibuat (popsize)</small>
                 </div>
                 <div class="form-group">
                     <label for="cr">Crossover Rate</label>
-                    <input type="number" class="form-control" name="cr" id="cr" step="0.01" placeholder="ex : 0.5" value="0.5">
+                    <input type="text" class="form-control" name="cr" id="cr" placeholder="ex : 0.5" required>
                     <small>Nilai untuk persilangan (crossover)</small>
                 </div>
                 <div class="form-group">
                     <label for="mr">Mutation Rate</label>
-                    <input type="number" class="form-control" name="mr" id="mr" step="0.01" placeholder="ex : 0.5" value="0.5">
+                    <input type="text" class="form-control" name="mr" id="mr" placeholder="ex : 0.5" required>
                     <small>Nilai untuk mutasi (mutation)</small>
 
                 </div>
                 <div class="form-group">
                     <label for="iterasi">Iterasi</label>
-                    <input type="number" class="form-control" name="iterasi" id="iterasi" placeholder="ex : 1000" value="1000">
+                    <input type="text" class="form-control" name="iterasi" id="iterasi" placeholder="ex : 1000" required>
                     <small>Seberapa banyak melakukan perulangan sebelum mencapai nilai fitness yang diinginkan</small>
 
                 </div>
                 <div class="form-group">
                     <label for="thresholdSaget"> Nilai Fitness Minimal</label>
-                    <input type="number" class="form-control" name="thresholdSaget" id="thresholdSaget" placeholder="ex : 0.07" step="0.01" value="0.07">
+                    <input type="text" class="form-control" name="thresholdSaget" id="thresholdSaget" placeholder="ex : 0.07" required>
                     <small>Batas untuk menentukan minimal kualitas dari individu</small>
                 </div>
                 <div class="form-group">
                     <label for="maxData"> Nilai Maksimal Data</label>
-                    <input type="number" class="form-control" name="maxData" id="maxData" placeholder="ex : 35" value="35">
+                    <input type="text" class="form-control" name="maxData" id="maxData" placeholder="ex : 35" required>
                     <small>Nilai maksimal untuk menentukan seberapa banyak psikolog yang akan tampil di jadwal</small>
                 </div>
                 <input type="hidden" value="<?= $maxPs; ?>" id="maxPs">
@@ -49,11 +49,10 @@
         </div>
     </div>
 
-    <div class="card mt-2" style="width: 600px;">
+    <div class="card mt-3" style="width: 600px;">
         <div class="card-body">
             <h5 class="card-title">Jadwal Terbaik</h5>
             <p id="jadwalTerbaik"></p>
         </div>
     </div>
-
     <script src="<?= base_url(); ?>assets/js/algoritma.js"></script>

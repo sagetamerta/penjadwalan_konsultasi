@@ -39,6 +39,9 @@
             thresholdSaget = document.getElementById("thresholdSaget").value * 1;
             maxPs = document.getElementById("maxPs").value * 1;
             maxData = document.getElementById("maxData").value * 1;
+            if(maxPs >= maxData){
+                maxData = maxPs;
+            }
 
             return [popsize, cr, mr, iterasi, thresholdSaget, maxPs,maxData];
         }
@@ -384,7 +387,7 @@
                         break;
                     }
                 }
-            }, 2000) //satuan ms, misal 1000ms = 1 detik
+            }, 3000) //satuan ms, misal 1000ms = 1 detik
         }
 
         function getRandomInt(min = 0, max = 0) {
