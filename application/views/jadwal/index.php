@@ -10,10 +10,10 @@
             <?php endif; ?>
             <?php $this->session->flashdata('message'); ?>
             <br>
-            <form action="<?= base_url('psikolog/addjadwal'); ?>" method="post">
+            <form action="<?= base_url('jadwal/add'); ?>" method="post">
                 <div class="form-group">
                     <label for="popsize">Population Size</label>
-                    <input type="text" class="form-control" name="popsize" id="popsize" placeholder="ex : 10" aria-required="true">
+                    <input type="text" class="form-control" name="popsize" id="popsize" placeholder="ex : 10" required>
                     <small>Banyak populasi yang akan dibuat (popsize)</small>
                 </div>
                 <div class="form-group">
@@ -43,7 +43,12 @@
                     <input type="text" class="form-control" name="maxData" id="maxData" placeholder="ex : 35" required>
                     <small>Nilai maksimal untuk menentukan seberapa banyak psikolog yang akan tampil di jadwal</small>
                 </div>
-                <input type="hidden" value="<?= $maxPs; ?>" id="maxPs">
+                <div class="form-group">
+                    <input type="hidden" value="<?= $maxPs; ?>" id="maxPs">
+                    <label for="maxData">Data Jadwal</label>
+                    <input type="text" class="form-control" name="jadwal" id="jadwal" value="12,2,41">
+                </div>
+                <!-- <button type="submit" class="btn btn-outline-secondary">Tambah Jadwal</button> -->
                 <button type="button" onclick="run()" class="btn btn-primary">Hitung Jadwal</button>
             </form>
         </div>

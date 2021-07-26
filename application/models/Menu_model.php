@@ -45,7 +45,7 @@ class Menu_model extends CI_Model
             'menu_id' => $this->input->post('menu_id'),
             'url' => $this->input->post('url'),
             'icon' => $this->input->post('icon'),
-            'is_active' => $this->input->post('is_active_sub')
+            'is_active' => $this->input->post('is_active')
         ];
         $this->db->insert('user_sub_menu', $data);
     }
@@ -58,7 +58,7 @@ class Menu_model extends CI_Model
             'title' => htmlspecialchars($this->input->post('title')),
             'url' => htmlspecialchars($this->input->post('url')),
             'icon' => htmlspecialchars($this->input->post('icon')),
-            'is_active' => htmlspecialchars($this->input->post('is_active_sub'))
+            'is_active' => htmlspecialchars($this->input->post('is_active'))
         ];
 
         $this->db->set($data)

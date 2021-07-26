@@ -47,7 +47,7 @@
                 <li class="nav-item">
                 <?php endif; ?>
                 <a class="nav-link pb-0" href="<?= base_url($sm['url']); ?>">
-                    <i class="<?= $sm['icon']; ?>"></i>
+                    <i class="fas fa-fw <?= $sm['icon']; ?>"></i>
                     <span><?= $sm['title']; ?></span></a>
                 </li>
             <?php endforeach; ?>

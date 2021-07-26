@@ -54,6 +54,7 @@ class Menu extends CI_Controller
         $this->form_validation->set_rules('menu_id', 'Menu', 'required');
         $this->form_validation->set_rules('url', 'Url', 'required');
         $this->form_validation->set_rules('icon', 'Icon', 'required');
+        $this->form_validation->set_rules('is_active', 'Is Active', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
