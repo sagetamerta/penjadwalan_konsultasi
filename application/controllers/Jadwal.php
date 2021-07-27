@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Jadwal extends CI_Controller
 {
-    private $arrayhari;
+    private $data = [];
     public function __construct()
     {
         parent::__construct();
@@ -45,9 +45,9 @@ class Jadwal extends CI_Controller
             foreach ($hari as $h) {
                 $data_hari[] = $h['id_hari'];
             }
-            $arr_hari = implode(',', $data_hari);
+            $str_hari = implode(',', $data_hari);
             //new hari
-            $new_hari = array_map('intval', explode(',', $arr_hari));
+            $new_hari = array_map('intval', explode(',', $str_hari));
 
             //ambil sesi
             $sesi = $this->db->select('id_sesi')->get('sesi')->result_array();
@@ -55,16 +55,13 @@ class Jadwal extends CI_Controller
             foreach ($sesi as $s) {
                 $data_sesi[] = $s['id_sesi'];
             }
-            $arr_sesi = implode(',', $data_sesi);
+            $str_sesi = implode(',', $data_sesi);
             //new sesi
-            $new_sesi = array_map('intval', explode(',', $arr_sesi));
+            $new_sesi = array_map('intval', explode(',', $str_sesi));
 
             echo count($jadwal) . "| JADWAL | " . json_encode($jadwal) . "<br>";
             echo count($hari) . "| HARI | " . json_encode($new_hari) . "<br>";
             echo count($sesi) . "| SESI | " . json_encode($new_sesi) . "<br>";
-
-            die;
-
 
 
             //buat for untuk insert ke table jadwal dengan urutan
