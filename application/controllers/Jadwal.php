@@ -20,22 +20,18 @@ class Jadwal extends CI_Controller
         $data['user'] = $this->User_model->user();
         $data['maxPs'] = $this->Psikolog_model->jumlah_psikolog();
 
-        $this->form_validation->set_rules('popsize', 'Population size', 'required');
-        $this->form_validation->set_rules('cr', 'Crossover rate', 'required|decimal');
-        $this->form_validation->set_rules('mr', 'Mutation rate', 'required|decimal');
-        $this->form_validation->set_rules('iterasi', 'Iterasi', 'required',);
-        $this->form_validation->set_rules('thresholdSaget', 'Threshold', 'required|decimal');
+        $this->form_validation->set_rules('jadwalTerbaik', 'Jadwal Terbaik', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('jadwal/index', $data);
+            $this->load->view('jadwal/add', $data);
             $this->load->view('templates/footer');
         } else {
-            $jadwal = $this->input->post('jadwal'); //string
+            $jadwalTerbaik = $this->input->post('jadwalTerbaik'); //string
             // var_dump($jadwal);
-            $arrjadwal = explode(",", $jadwal);
+            $arrjadwal = explode(",", $jadwalTerbaik);
             echo json_encode($arrjadwal);
 
             $arrtest = [1, 4, 5, 2, 1];

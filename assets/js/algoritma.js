@@ -381,7 +381,7 @@
                     hitungFitness();
                     seleksiElitism();
                     console.log("Individu", individuTerbaik + 1, "Fitness", fitnessSaget, jadwalTerbaik);
-                    document.getElementById("jadwalTerbaik").innerHTML = jadwalTerbaik;
+                    document.getElementById("jadwalTerbaik").value = jadwalTerbaik;
                     if (fitnessSaget >= thresholdSaget) {
                         console.log("Berhenti di iterasi ke : " , (i+1));
                         break;
