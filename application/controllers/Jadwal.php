@@ -43,4 +43,12 @@ class Jadwal extends CI_Controller
             die;
         }
     }
+
+    public function hari()
+    {
+    }
+
+    public function sesi()
+    {
+    }
 }
