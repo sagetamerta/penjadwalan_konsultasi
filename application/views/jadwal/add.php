@@ -42,9 +42,18 @@
                 <small>Nilai maksimal untuk menentukan seberapa banyak psikolog yang akan tampil di jadwal</small>
             </div>
             <input type="hidden" value="<?= $maxPs; ?>" id="maxPs">
-            <button type="button" onclick="run()" class="btn btn-primary mb-2">Hitung Jadwal</button>
+            <button type="button" onclick="run()" class="btn btn-primary mb-5">Hitung Jadwal</button>
 
+            <h3>Tambah Jadwal</h3>
             <form action="<?= base_url('jadwal/add'); ?>" method="post">
+                <div class="form-group">
+                    <label for="kode_jadwal">Kode Jadwal</label>
+                    <input type="text" class="form-control" name="kode_jadwal" id="kode_jadwal"></input>
+                </div>
+                <div class="form-group">
+                    <label for="banyak_per_sesi">Banyak Psikolog per Sesi</label>
+                    <input type="text" class="form-control" name="banyak_per_sesi" id="banyak_per_sesi"></input>
+                </div>
                 <div class="form-group">
                     <label for="jadwalTerbaik">Jadwal Terbaik</label>
                     <textarea class="form-control" name="jadwalTerbaik" id="jadwalTerbaik" rows="3" readonly></textarea>

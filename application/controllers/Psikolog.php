@@ -27,19 +27,9 @@ class Psikolog extends CI_Controller
 
     public function addPsikolog()
     {
-        $nama_psikolog = htmlspecialchars($this->input->post('nama_psikolog'));
-        $notelp_psikolog = htmlspecialchars($this->input->post('notelp_psikolog'));
-        $alamat_psikolog = htmlspecialchars($this->input->post('alamat_psikolog'));
-
-        $data = array(
-            'nama_psikolog' => $nama_psikolog,
-            'notelp_psikolog' => $notelp_psikolog,
-            'alamat_psikolog' => $alamat_psikolog
-        );
-
-        $this->db->insert('psikolog', $data);
-
+        $this->Psikolog_model->add();
         redirect('psikolog');
+
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
         New Psikolog has been added!</div>');
     }
