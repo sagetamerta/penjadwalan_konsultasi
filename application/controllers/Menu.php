@@ -31,7 +31,16 @@ class Menu extends CI_Controller
         }
     }
 
-    public function menuDelete($menu_id)
+    public function editMenu()
+    {
+        $this->Menu_model->editMenu();
+        redirect('menu');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        New Menu has been updated!</div>');
+    }
+
+    public function deleteMenu($menu_id)
     {
         $this->Menu_model->deleteMenu($menu_id);
         redirect('menu');

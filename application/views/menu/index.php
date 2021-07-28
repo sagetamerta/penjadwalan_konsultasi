@@ -22,8 +22,8 @@
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $m['menu']; ?></td>
                             <td>
-                                <a href="<?= base_url('menu/menuedit/') . $m['id']; ?>" class="badge badge-success">edit</a>
-                                <a href="<?= base_url('menu/menudelete/') . $m['id']; ?>" class="badge badge-danger">delete</a>
+                                <a href="javascript:;" data-id="<?php echo $m['id'] ?>" data-menu="<?php echo $m['menu'] ?>" data-toggle="modal" data-target="#editMenuModal" class="badge badge-info">edit</a>
+                                <a href="<?= base_url('menu/deletemenu/') . $m['id']; ?>" class="badge badge-danger">delete</a>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -33,27 +33,40 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="newMenuModal" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+    <!-- Modal Edit Menu -->
+    <div class="modal fade" id="editMenuModal" tabindex="-1" aria-labelledby="editMenuModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="newMenuModalLabel">Add New Menu</h5>
+                    <h5 class="modal-title" id="editMenuModalLabel">Edit Menu</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="<?= base_url('menu'); ?>" method="post">
+                <form action="<?= base_url('menu/editmenu'); ?>" method="post">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name">
-                        </div>
+                        <input type="hidden" id="id" name="id">
+                        <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // Untuk sunting
+            $('#editMenuModal').on('show.bs.modal', function(event) {
+                var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+                var modal = $(this)
+
+                // Isi nilai pada field
+                modal.find('#id').attr("value", div.data('id'));
+                modal.find('#menu').attr("value", div.data('menu'));
+            });
+        });
+    </script>

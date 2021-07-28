@@ -51,7 +51,7 @@ class Admin extends CI_Controller
         redirect('admin/role');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        New Role has been added!</div>');
+        New Role has been updated!</div>');
     }
 
     public function roleDelete($role_id)
