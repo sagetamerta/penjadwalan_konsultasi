@@ -41,14 +41,9 @@ class Jadwal extends CI_Controller
 
             for ($i = 0; $i < count($id_hari); $i++) {
                 $id_sesi = array_chunk($id_hari[$i], 2);
-                // echo "Hari ke-" . ($i + 1) . "  " . json_encode($id_hari[$i]) . "<br>";
                 for ($j = 0; $j < count($id_sesi); $j++) {
                     $id_psikolog = array_chunk($id_sesi[$j], 1);
-                    // echo "Sesi ke-" . ($j + 1) . " " . json_encode($id_sesi[$j]) . "<br>";
                     for ($k = 0; $k < count($id_psikolog); $k++) {
-                        // ! DISINILAH KAMU INSERT TIAP ID PSIKOLOG
-                        echo "Id psikolog-" . ($k + 1) . " " . json_encode($id_psikolog[$k]) . "<br>";
-
                         $data = array(
                             'kode_jadwal' => $kode_jadwal,
                             'id_hari' => ($i + 1),
@@ -59,7 +54,7 @@ class Jadwal extends CI_Controller
                     }
                 }
             }
-            redirect('jadwal/add');
+            redirect('jadwal');
         }
     }
 
