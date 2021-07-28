@@ -37,23 +37,29 @@ class Jadwal extends CI_Controller
             $jadwalterbaik = $this->input->post('jadwalTerbaik'); //string => ubah jadi array int
 
             $newjadwal = array_map('intval', explode(',', $jadwalterbaik)); //array int
-            $jadwal_per_hari = array_chunk($newjadwal, $banyak_per_sesi); //array dibagi seberapa banyak psikolog perhari yg akan dibagi menjadi 3 sesi
+            $id_hari = array_chunk($newjadwal, $banyak_per_sesi); //array dibagi seberapa banyak psikolog perhari yg akan dibagi menjadi 3 sesi
 
-            for ($i = 0; $i < count($jadwal_per_hari); $i++) {
-                echo "Hari ke-" . ($i + 1) . "  " . json_encode($jadwal_per_hari[$i]) . "<br>";
-                $sesi = array_chunk($jadwal_per_hari[$i], 2);
-                for ($j = 0; $j < count($sesi); $j++) {
-                    echo "Sesi ke-" . ($j + 1) . " " . json_encode($sesi[$j]) . "<br>";
+            for ($i = 0; $i < count($id_hari); $i++) {
+                $id_sesi = array_chunk($id_hari[$i], 2);
+                // echo "Hari ke-" . ($i + 1) . "  " . json_encode($id_hari[$i]) . "<br>";
+                for ($j = 0; $j < count($id_sesi); $j++) {
+                    $id_psikolog = array_chunk($id_sesi[$j], 1);
+                    // echo "Sesi ke-" . ($j + 1) . " " . json_encode($id_sesi[$j]) . "<br>";
+                    for ($k = 0; $k < count($id_psikolog); $k++) {
+                        // ! DISINILAH KAMU INSERT TIAP ID PSIKOLOG
+                        echo "Id psikolog-" . ($k + 1) . " " . json_encode($id_psikolog[$k]) . "<br>";
+
+                        $data = array(
+                            'kode_jadwal' => $kode_jadwal,
+                            'id_hari' => ($i + 1),
+                            'id_sesi' => ($j + 1),
+                            'id_psikolog' => implode($id_psikolog[$k])
+                        );
+                        $this->db->insert('jadwal', $data);
+                    }
                 }
             }
-
-            die;
-            //insert data ke table db sebanyak jadwal (id_psikolog)
-            $data = array(
-                'kode_jadwal' => $kode_jadwal,
-                'kode_jadwal' => $kode_jadwal,
-            );
-            $this->db->insert('psikolog', $data);
+            redirect('jadwal/add');
         }
     }
 
