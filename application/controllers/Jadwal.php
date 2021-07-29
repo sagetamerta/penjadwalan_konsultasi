@@ -15,7 +15,7 @@ class Jadwal extends CI_Controller
     {
         $data['title'] = 'Daftar Jadwal';
         $data['user'] = $this->User_model->user();
-        $data['jadwal'] = $this->pagination('jadwal', 7);
+        $data['jadwal'] = $this->pagination('jadwal', 7, 'join');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -83,7 +83,7 @@ class Jadwal extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    private function pagination($table, $per_page)
+    private function pagination($table, $per_page, $join = '')
     {
         $this->load->library('pagination');
         $config['first_link']       = 'First';
@@ -109,6 +109,10 @@ class Jadwal extends CI_Controller
         $config['per_page'] = $per_page;
         $from = $this->uri->segment(3);
         $this->pagination->initialize($config);
-        return $this->Jadwal_model->data($table, $config['per_page'], $from);
+        if ($join != '') {
+            return $this->Jadwal_model->dataJoin($table, $config['per_page'], $from);
+        } else {
+            return $this->Jadwal_model->data($table, $config['per_page'], $from);
+        }
     }
 }

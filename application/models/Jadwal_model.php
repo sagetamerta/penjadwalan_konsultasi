@@ -8,6 +8,18 @@ class Jadwal_model extends CI_Model
     {
         return $this->db->get($table, $number, $offset)->result();
     }
+    public function dataJoin($table, $number, $offset)
+    {
+        $this->db
+            ->select('*')
+            ->from($table)
+            ->join('hari', 'hari.id_hari = jadwal.id_hari')
+            ->join('sesi', 'sesi.id_sesi = jadwal.id_sesi')
+            ->join('psikolog', 'psikolog.id_psikolog = jadwal.id_psikolog')
+            ->limit($number, $offset);
+        $query = $this->db->get();
+        return $query->result();
+    }
 
     public function addJadwal()
     {

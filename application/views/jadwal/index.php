@@ -2,7 +2,7 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg">
             <?php if (validation_errors()) : ?>
                 <div class="alert alert-danger" role="alert">
                     <?= validation_errors(); ?>
@@ -21,9 +21,9 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Kode Jadwal</th>
-                        <th scope="col">Id hari</th>
-                        <th scope="col">Id Sesi</th>
-                        <th scope="col">Id Psikolog</th>
+                        <th scope="col">Nama hari</th>
+                        <th scope="col">Nama Sesi</th>
+                        <th scope="col">Nama Psikolog</th>
                         <?php if ($user['role_id'] == 1) : ?>
                             <th scope="col">Action</th>
                         <?php endif; ?>
@@ -35,9 +35,9 @@
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
                             <td><?= $j->kode_jadwal ?></td>
-                            <td><?= $j->id_hari ?></td>
-                            <td><?= $j->id_sesi ?></td>
-                            <td><?= $j->id_psikolog ?></td>
+                            <td><?= $j->nama_hari ?></td>
+                            <td><?= $j->nama_sesi ?></td>
+                            <td><?= $j->nama_psikolog ?></td>
                             <?php if ($user['role_id'] == 1) : ?>
                                 <td>
                                     <a href="<?= base_url('jadwal/deleteJadwal/') . $j->kode_jadwal ?>" class="badge badge-danger">delete</a>
