@@ -35,19 +35,6 @@ class Menu_model extends CI_Model
 
     public function getSubMenu($id = null)
     {
-        // $this->db->select('user_sub_menu.*,user_menu.*')
-        //     ->from('user_sub_menu')
-        //     ->join('user_menu', 'user_sub_menu.menu_id = user_menu.id');
-
-        // SELECT 
-        // user_sub_menu.*,
-        // user_sub_menu.`id` AS sub_menu_id,
-        // user_menu.id AS menu_id,
-        // user_menu.`menu`
-        // FROM user_sub_menu
-        // INNER JOIN user_menu
-        // ON user_sub_menu.`menu_id` = user_menu.`id`
-
         $this->db->select('user_sub_menu.*, user_sub_menu.id as sub_menu_id, user_menu.id as menu_id, user_menu.menu');
         $this->db->from('user_sub_menu');
         $this->db->join('user_menu', 'user_sub_menu.menu_id = user_menu.id');
