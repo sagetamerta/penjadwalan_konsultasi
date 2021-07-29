@@ -40,7 +40,8 @@ class Jadwal_model extends CI_Model
                         'kode_jadwal' => $kode_jadwal,
                         'id_hari' => ($i + 1),
                         'id_sesi' => ($j + 1),
-                        'id_psikolog' => implode($id_psikolog[$k])
+                        'id_psikolog' => implode($id_psikolog[$k]),
+                        'verifikasi' => 0
                     );
                     $this->db->insert('jadwal', $data);
                 }
