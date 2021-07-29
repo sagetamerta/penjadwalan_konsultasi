@@ -44,8 +44,8 @@
             <?php endif; ?>
             <form action="<?= base_url('jadwal/addjadwal'); ?>" method="post">
                 <div class="form-group">
-                    <label for="kode_jadwal">Kode Jadwal</label>
-                    <input type="text" class="form-control" name="kode_jadwal" id="kode_jadwal"></input>
+                    <label for="banyak_per_hari">Banyak Psikolog per Hari</label>
+                    <input type="text" class="form-control" name="banyak_per_hari" id="banyak_per_hari"></input>
                 </div>
                 <div class="form-group">
                     <label for="banyak_per_sesi">Banyak Psikolog per Sesi</label>

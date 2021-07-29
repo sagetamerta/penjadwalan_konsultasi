@@ -15,7 +15,7 @@ class Jadwal extends CI_Controller
     {
         $data['title'] = 'Daftar Jadwal';
         $data['user'] = $this->User_model->user();
-        $data['jadwal'] = $this->pagination('jadwal', 7, 'join');
+        $data['jadwal'] = $this->pagination('jadwal', 7);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -31,7 +31,6 @@ class Jadwal extends CI_Controller
         $data['maxPs'] = $this->Psikolog_model->jumlah_psikolog();
 
         $this->form_validation->set_rules('jadwalTerbaik', 'Jadwal Terbaik', 'required');
-        $this->form_validation->set_rules('kode_jadwal', 'Kode Jadwal', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -48,9 +47,18 @@ class Jadwal extends CI_Controller
         }
     }
 
-    public function deleteJadwal($kode_jadwal)
+    public function editjadwal()
     {
-        $this->Jadwal_model->deleteJadwal($kode_jadwal);
+        $this->Jadwal_model->editjadwal();
+        redirect('jadwal');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Jadwal has been updated!</div>');
+    }
+
+    public function deleteJadwal($id_jadwal)
+    {
+        $this->Jadwal_model->deleteJadwal($id_jadwal);
         redirect('jadwal');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">

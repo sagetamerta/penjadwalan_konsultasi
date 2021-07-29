@@ -24,34 +24,56 @@ class Jadwal_model extends CI_Model
 
     public function addJadwal()
     {
-        $kode_jadwal = $this->input->post('kode_jadwal');
+        $banyak_per_hari = $this->input->post('banyak_per_hari'); //harusnya nilainya 3 ya buat testing
         $banyak_per_sesi = $this->input->post('banyak_per_sesi'); //harusnya nilainya 3 ya buat testing
         $jadwalterbaik = $this->input->post('jadwalTerbaik'); //string => ubah jadi array int
 
         $newjadwal = array_map('intval', explode(',', $jadwalterbaik)); //array int
-        $id_hari = array_chunk($newjadwal, $banyak_per_sesi); //array dibagi seberapa banyak psikolog perhari yg akan dibagi menjadi 3 sesi
+        $id_hari = array_chunk($newjadwal, $banyak_per_hari); //array dibagi seberapa banyak psikolog perhari yg akan dibagi menjadi 3 sesi
+
+        $data_jadwal = array(
+            'id_jadwal' => '',
+            'verifikasi' => 0,
+        );
+        $this->db->insert('jadwal', $data_jadwal);
+
+        $this->db->from('jadwal');
+        $this->db->order_by('id_jadwal', 'desc');
+        $id_jadwal = $this->db->get()->row_array();
 
         for ($i = 0; $i < count($id_hari); $i++) {
-            $id_sesi = array_chunk($id_hari[$i], 2);
+            $id_sesi = array_chunk($id_hari[$i], $banyak_per_sesi);
             for ($j = 0; $j < count($id_sesi); $j++) {
                 $id_psikolog = array_chunk($id_sesi[$j], 1);
                 for ($k = 0; $k < count($id_psikolog); $k++) {
                     $data = array(
-                        'kode_jadwal' => $kode_jadwal,
+                        'id_jadwal' => $id_jadwal['id_jadwal'],
                         'id_hari' => ($i + 1),
                         'id_sesi' => ($j + 1),
                         'id_psikolog' => implode($id_psikolog[$k]),
-                        'verifikasi' => 0
                     );
-                    $this->db->insert('jadwal', $data);
+                    $this->db->insert('jadwal_detail', $data);
                 }
             }
         }
     }
 
-    public function deleteJadwal($kode_jadwal)
+    public function editJadwal()
     {
-        $this->db->where('kode_jadwal', $kode_jadwal);
+        $id_jadwal = htmlspecialchars($this->input->post('id_jadwal'));
+        $verifikasi = htmlspecialchars($this->input->post('verifikasi'));
+
+        $data = array(
+            'verifikasi' => $verifikasi
+        );
+
+        $this->db->where('id_jadwal', $id_jadwal);
+        $this->db->update('jadwal', $data);
+    }
+
+    public function deleteJadwal($id_jadwal)
+    {
+        $this->db->where('id_jadwal', $id_jadwal);
         $this->db->delete('jadwal');
     }
 
