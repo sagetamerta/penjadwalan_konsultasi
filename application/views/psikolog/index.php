@@ -43,8 +43,8 @@
                             <td><?= $p->alamat_psikolog ?></td>
                             <?php if ($user['role_id'] == 1) : ?>
                                 <td>
-                                    <a href="<?= base_url('psikolog/edit/') . $p->id_psikolog ?>" class="badge badge-warning">edit</a>
-                                    <a href="<?= base_url('psikolog/deletepsikolog/') . $p->id_psikolog ?>" class="badge badge-danger">delete</a>
+                                    <a href="javascript:;" data-id_psikolog="<?php echo $p->id_psikolog ?>" data-nama_psikolog="<?= $p->nama_psikolog; ?>" data-notelp_psikolog="<?= $p->notelp_psikolog; ?>" data-alamat_psikolog="<?= $p->alamat_psikolog; ?>" data-toggle="modal" data-target="#editPsikologModal" class="badge badge-info">edit</a>
+                                    <a href="<?= base_url('psikolog/deletePsikolog/') . $p->id_psikolog ?>" class="badge badge-danger">delete</a>
                                 </td>
                             <?php endif; ?>
                         </tr>
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Add Psikolog -->
     <div class="modal fade" id="newPsikologModal" tabindex="-1" aria-labelledby="newPsikologModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -86,3 +86,54 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Edit Psikolog -->
+    <div class="modal fade" id="editPsikologModal" tabindex="-1" aria-labelledby="editPsikologModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPsikologModalLabel">Edit Psikolog</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('psikolog/editpsikolog'); ?>" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nama_psikolog">Nama Psikolog</label>
+                            <input type="hidden" id="id_psikolog" name="id_psikolog">
+                            <input type="text" class="form-control" id="nama_psikolog" name="nama_psikolog" placeholder="Nama Psikolog">
+                        </div>
+                        <div class="form-group">
+                            <label for="notelp_psikolog">Nomor Telepon Psikolog</label>
+                            <input type="number" class="form-control" id="notelp_psikolog" name="notelp_psikolog" placeholder="Nomor Telepon Psikolog">
+                        </div>
+                        <div class="form-group">
+                            <label for="alamat_psikolog">Alamat Psikolog</label>
+                            <input type="text" class="form-control" id="alamat_psikolog" name="alamat_psikolog" placeholder="Alamat Psikolog">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Untuk sunting
+            $('#editPsikologModal').on('show.bs.modal', function(event) {
+                var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+                var modal = $(this)
+
+                // Isi nilai pada field
+                modal.find('#id_psikolog').attr("value", div.data('id_psikolog'));
+                modal.find('#nama_psikolog').attr("value", div.data('nama_psikolog'));
+                modal.find('#notelp_psikolog').attr("value", div.data('notelp_psikolog'));
+                modal.find('#alamat_psikolog').attr("value", div.data('alamat_psikolog'));
+            });
+        });
+    </script>

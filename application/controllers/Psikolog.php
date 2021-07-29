@@ -27,11 +27,20 @@ class Psikolog extends CI_Controller
 
     public function addPsikolog()
     {
-        $this->Psikolog_model->add();
+        $this->Psikolog_model->addPsikolog();
         redirect('psikolog');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
         New Psikolog has been added!</div>');
+    }
+
+    public function editPsikolog()
+    {
+        $this->Psikolog_model->editPsikolog();
+        redirect('psikolog');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Psikolog has been updated!</div>');
     }
 
     public function deletePsikolog($id_psikolog)

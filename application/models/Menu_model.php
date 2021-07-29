@@ -70,13 +70,17 @@ class Menu_model extends CI_Model
         $url = htmlspecialchars($this->input->post('url'));
         $icon = htmlspecialchars($this->input->post('icon'));
         $is_active = htmlspecialchars($this->input->post('is_active'));
-        $this->db
-            ->set('title', $title)
-            ->set('menu_id', $menu_id)
-            ->set('url', $url)
-            ->set('icon', $icon)
-            ->set('is_active', $is_active)
-            ->where('id', $id)->update('user_sub_menu');
+
+        $data = array(
+            'title' => $title,
+            'menu_id' => $menu_id,
+            'url' => $url,
+            'icon' => $icon,
+            'is_active' => $is_active,
+        );
+
+        $this->db->where('id', $id);
+        $this->db->update('user_sub_menu', $data);
     }
 
     public function deleteSubmenu($sub_menu_id)
