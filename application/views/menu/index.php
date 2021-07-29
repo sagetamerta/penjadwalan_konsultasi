@@ -6,7 +6,7 @@
             <?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
             <?php $this->session->flashdata('message'); ?>
-            <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newMenuModal">Add New Menu</a>
+            <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addMenuModal">Add New Menu</a>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -30,6 +30,29 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!-- Modal Add Menu -->
+    <div class="modal fade" id="addMenuModal" tabindex="-1" aria-labelledby="addMenuModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMenuModalLabel">Add Menu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('menu'); ?>" method="post">
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
