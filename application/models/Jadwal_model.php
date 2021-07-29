@@ -16,7 +16,7 @@ class Jadwal_model extends CI_Model
             ->join('hari', 'hari.id_hari = jadwal.id_hari')
             ->join('sesi', 'sesi.id_sesi = jadwal.id_sesi')
             ->join('psikolog', 'psikolog.id_psikolog = jadwal.id_psikolog')
-            ->order_by('kode_jadwal')
+            ->order_by('id_jadwal', 'ASC')
             ->limit($number, $offset);
         $query = $this->db->get();
         return $query->result();
