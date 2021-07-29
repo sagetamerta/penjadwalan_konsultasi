@@ -79,9 +79,9 @@ class Menu extends CI_Controller
         }
     }
 
-    public function subMenuedit()
+    public function editSubMenu()
     {
-        $this->Menu_model->subMenuedit();
+        $this->Menu_model->editSubMenu();
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
         Sub menu Edited!</div>');
         redirect('menu/submenu');
