@@ -53,4 +53,62 @@ class Jadwal_model extends CI_Model
         $this->db->where('kode_jadwal', $kode_jadwal);
         $this->db->delete('jadwal');
     }
+
+    public function addHari()
+    {
+        $nama_hari = htmlspecialchars($this->input->post('nama_hari'));
+
+        $data = array(
+            'nama_hari' => $nama_hari
+        );
+        $this->db->insert('hari', $data);
+    }
+
+    public function editHari()
+    {
+        $id_hari = htmlspecialchars($this->input->post('id_hari'));
+        $nama_hari = htmlspecialchars($this->input->post('nama_hari'));
+
+        $data = array(
+            'nama_hari' => $nama_hari
+        );
+
+        $this->db->where('id_hari', $id_hari);
+        $this->db->update('hari', $data);
+    }
+
+    public function deleteHari($id_hari)
+    {
+        $this->db->where('id_hari', $id_hari);
+        $this->db->delete('hari');
+    }
+
+    public function addSesi()
+    {
+        $nama_sesi = htmlspecialchars($this->input->post('nama_sesi'));
+
+        $data = array(
+            'nama_sesi' => $nama_sesi
+        );
+        $this->db->insert('sesi', $data);
+    }
+
+    public function editSesi()
+    {
+        $id_sesi = htmlspecialchars($this->input->post('id_sesi'));
+        $nama_sesi = htmlspecialchars($this->input->post('nama_sesi'));
+
+        $data = array(
+            'nama_sesi' => $nama_sesi
+        );
+
+        $this->db->where('id_sesi', $id_sesi);
+        $this->db->update('sesi', $data);
+    }
+
+    public function deleteSesi($id_sesi)
+    {
+        $this->db->where('id_sesi', $id_sesi);
+        $this->db->delete('sesi');
+    }
 }

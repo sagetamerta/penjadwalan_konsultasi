@@ -11,17 +11,28 @@
 
             <?php $this->session->flashdata('message'); ?>
 
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <?php echo $this->pagination->create_links(); ?>
-                </ul>
-            </nav>
+            <div class="row">
+                <?php if ($user['role_id'] == 1) : ?>
+                    <div class="col">
+                        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newPsikologModal">Add New Psikolog</a>
+                    </div>
+                <?php endif; ?>
+                <div class="col">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <?php echo $this->pagination->create_links(); ?>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nama Hari</th>
                         <?php if ($user['role_id'] == 1) : ?>
+                            <a href="javascript:;" data-id_psikolog="<?php echo $p->id_psikolog ?>" data-nama_psikolog="<?= $p->nama_psikolog; ?>" data-notelp_psikolog="<?= $p->notelp_psikolog; ?>" data-alamat_psikolog="<?= $p->alamat_psikolog; ?>" data-toggle="modal" data-target="#editPsikologModal" class="badge badge-info">edit</a>
                             <th scope="col">Action</th>
                         <?php endif; ?>
                     </tr>

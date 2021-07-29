@@ -63,24 +63,80 @@ class Jadwal extends CI_Controller
         $data['user'] = $this->User_model->user();
         $data['hari'] = $this->pagination('hari', 7);
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('jadwal/hari', $data);
-        $this->load->view('templates/footer');
+        $this->form_validation->set_rules('nama_hari', 'Nama Hari', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('jadwal/hari', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->Jadwal_model->addHari();
+            redirect('jadwal/hari');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            New Jadwal has been added!</div>');
+        }
+    }
+
+    public function editHari()
+    {
+        $this->Jadwal_model->editHari();
+        redirect('jadwal/hari');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Hari has been updated!</div>');
+    }
+
+    public function deleteHari($id_hari)
+    {
+        $this->Jadwal_model->deleteHari($id_hari);
+        redirect('jadwal/hari');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Jadwal has been deleted!</div>');
     }
 
     public function sesi()
     {
         $data['title'] = 'Daftar Sesi';
         $data['user'] = $this->User_model->user();
-        $data['sesi'] = $this->pagination('sesi', 3);
+        $data['sesi'] = $this->pagination('sesi', 10);
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('jadwal/sesi', $data);
-        $this->load->view('templates/footer');
+        $this->form_validation->set_rules('nama_sesi', 'Nama Sesi', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('jadwal/sesi', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->Jadwal_model->addSesi();
+            redirect('jadwal/sesi');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            New Jadwal has been added!</div>');
+        }
+    }
+
+    public function editSesi()
+    {
+        $this->Jadwal_model->editSesi();
+        redirect('jadwal/sesi');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Sesi has been updated!</div>');
+    }
+
+    public function deleteSesi($id_sesi)
+    {
+        $this->Jadwal_model->deleteSesi($id_sesi);
+        redirect('jadwal/sesi');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Jadwal has been deleted!</div>');
     }
 
     public function verifikasi()
