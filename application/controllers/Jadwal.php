@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Jadwal extends CI_Controller
 {
-    private $data = [];
     public function __construct()
     {
         parent::__construct();
@@ -16,9 +15,7 @@ class Jadwal extends CI_Controller
     {
         $data['title'] = 'Daftar Jadwal';
         $data['user'] = $this->User_model->user();
-        // $data['psikolog'] = $this->pagination();
-        $data['jadwal'] = $this->pagination('jadwal');
-
+        $data['jadwal'] = $this->pagination('jadwal', 7);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -62,13 +59,31 @@ class Jadwal extends CI_Controller
 
     public function hari()
     {
+        $data['title'] = 'Daftar Hari';
+        $data['user'] = $this->User_model->user();
+        $data['hari'] = $this->pagination('hari', 7);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('jadwal/hari', $data);
+        $this->load->view('templates/footer');
     }
 
     public function sesi()
     {
+        $data['title'] = 'Daftar Sesi';
+        $data['user'] = $this->User_model->user();
+        $data['sesi'] = $this->pagination('sesi', 3);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('jadwal/sesi', $data);
+        $this->load->view('templates/footer');
     }
 
-    private function pagination($table)
+    private function pagination($table, $per_page)
     {
         $this->load->library('pagination');
         $config['first_link']       = 'First';
@@ -91,9 +106,9 @@ class Jadwal extends CI_Controller
         $config['last_tagl_close']  = '</span></li>';
         $config['base_url'] = base_url() . $table . '/index';
         $config['total_rows'] = $this->db->count_all($table);
-        $config['per_page'] = 5;
+        $config['per_page'] = $per_page;
         $from = $this->uri->segment(3);
         $this->pagination->initialize($config);
-        return $this->Jadwal_model->data($config['per_page'], $from);
+        return $this->Jadwal_model->data($table, $config['per_page'], $from);
     }
 }

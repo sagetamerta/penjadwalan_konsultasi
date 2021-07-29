@@ -4,9 +4,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Jadwal_model extends CI_Model
 {
-    public function data($number, $offset)
+    public function data($table, $number, $offset)
     {
-        return $this->db->get('jadwal', $number, $offset)->result();
+        return $this->db->get($table, $number, $offset)->result();
     }
 
     public function addJadwal()
