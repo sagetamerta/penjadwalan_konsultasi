@@ -31,15 +31,21 @@
         </div>
         <!-- SIAPKAN SUB-MENU SESUAI MENU -->
         <?php
+        if ($role_id == 1) {
+            $exceptMenu = "AND NOT `title` ='Verifikasi Jadwal'";
+        } else {
+            $exceptMenu = "";
+        }
+
         $menuId = $m['id'];
         $querySubMenu = "SELECT *
                             FROM `user_sub_menu`
                             WHERE `menu_id` = $menuId
                             AND `is_active` = 1
+                            $exceptMenu
                         ";
         $subMenu = $this->db->query($querySubMenu)->result_array();
         ?>
-
         <?php foreach ($subMenu as $sm) : ?>
             <?php if ($title == $sm['title']) : ?>
                 <li class="nav-item active">
@@ -52,7 +58,6 @@
                 </li>
             <?php endforeach; ?>
             <hr class="sidebar-divider mt-3">
-
         <?php endforeach;    ?>
 
         <!-- Sidebar Toggler Sidebar -->
