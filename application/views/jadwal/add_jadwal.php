@@ -44,7 +44,7 @@
                     <?= validation_errors(); ?>
                 </div>
             <?php endif; ?>
-            <form action="<?= base_url('jadwal/add'); ?>" method="post">
+            <form action="<?= base_url('jadwal/addjadwal'); ?>" method="post">
                 <div class="form-group">
                     <label for="kode_jadwal">Kode Jadwal</label>
                     <input type="text" class="form-control" name="kode_jadwal" id="kode_jadwal"></input>
