@@ -1,7 +1,7 @@
 .bg-gradient-purple {
-  background-color: #a31ccc;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #901fc5), to(#73218b));
-  background-image: linear-gradient(180deg, #901fc5 10%, #73218b 100%);
+  background-color: #B0519F;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #DB65C6), to(#A84D98));
+  background-image: linear-gradient(180deg, #DB65C6 10%, #A84D98 100%);
   background-size: cover;
 }
 /*# sourceMappingURL=style.css.map */

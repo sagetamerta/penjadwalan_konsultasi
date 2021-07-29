@@ -6,7 +6,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center">
-            <span>Copyright &copy; Penjadwalan Konsultasi <?= date('Y'); ?></span>
+            <span>Copyright &copy; Penjadwalan Konsultasi <?= date('Y'); ?> By Ketut Gede Amerta Saget</span>
         </div>
     </div>
 </footer>

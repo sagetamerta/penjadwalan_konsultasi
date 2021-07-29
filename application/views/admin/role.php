@@ -48,6 +48,7 @@
                 <form action="<?= base_url('admin/roleadd'); ?>" method="post">
                     <div class="modal-body">
                         <div class="form-group">
+                            <label for="role">Role</label>
                             <input type="text" class="form-control" id="role" name="role" placeholder="Role name">
                         </div>
                     </div>
@@ -73,6 +74,7 @@
                 <form action="<?= base_url('admin/roleedit'); ?>" method="post">
                     <div class="modal-body">
                         <input type="hidden" id="id" name="id">
+                        <label for="role">Role</label>
                         <input type="text" class="form-control" id="role" name="role" placeholder="Role name">
                     </div>
                     <div class="modal-footer">
