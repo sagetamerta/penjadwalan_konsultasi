@@ -24,11 +24,11 @@ class Jadwal_model extends CI_Model
 
     public function addJadwal()
     {
-        $banyak_per_hari = $this->input->post('banyak_per_hari'); //harusnya nilainya 3 ya buat testing
-        $banyak_per_sesi = $this->input->post('banyak_per_sesi'); //harusnya nilainya 3 ya buat testing
         $jadwalterbaik = $this->input->post('jadwalTerbaik'); //string => ubah jadi array int
 
         $newjadwal = array_map('intval', explode(',', $jadwalterbaik)); //array int
+        $banyak_per_hari = ceil(count($newjadwal) / 7);
+        $banyak_per_sesi = ceil($banyak_per_hari / 3);
         $id_hari = array_chunk($newjadwal, $banyak_per_hari); //array dibagi seberapa banyak psikolog perhari yg akan dibagi menjadi 3 sesi
 
         $data_jadwal = array(

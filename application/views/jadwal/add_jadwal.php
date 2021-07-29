@@ -28,7 +28,15 @@
             </div>
             <div class="form-group">
                 <label for="maxData"> Nilai Maksimal Data</label>
-                <input type="text" class="form-control" name="maxData" id="maxData" placeholder="ex : 35" required>
+                <input type="text" class="form-control" name="maxData" id="maxData">
+                <!-- <select class="form-control" name="maxData" id="maxData">
+                    <?php for ($i = 1; $i < 21; $i++) : ?>
+                        <?php
+                        $num = 7 * $i;
+                        ?>
+                        <option value="<?= $num; ?>"><?= $num; ?></option>
+                    <?php endfor; ?>
+                </select> -->
                 <small>Nilai maksimal untuk menentukan seberapa banyak psikolog yang akan tampil di jadwal</small>
             </div>
             <input type="hidden" value="<?= $maxPs; ?>" id="maxPs">
@@ -43,14 +51,6 @@
                 </div>
             <?php endif; ?>
             <form action="<?= base_url('jadwal/addjadwal'); ?>" method="post">
-                <div class="form-group">
-                    <label for="banyak_per_hari">Banyak Psikolog per Hari</label>
-                    <input type="text" class="form-control" name="banyak_per_hari" id="banyak_per_hari"></input>
-                </div>
-                <div class="form-group">
-                    <label for="banyak_per_sesi">Banyak Psikolog per Sesi</label>
-                    <input type="text" class="form-control" name="banyak_per_sesi" id="banyak_per_sesi"></input>
-                </div>
                 <div class="form-group">
                     <label for="jadwalTerbaik">Jadwal Terbaik</label>
                     <textarea class="form-control" name="jadwalTerbaik" id="jadwalTerbaik" rows="3" readonly></textarea>
