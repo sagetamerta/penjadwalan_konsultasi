@@ -61,7 +61,7 @@ class Jadwal extends CI_Controller
     {
         $data['title'] = 'Daftar Hari';
         $data['user'] = $this->User_model->user();
-        $data['hari'] = $this->pagination('hari', 7);
+        $data['hari'] = $this->pagination('hari', 10);
 
         $this->form_validation->set_rules('nama_hari', 'Nama Hari', 'required');
 

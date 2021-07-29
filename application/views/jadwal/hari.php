@@ -14,7 +14,7 @@
             <div class="row">
                 <?php if ($user['role_id'] == 1) : ?>
                     <div class="col">
-                        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newPsikologModal">Add New Psikolog</a>
+                        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newhariModal">Add New hari</a>
                     </div>
                 <?php endif; ?>
                 <div class="col">
@@ -30,9 +30,8 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nama Hari</th>
+                        <th scope="col">Nama hari</th>
                         <?php if ($user['role_id'] == 1) : ?>
-                            <a href="javascript:;" data-id_psikolog="<?php echo $p->id_psikolog ?>" data-nama_psikolog="<?= $p->nama_psikolog; ?>" data-notelp_psikolog="<?= $p->notelp_psikolog; ?>" data-alamat_psikolog="<?= $p->alamat_psikolog; ?>" data-toggle="modal" data-target="#editPsikologModal" class="badge badge-info">edit</a>
                             <th scope="col">Action</th>
                         <?php endif; ?>
                     </tr>
@@ -45,7 +44,8 @@
                             <td><?= $h->nama_hari ?></td>
                             <?php if ($user['role_id'] == 1) : ?>
                                 <td>
-                                    <a href="<?= base_url('jadwal/deleteHari/') . $h->id_hari ?>" class="badge badge-danger">delete</a>
+                                    <a href="javascript:;" data-id_hari="<?php echo $h->id_hari ?>" data-nama_hari="<?= $h->nama_hari; ?>" data-toggle="modal" data-target="#edithariModal" class="badge badge-info">edit</a>
+                                    <a href="<?= base_url('jadwal/deletehari/') . $h->id_hari ?>" class="badge badge-danger">delete</a>
                                 </td>
                             <?php endif; ?>
                         </tr>
@@ -53,6 +53,72 @@
                 </tbody>
             </table>
             <br>
-
         </div>
     </div>
+
+    <!-- Modal Add hari -->
+    <div class="modal fade" id="newhariModal" tabindex="-1" aria-labelledby="newhariModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newhariModalLabel">Add New hari</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('jadwal/hari'); ?>" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nama_hari" name="nama_hari" placeholder="Nama hari">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit hari -->
+    <div class="modal fade" id="edithariModal" tabindex="-1" aria-labelledby="edithariModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edithariModalLabel">Edit hari</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('jadwal/edithari'); ?>" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nama_hari">Nama hari</label>
+                            <input type="hidden" id="id_hari" name="id_hari">
+                            <input type="text" class="form-control" id="nama_hari" name="nama_hari" placeholder="Nama hari">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Untuk sunting
+            $('#edithariModal').on('show.bs.modal', function(event) {
+                var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+                var modal = $(this)
+
+                // Isi nilai pada field
+                modal.find('#id_hari').attr("value", div.data('id_hari'));
+                modal.find('#nama_hari').attr("value", div.data('nama_hari'));
+            });
+        });
+    </script>
