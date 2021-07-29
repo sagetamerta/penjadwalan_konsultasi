@@ -55,13 +55,6 @@
 
         <?php endforeach;    ?>
 
-        <!-- Nav Item - Logout -->
-        <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('auth/logout'); ?>">
-                <i class="fas fa-sign-out-alt fa-fw"></i>
-                <span>Log Out</span></a>
-        </li>
-
         <!-- Sidebar Toggler Sidebar -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
