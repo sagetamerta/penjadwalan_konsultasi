@@ -212,7 +212,6 @@ class Auth extends CI_Controller
         $this->load->view('auth/notfound');
     }
 
-
     public function forgotPassword()
     {
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');

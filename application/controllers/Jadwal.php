@@ -147,22 +147,6 @@ class Jadwal extends CI_Controller
         Jadwal has been deleted!</div>');
     }
 
-    public function verifikasi()
-    {
-        $data['title'] = 'Verifikasi Jadwal';
-        $data['user'] = $this->User_model->user();
-
-        $role_id = $data['user']['role_id'];
-        if ($role_id == 1) {
-            redirect('jadwal');
-        }
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('jadwal/verifikasi', $data);
-        $this->load->view('templates/footer');
-    }
 
     private function pagination($table, $per_page, $join = '')
     {
