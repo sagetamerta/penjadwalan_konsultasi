@@ -20,4 +20,4 @@
 
 </head>
 
-<body class="bg-gradient-purple">
+<body class="bg-gradient-primary">

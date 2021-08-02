@@ -8,7 +8,7 @@
         let individuTerbaik = 0;
         let thresholdSaget = 0.0;
         let indexTerbaik = 0;
-        let maxData = 0;
+        let maxData = 56;
         let maxPs = 0;
         let getChildCO = 0;
         let ofCrossover = 0;
@@ -38,12 +38,8 @@
             iterasi = document.getElementById("iterasi").value * 1;
             thresholdSaget = document.getElementById("thresholdSaget").value * 1;
             maxPs = document.getElementById("maxPs").value * 1;
-            maxData = document.getElementById("maxData").value * 1;
-            if(maxPs >= maxData){
-                maxData = maxPs;
-            }
-
-            return [popsize, cr, mr, iterasi, thresholdSaget, maxPs,maxData];
+            
+            return [popsize, cr, mr, iterasi, thresholdSaget, maxPs];
         }
 
         function inisialisasi() {

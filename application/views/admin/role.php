@@ -23,9 +23,9 @@
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $r['role']; ?></td>
                             <td>
-                                <a href="<?= base_url('admin/roleaccess/') . $r['id']; ?>" class="badge badge-warning">access</a>
-                                <a href="javascript:;" data-id="<?php echo $r['id'] ?>" data-role="<?php echo $r['role'] ?>" data-toggle="modal" data-target="#editRoleModal" class="badge badge-info">edit</a>
-                                <a href="<?= base_url('admin/roledelete/') . $r['id']; ?>" class="badge badge-danger">delete</a>
+                                <a href="<?= base_url('admin/roleaccess/') . $r['id']; ?>" class="btn btn-warning"><i class="fas fa-key"></i></a>
+                                <a href="javascript:;" data-id="<?php echo $r['id'] ?>" data-role="<?php echo $r['role'] ?>" data-toggle="modal" data-target="#editRoleModal" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                <a href="<?= base_url('admin/roledelete/') . $r['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php $i++; ?>

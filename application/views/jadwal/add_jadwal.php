@@ -26,19 +26,6 @@
                 <input type="text" class="form-control" name="thresholdSaget" id="thresholdSaget" placeholder="ex : 0.07" required>
                 <small>Batas untuk menentukan minimal kualitas dari individu</small>
             </div>
-            <div class="form-group">
-                <label for="maxData"> Nilai Maksimal Data</label>
-                <input type="text" class="form-control" name="maxData" id="maxData">
-                <!-- <select class="form-control" name="maxData" id="maxData">
-                    <?php for ($i = 1; $i < 21; $i++) : ?>
-                        <?php
-                        $num = 7 * $i;
-                        ?>
-                        <option value="<?= $num; ?>"><?= $num; ?></option>
-                    <?php endfor; ?>
-                </select> -->
-                <small>Nilai maksimal untuk menentukan seberapa banyak psikolog yang akan tampil di jadwal</small>
-            </div>
             <input type="hidden" value="<?= $maxPs; ?>" id="maxPs">
             <button type="button" onclick="run()" class="btn btn-primary mb-5">Hitung Jadwal</button>
         </div>
