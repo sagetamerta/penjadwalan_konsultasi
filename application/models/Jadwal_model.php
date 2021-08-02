@@ -27,8 +27,8 @@ class Jadwal_model extends CI_Model
         $jadwalterbaik = $this->input->post('jadwalTerbaik'); //string => ubah jadi array int
 
         $newjadwal = array_map('intval', explode(',', $jadwalterbaik)); //array int
-        $banyak_per_hari = ceil(count($newjadwal) / 7);
-        $banyak_per_sesi = ceil($banyak_per_hari / 3);
+        $banyak_per_hari = ceil(count($newjadwal) / $this->db->get('hari')->num_rows());
+        $banyak_per_sesi = ceil($banyak_per_hari / $this->db->get('sesi')->num_rows());
         $id_hari = array_chunk($newjadwal, $banyak_per_hari); //array dibagi seberapa banyak psikolog perhari yg akan dibagi menjadi 3 sesi
 
         $data_jadwal = array(
