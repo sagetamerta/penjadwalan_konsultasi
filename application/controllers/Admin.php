@@ -26,7 +26,6 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Role';
         $data['user'] = $this->User_model->user();
-
         $data['role'] = $this->db->get('user_role')->result_array();
 
         $this->load->view('templates/header', $data);
@@ -38,11 +37,15 @@ class Admin extends CI_Controller
 
     public function roleAdd()
     {
-        $this->Admin_model->roleAdd();
-        redirect('admin/role');
+        if ($this->form_validation->run() == true) {
+            $this->Admin_model->roleAdd();
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        New Role has been added!</div>');
+            redirect('admin/role');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            New Role has been added!</div>');
+        } else {
+            redirect('admin/role');
+        }
     }
 
     public function roleEdit()
@@ -67,7 +70,6 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Role Access';
         $data['user'] = $this->User_model->user();
-
         $data['role'] = $this->db->get_where('user_role', ['id' => $role_id])->row_array();
 
         $this->db->where('id !=', 1);
