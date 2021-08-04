@@ -72,12 +72,21 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <input type="text" class="form-control" id="nama_psikolog" name="nama_psikolog" placeholder="Nama Psikolog">
+                            <?=
+                            form_error('nama_psikolog', '<small class="text-danger pl-3">', '</small>');
+                            ?>
                         </div>
                         <div class="form-group">
                             <input type="number" class="form-control" id="notelp_psikolog" name="notelp_psikolog" placeholder="Nomor Telepon Psikolog">
+                            <?=
+                            form_error('notelp_psikolog', '<small class="text-danger pl-3">', '</small>');
+                            ?>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="alamat_psikolog" name="alamat_psikolog" placeholder="Alamat Psikolog">
+                            <?=
+                            form_error('alamat_psikolog', '<small class="text-danger pl-3">', '</small>');
+                            ?>
                         </div>
                     </div>
                     <div class="modal-footer">
