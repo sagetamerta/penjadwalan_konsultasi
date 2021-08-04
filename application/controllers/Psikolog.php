@@ -27,7 +27,6 @@ class Psikolog extends CI_Controller
 
     public function addPsikolog()
     {
-
         $this->form_validation->set_rules('nama_psikolog', 'nama_psikolog', 'required');
         $this->form_validation->set_rules('notelp_psikolog', 'notelp_psikolog', 'required');
         $this->form_validation->set_rules('alamat_psikolog', 'alamat_psikolog', 'required');

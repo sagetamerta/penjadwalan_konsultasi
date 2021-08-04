@@ -32,6 +32,8 @@ class Jadwal extends CI_Controller
 
         $this->form_validation->set_rules('jadwalTerbaik', 'Jadwal Terbaik', 'required');
 
+        if ($data['user']['role_id'] == 2) redirect('jadwal');
+
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);

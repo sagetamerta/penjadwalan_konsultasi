@@ -1,7 +1,7 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
-    <div class="row">
+    <div class="row" style="overflow-x:auto;">
         <div class="col-md-8">
             <a class="btn btn-primary" href="<?= base_url('jadwal/addjadwal'); ?>"><i class="fas fa-plus"></i> Tambah Jadwal</a>
             <?php if (validation_errors()) : ?>
@@ -23,9 +23,7 @@
                         <th scope="col">#</th>
                         <th scope="col">ID Jadwal</th>
                         <th scope="col">Keterangan</th>
-                        <?php if ($user['role_id'] == 1) : ?>
-                            <th scope="col">Action</th>
-                        <?php endif; ?>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
