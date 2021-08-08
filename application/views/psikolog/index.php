@@ -47,8 +47,8 @@
                         <td><?= $p->alamat_psikolog ?></td>
                         <?php if ($user['role_id'] == 1) : ?>
                             <td>
-                                <a href="javascript:;" data-id_psikolog="<?php echo $p->id_psikolog ?>" data-nama_psikolog="<?= $p->nama_psikolog; ?>" data-notelp_psikolog="<?= $p->notelp_psikolog; ?>" data-alamat_psikolog="<?= $p->alamat_psikolog; ?>" data-toggle="modal" data-target="#editPsikologModal" class="badge badge-info">edit</a>
-                                <a href="<?= base_url('psikolog/deletePsikolog/') . $p->id_psikolog ?>" class="badge badge-danger">delete</a>
+                                <a href="javascript:;" data-id_psikolog="<?php echo $p->id_psikolog ?>" data-nama_psikolog="<?= $p->nama_psikolog; ?>" data-notelp_psikolog="<?= $p->notelp_psikolog; ?>" data-alamat_psikolog="<?= $p->alamat_psikolog; ?>" data-toggle="modal" data-target="#editPsikologModal" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                <a href="<?= base_url('psikolog/deletePsikolog/') . $p->id_psikolog ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         <?php endif; ?>
                     </tr>
@@ -68,22 +68,25 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="<?= base_url('psikolog/addpsikolog'); ?>" method="post">
+                <form id="addPsikologForm" action="<?= base_url('psikolog/addpsikolog'); ?>" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nama_psikolog" name="nama_psikolog" placeholder="Nama Psikolog">
+                            <label for="nama_psikolog">Nama Psikolog</label>
+                            <input type="text" class="form-control" id="nama_psikolog" name="nama_psikolog" placeholder="Nama Psikolog" required>
                             <?=
                             form_error('nama_psikolog', '<small class="text-danger pl-3">', '</small>');
                             ?>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="notelp_psikolog" name="notelp_psikolog" placeholder="Nomor Telepon Psikolog">
+                            <label for="notelp_psikolog">Nomor Telepon Psikolog</label>
+                            <input type="number" class="form-control" id="notelp_psikolog" name="notelp_psikolog" placeholder="Nomor Telepon Psikolog" required>
                             <?=
                             form_error('notelp_psikolog', '<small class="text-danger pl-3">', '</small>');
                             ?>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="alamat_psikolog" name="alamat_psikolog" placeholder="Alamat Psikolog">
+                            <label for="alamat_psikolog">Alamat Psikolog</label>
+                            <input type="text" class="form-control" id="alamat_psikolog" name="alamat_psikolog" placeholder="Alamat Psikolog" required>
                             <?=
                             form_error('alamat_psikolog', '<small class="text-danger pl-3">', '</small>');
                             ?>
@@ -91,7 +94,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>
             </div>
@@ -113,20 +116,20 @@
                         <div class="form-group">
                             <label for="nama_psikolog">Nama Psikolog</label>
                             <input type="hidden" id="id_psikolog" name="id_psikolog">
-                            <input type="text" class="form-control" id="nama_psikolog" name="nama_psikolog" placeholder="Nama Psikolog">
+                            <input type="text" class="form-control" id="nama_psikolog" name="nama_psikolog" placeholder="Nama Psikolog" required>
                         </div>
                         <div class="form-group">
                             <label for="notelp_psikolog">Nomor Telepon Psikolog</label>
-                            <input type="number" class="form-control" id="notelp_psikolog" name="notelp_psikolog" placeholder="Nomor Telepon Psikolog">
+                            <input type="number" class="form-control" id="notelp_psikolog" name="notelp_psikolog" placeholder="Nomor Telepon Psikolog" required>
                         </div>
                         <div class="form-group">
                             <label for="alamat_psikolog">Alamat Psikolog</label>
-                            <input type="text" class="form-control" id="alamat_psikolog" name="alamat_psikolog" placeholder="Alamat Psikolog">
+                            <input type="text" class="form-control" id="alamat_psikolog" name="alamat_psikolog" placeholder="Alamat Psikolog" required>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
                     </div>
                 </form>
             </div>
