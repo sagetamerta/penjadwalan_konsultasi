@@ -4,27 +4,27 @@
             <div class="form-group">
                 <label for="popsize">Population Size</label>
                 <input type="text" class="form-control" name="popsize" id="popsize" placeholder="ex : 10" required>
-                <small>Banyak populasi yang akan dibuat (popsize)</small>
+                <small>Banyak populasi yang akan dibuat (1-20)</small>
             </div>
             <div class="form-group">
                 <label for="cr">Crossover Rate</label>
                 <input type="text" class="form-control" name="cr" id="cr" placeholder="ex : 0.5" required>
-                <small>Nilai untuk persilangan (crossover)</small>
+                <small>Nilai untuk persilangan (0.5 - 0.8)</small>
             </div>
             <div class="form-group">
                 <label for="mr">Mutation Rate</label>
                 <input type="text" class="form-control" name="mr" id="mr" placeholder="ex : 0.5" required>
-                <small>Nilai untuk mutasi (mutation)</small>
+                <small>Nilai untuk mutasi (0.5 - 0.8)</small>
             </div>
             <div class="form-group">
                 <label for="iterasi">Iterasi</label>
                 <input type="text" class="form-control" name="iterasi" id="iterasi" placeholder="ex : 1000" required>
-                <small>Seberapa banyak melakukan perulangan sebelum mencapai nilai fitness yang diinginkan</small>
+                <small>Seberapa banyak melakukan perulangan sebelum mencapai nilai fitness yang diinginkan (1 - 1000)</small>
             </div>
             <div class="form-group">
                 <label for="thresholdSaget"> Nilai Fitness Minimal</label>
-                <input type="text" class="form-control" name="thresholdSaget" id="thresholdSaget" placeholder="ex : 0.07" required>
-                <small>Batas untuk menentukan minimal kualitas dari individu</small>
+                <input type="text" class="form-control" name="thresholdSaget" id="thresholdSaget" placeholder="ex : 0.007" required>
+                <small>Batas untuk menentukan minimal kualitas dari individu ( 0.001 - 0.002)</small>
             </div>
             <input type="hidden" value="<?= $maxPs; ?>" id="maxPs">
             <button type="button" onclick="run()" class="btn btn-primary mb-5">Hitung Jadwal</button>
@@ -40,7 +40,7 @@
             <form action="<?= base_url('jadwal/addjadwal'); ?>" method="post">
                 <div class="form-group">
                     <label for="jadwalTerbaik">Jadwal Terbaik</label>
-                    <textarea class="form-control" name="jadwalTerbaik" id="jadwalTerbaik" rows="3" readonly></textarea>
+                    <textarea class="form-control" name="jadwalTerbaik" id="jadwalTerbaik" rows="3" readonly="readonly"></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-outline-primary">Tambah Jadwal</button>

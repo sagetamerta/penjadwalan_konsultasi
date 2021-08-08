@@ -14,7 +14,7 @@
             <div class="row">
                 <?php if ($user['role_id'] == 1) : ?>
                     <div class="col">
-                        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newSesiModal">Add New Sesi</a>
+                        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newSesiModal"><i class="fas fa-plus"></i> Add New Sesi</a>
                     </div>
                 <?php endif; ?>
                 <div class="col">
@@ -44,8 +44,8 @@
                             <td><?= $h->nama_sesi ?></td>
                             <?php if ($user['role_id'] == 1) : ?>
                                 <td>
-                                    <a href="javascript:;" data-id_sesi="<?php echo $h->id_sesi ?>" data-nama_sesi="<?= $h->nama_sesi; ?>" data-toggle="modal" data-target="#editSesiModal" class="badge badge-info">edit</a>
-                                    <a href="<?= base_url('jadwal/deleteSesi/') . $h->id_sesi ?>" class="badge badge-danger">delete</a>
+                                    <a href="javascript:;" data-id_sesi="<?php echo $h->id_sesi ?>" data-nama_sesi="<?= $h->nama_sesi; ?>" data-toggle="modal" data-target="#editSesiModal" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                    <a href="<?= base_url('jadwal/deleteSesi/') . $h->id_sesi ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>
                             <?php endif; ?>
                         </tr>

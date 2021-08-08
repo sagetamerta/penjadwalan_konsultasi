@@ -14,7 +14,7 @@
             <div class="row">
                 <?php if ($user['role_id'] == 1) : ?>
                     <div class="col">
-                        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newhariModal">Add New hari</a>
+                        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newhariModal"><i class="fas fa-plus"></i> Add New hari</a>
                     </div>
                 <?php endif; ?>
                 <div class="col">
@@ -44,8 +44,8 @@
                             <td><?= $h->nama_hari ?></td>
                             <?php if ($user['role_id'] == 1) : ?>
                                 <td>
-                                    <a href="javascript:;" data-id_hari="<?php echo $h->id_hari ?>" data-nama_hari="<?= $h->nama_hari; ?>" data-toggle="modal" data-target="#edithariModal" class="badge badge-info">edit</a>
-                                    <a href="<?= base_url('jadwal/deletehari/') . $h->id_hari ?>" class="badge badge-danger">delete</a>
+                                    <a href="javascript:;" data-id_hari="<?php echo $h->id_hari ?>" data-nama_hari="<?= $h->nama_hari; ?>" data-toggle="modal" data-target="#edithariModal" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                    <a href="<?= base_url('jadwal/deletehari/') . $h->id_hari ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>
                             <?php endif; ?>
                         </tr>
