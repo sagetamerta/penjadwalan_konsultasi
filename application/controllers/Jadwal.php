@@ -54,6 +54,8 @@ class Jadwal extends CI_Controller
         $data['title'] = 'Detail Jadwal';
         $data['user'] = $this->User_model->user();
         $data['detail_jadwal'] = $this->Jadwal_model->detailJadwal($id_jadwal);
+        $data['hari'] = $this->db->get('hari')->result_array();
+        $data['sesi'] = $this->db->get('sesi')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

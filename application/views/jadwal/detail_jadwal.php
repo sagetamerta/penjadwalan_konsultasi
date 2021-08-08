@@ -2,39 +2,34 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
     <div class="row" style="overflow-x:auto;">
-        <div class="col-md-8">
-            <?php if ($user['role_id'] == 1) : ?>
-                <a class="btn btn-primary" href="<?= base_url('jadwal/addjadwal'); ?>"><i class="fas fa-plus"></i> Tambah Jadwal</a>
-            <?php endif; ?>
-            <?php if (validation_errors()) : ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= validation_errors(); ?>
-                </div>
-            <?php endif; ?>
+        <table class="table table-hover">
+            <?php
 
-            <?php $this->session->flashdata('message'); ?>
+            $newjadwal = array(); //basic array
+            foreach ($detail_jadwal as $d) {
+                $newjadwal[] = intval($d['id_psikolog']);
+            }
+
+            $banyak_per_hari = ceil(count($newjadwal) / 7);
+            $banyak_per_sesi = ceil($banyak_per_hari / 3);
+            $id_hari = array_chunk($newjadwal, $banyak_per_hari);
+            $hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
+            $sesi = ["Sesi 1", "Sesi 2", "Sesi 3"];
 
 
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Hari</th>
-                        <th scope="col">Sesi</th>
-                        <th scope="col">Psikolog</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($detail_jadwal as $d) : ?>
-                        <tr>
-                            <th scope="row"><?= $i++; ?></th>
-                            <td><?= $d->nama_hari ?></td>
-                            <td><?= $d->nama_sesi ?></td>
-                            <td><?= $d->nama_psikolog ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
+            for ($i = 0; $i < count($id_hari); $i++) {
+                $id_sesi = array_chunk($id_hari[$i], $banyak_per_sesi);
+                echo '<div class="col">';
+                echo '<h2 class="text-danger text-lg">' . $hari[$i] . '</h2>';
+                for ($j = 0; $j < count($id_sesi); $j++) {
+                    $id_psikolog = array_chunk($id_sesi[$j], 1);
+                    echo $sesi[$j] . "<br>";
+                    for ($k = 0; $k < count($id_psikolog); $k++) {
+                        echo "" .  json_encode($id_psikolog[$k]) . "<br>";
+                    }
+                }
+                echo '</div>';
+            }
+            ?>
+        </table>
     </div>

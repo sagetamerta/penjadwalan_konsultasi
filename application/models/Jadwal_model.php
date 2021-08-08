@@ -82,7 +82,7 @@ class Jadwal_model extends CI_Model
             ->join('sesi', 'sesi.id_sesi = jadwal_detail.id_sesi')
             ->join('psikolog', 'psikolog.id_psikolog = jadwal_detail.id_psikolog')
             ->order_by('id_jadwal_detail', 'ASC');
-        return $this->db->get_where('jadwal_detail', array('id_jadwal' => $id_jadwal))->result();
+        return $this->db->get_where('jadwal_detail', array('id_jadwal' => $id_jadwal))->result_array();
     }
 
     public function deleteJadwal($id_jadwal)
