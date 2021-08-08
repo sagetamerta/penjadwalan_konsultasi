@@ -40,7 +40,7 @@
                                 <td class=" btn btn-danger">Belum Terverifikasi</td>
                             <?php endif; ?>
                             <td>
-                                <a href="javascript:;" data-id_jadwal="<?php echo $j->id_jadwal ?>" class="btn btn-info"><i class="fa fa-calendar-alt"></i></a>
+                                <a href="<?= base_url('jadwal/detailjadwal/') . $j->id_jadwal ?>" class="btn btn-info"><i class="fa fa-calendar-alt"></i></a>
                                 <?php if ($user['role_id'] == 1) : ?>
                                     <a href="<?= base_url('jadwal/deleteJadwal/') . $j->id_jadwal ?>" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
                                 <?php else : ?>
@@ -94,7 +94,6 @@
                 // Isi nilai pada field
                 modal.find('#id_jadwal').attr("value", div.data('id_jadwal'));
                 modal.find('#verifikasi').val(div.data('verifikasi'));
-                // modal.find("#menu_id").val(div.data('menu_id'));
             });
         });
     </script>

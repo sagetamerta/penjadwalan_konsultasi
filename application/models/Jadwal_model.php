@@ -74,6 +74,17 @@ class Jadwal_model extends CI_Model
         $this->db->update('jadwal', $data);
     }
 
+    public function detailJadwal($id_jadwal)
+    {
+        // isi join psikolog sesi hari
+        $this->db
+            ->join('hari', 'hari.id_hari = jadwal_detail.id_hari')
+            ->join('sesi', 'sesi.id_sesi = jadwal_detail.id_sesi')
+            ->join('psikolog', 'psikolog.id_psikolog = jadwal_detail.id_psikolog')
+            ->order_by('id_jadwal_detail', 'ASC');
+        return $this->db->get_where('jadwal_detail', array('id_jadwal' => $id_jadwal))->result();
+    }
+
     public function deleteJadwal($id_jadwal)
     {
         $this->db->where('id_jadwal', $id_jadwal);

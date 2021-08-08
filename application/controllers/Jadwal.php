@@ -49,6 +49,19 @@ class Jadwal extends CI_Controller
         }
     }
 
+    public function detailJadwal($id_jadwal)
+    {
+        $data['title'] = 'Detail Jadwal';
+        $data['user'] = $this->User_model->user();
+        $data['detail_jadwal'] = $this->Jadwal_model->detailJadwal($id_jadwal);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('jadwal/detail_jadwal', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function editjadwal()
     {
         $this->Jadwal_model->editjadwal();
