@@ -2,56 +2,62 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
     <div class="row" style="overflow-x:auto;">
-        <div class="col-md-8">
+        <?php if (validation_errors()) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?= validation_errors(); ?>
+            </div>
+        <?php endif; ?>
+
+        <?php $this->session->flashdata('message'); ?>
+
+        <div class="col">
             <?php if ($user['role_id'] == 1) : ?>
-                <a class="btn btn-primary" href="<?= base_url('jadwal/addjadwal'); ?>"><i class="fas fa-plus"></i> Tambah Jadwal</a>
-            <?php endif; ?>
-            <?php if (validation_errors()) : ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= validation_errors(); ?>
+                <div class="col">
+                    <a href="<?= base_url('jadwal/addjadwal'); ?>" class="btn btn-primary mb-3">Add New Jadwal</a>
                 </div>
             <?php endif; ?>
-
-            <?php $this->session->flashdata('message'); ?>
-
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <?php echo $this->pagination->create_links(); ?>
-                </ul>
-            </nav>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">ID Jadwal</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = $this->uri->segment('3') + 1; ?>
-                    <?php foreach ($jadwal as $j) : ?>
-                        <tr>
-                            <th scope="row"><?= $i++; ?></th>
-                            <td><?= $j->id_jadwal ?></td>
-                            <?php if ($j->verifikasi == 1) : ?>
-                                <td class=" btn btn-success">Terverifikasi</td>
-                            <?php else : ?>
-                                <td class=" btn btn-danger">Belum Terverifikasi</td>
-                            <?php endif; ?>
-                            <td>
-                                <a href="<?= base_url('jadwal/detailjadwal/') . $j->id_jadwal ?>" class="btn btn-info"><i class="fa fa-calendar-alt"></i></a>
-                                <?php if ($user['role_id'] == 1) : ?>
-                                    <a href="<?= base_url('jadwal/deleteJadwal/') . $j->id_jadwal ?>" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
-                                <?php else : ?>
-                                    <a href="javascript:;" data-id_jadwal="<?php echo $j->id_jadwal ?>" data-verifikasi="<?php echo $j->verifikasi ?>" data-toggle="modal" data-target="#editjadwalModal" class="btn btn-success"><i class="fas fa-check"></i></a>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <div class="col">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <?php echo $this->pagination->create_links(); ?>
+                    </ul>
+                </nav>
+            </div>
         </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ID Jadwal</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i = $this->uri->segment('3') + 1; ?>
+                <?php foreach ($jadwal as $j) : ?>
+                    <tr>
+                        <th scope="row"><?= $i++; ?></th>
+                        <td><?= $j->id_jadwal ?></td>
+                        <?php if ($j->verifikasi == 1) : ?>
+                            <td class="text-success">Terverifikasi</td>
+                        <?php else : ?>
+                            <td class="text-danger">Belum Terverifikasi</td>
+                        <?php endif; ?>
+                        <td>
+                            <a href="<?= base_url('jadwal/detailjadwal/') . $j->id_jadwal ?>" class="btn btn-info"><i class="fa fa-calendar-alt"></i></a>
+                            <?php if ($user['role_id'] == 1) : ?>
+                                <a href="<?= base_url('jadwal/deleteJadwal/') . $j->id_jadwal ?>" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
+                            <?php else : ?>
+                                <a href="javascript:;" data-id_jadwal="<?php echo $j->id_jadwal ?>" data-verifikasi="<?php echo $j->verifikasi ?>" data-toggle="modal" data-target="#editjadwalModal" class="btn btn-success"><i class="fas fa-check"></i></a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
     </div>
 
     <!-- Modal Edit jadwal -->
@@ -77,7 +83,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">Verify</button>
                     </div>
                 </form>
             </div>

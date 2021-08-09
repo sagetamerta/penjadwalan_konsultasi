@@ -49,7 +49,6 @@ class Jadwal_model extends CI_Model
                 $id_psikolog = array_chunk($id_sesi[$j], 1);
                 for ($k = 0; $k < count($id_psikolog); $k++) {
                     $data = array(
-                        'id_jadwal_detail' => '',
                         'id_jadwal' => $id_jadwal['id_jadwal'],
                         'id_hari' => ($i + 1),
                         'id_sesi' => ($j + 1),
@@ -76,7 +75,6 @@ class Jadwal_model extends CI_Model
 
     public function detailJadwal($id_jadwal)
     {
-        // isi join psikolog sesi hari
         $this->db
             ->join('hari', 'hari.id_hari = jadwal_detail.id_hari')
             ->join('sesi', 'sesi.id_sesi = jadwal_detail.id_sesi')

@@ -10,7 +10,7 @@
 
         <?php $this->session->flashdata('message'); ?>
 
-        <div class="row">
+        <div class="col">
             <?php if ($user['role_id'] == 1) : ?>
                 <div class="col">
                     <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newPsikologModal">Add New Psikolog</a>

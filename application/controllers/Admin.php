@@ -8,12 +8,14 @@ class Admin extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('Admin_model');
+        $this->load->model('Psikolog_model');
     }
 
     public function index()
     {
         $data['title'] = 'Dashboard';
         $data['user'] = $this->User_model->user();
+        $data['jumlah_psikolog'] = $this->Psikolog_model->jumlah_psikolog();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

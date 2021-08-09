@@ -3,13 +3,13 @@
 <!-- End of Main Content -->
 </div>
 <!-- Footer -->
-<footer class="sticky-footer bg-white">
+<!-- <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center">
             <span>Copyright &copy; Penjadwalan Konsultasi <?= date('Y'); ?> | Ketut Gede Amerta Saget</span>
         </div>
     </div>
-</footer>
+</footer> -->
 <!-- End of Footer -->
 
 </div>

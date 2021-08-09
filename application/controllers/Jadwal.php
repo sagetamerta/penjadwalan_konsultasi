@@ -15,7 +15,7 @@ class Jadwal extends CI_Controller
     {
         $data['title'] = 'Daftar Jadwal';
         $data['user'] = $this->User_model->user();
-        $data['jadwal'] = $this->pagination('jadwal', 7);
+        $data['jadwal'] = $this->pagination('jadwal', 5);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
