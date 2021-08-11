@@ -13,7 +13,7 @@ class Jadwal extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Daftar Jadwal';
+        $data['title'] = 'Kelola Data Jadwal';
         $data['user'] = $this->User_model->user();
         $data['jadwal'] = $this->pagination('jadwal', 5);
 
@@ -45,7 +45,7 @@ class Jadwal extends CI_Controller
             redirect('jadwal');
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            New Jadwal has been added!</div>');
+            Jadwal baru telah ditambahkan!</div>');
         }
     }
 
@@ -70,7 +70,7 @@ class Jadwal extends CI_Controller
         redirect('jadwal');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Jadwal has been updated!</div>');
+        Jadwal telah diperbarui!</div>');
     }
 
     public function deleteJadwal($id_jadwal)
@@ -79,12 +79,12 @@ class Jadwal extends CI_Controller
         redirect('jadwal');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Jadwal has been deleted!</div>');
+        Jadwal telah dihapus!</div>');
     }
 
     public function hari()
     {
-        $data['title'] = 'Daftar Hari';
+        $data['title'] = 'Kelola Data Hari';
         $data['user'] = $this->User_model->user();
         $data['hari'] = $this->pagination('hari', 10);
 
@@ -101,7 +101,7 @@ class Jadwal extends CI_Controller
             redirect('jadwal/hari');
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            New Jadwal has been added!</div>');
+            Hari baru telah ditambahkan!</div>');
         }
     }
 
@@ -111,7 +111,7 @@ class Jadwal extends CI_Controller
         redirect('jadwal/hari');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Hari has been updated!</div>');
+        Hari telah diperbarui!</div>');
     }
 
     public function deleteHari($id_hari)
@@ -120,12 +120,12 @@ class Jadwal extends CI_Controller
         redirect('jadwal/hari');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Jadwal has been deleted!</div>');
+        Hari telah dihapus!</div>');
     }
 
     public function sesi()
     {
-        $data['title'] = 'Daftar Sesi';
+        $data['title'] = 'Kelola Data Sesi';
         $data['user'] = $this->User_model->user();
         $data['sesi'] = $this->pagination('sesi', 10);
 
@@ -142,7 +142,7 @@ class Jadwal extends CI_Controller
             redirect('jadwal/sesi');
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            New Jadwal has been added!</div>');
+            Sesi telah ditambahkan!</div>');
         }
     }
 
@@ -152,7 +152,7 @@ class Jadwal extends CI_Controller
         redirect('jadwal/sesi');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Sesi has been updated!</div>');
+        Sesi telah diperbarui!</div>');
     }
 
     public function deleteSesi($id_sesi)
@@ -161,7 +161,7 @@ class Jadwal extends CI_Controller
         redirect('jadwal/sesi');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Jadwal has been deleted!</div>');
+        Sesi telah dihapus!</div>');
     }
 
 

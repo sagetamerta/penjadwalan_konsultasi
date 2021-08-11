@@ -14,7 +14,7 @@
             <div class="row">
                 <?php if ($user['role_id'] == 1) : ?>
                     <div class="col">
-                        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newhariModal"><i class="fas fa-plus"></i> Add New hari</a>
+                        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newhariModal"><i class="fas fa-plus"></i> Tambah Hari</a>
                     </div>
                 <?php endif; ?>
                 <div class="col">
@@ -45,7 +45,7 @@
                             <?php if ($user['role_id'] == 1) : ?>
                                 <td>
                                     <a href="javascript:;" data-id_hari="<?php echo $h->id_hari ?>" data-nama_hari="<?= $h->nama_hari; ?>" data-toggle="modal" data-target="#edithariModal" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                    <a href="<?= base_url('jadwal/deletehari/') . $h->id_hari ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                    <a href="<?= base_url('jadwal/deletehari/') . $h->id_hari ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin hapus?');"><i class="fas fa-trash"></i></a>
                                 </td>
                             <?php endif; ?>
                         </tr>
@@ -56,12 +56,12 @@
         </div>
     </div>
 
-    <!-- Modal Add hari -->
+    <!-- Modal Tambah hari -->
     <div class="modal fade" id="newhariModal" tabindex="-1" aria-labelledby="newhariModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="newhariModalLabel">Add New hari</h5>
+                    <h5 class="modal-title" id="newhariModalLabel">Tambah hari</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>
             </div>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
                     </div>
                 </form>
             </div>

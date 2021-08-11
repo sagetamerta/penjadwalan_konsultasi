@@ -23,23 +23,23 @@ class Auth_model extends CI_Model
                     ];
                     $this->session->set_userdata($data);
                     if ($user['role_id'] == 1) {
-                        redirect('admin');
+                        redirect('user');
                     } else {
                         redirect('user');
                     }
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                    Wrong password!</div>');
+                    Password Salah!</div>');
                     redirect('auth');
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            This email has not been activated!</div>');
+                Email ini belum diaktifkan!</div>');
                 redirect('auth');
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Email is not registered!</div>');
+            Email belum terdaftar!</div>');
             redirect('auth');
         }
     }
@@ -72,7 +72,7 @@ class Auth_model extends CI_Model
         $this->_sendEmail($token, 'verify');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Congratulations! Your account has been created. Please activate your account</div>');
+            Selamat! Akun anda telah dibuat. Silakan aktifkan akun Anda</div>');
         redirect('auth');
     }
 
@@ -97,10 +97,10 @@ class Auth_model extends CI_Model
 
         if ($type == 'verify') {
             $this->email->subject('Account Verification');
-            $this->email->message('Click this link to verify your account :<br><a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
+            $this->email->message('Klik tautan ini untuk memverifikasi akun Anda :<br><a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
         } else if ($type == 'forgot') {
             $this->email->subject('Reset Password');
-            $this->email->message('Click this link to reset your password :<br><a href="' . base_url() . 'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Reset Password</a>');
+            $this->email->message('Klik tautan ini untuk mengatur ulang password Anda :<br><a href="' . base_url() . 'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Atur Ulang Password</a>');
         }
 
         if ($this->email->send()) {
@@ -128,24 +128,24 @@ class Auth_model extends CI_Model
                     $this->db->update('user');
 
                     $this->db->delete('user_token', ['email' => $email]);
-                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' has been activated! Please login.</div>');
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' telah diaktifkan! Please login.</div>');
                     redirect('auth');
                 } else {
                     $this->db->delete('user', ['email' => $email]);
                     $this->db->delete('user_token', ['email' => $email]);
 
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Token expired.</div>');
+                    Token kedaluwarsa.</div>');
                     redirect('auth');
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Account activation failed! Token invalid</div>');
+                Aktivasi akun gagal! Token tidak valid</div>');
                 redirect('auth');
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Account activation failed! Wrong email.</div>');
+            Aktivasi akun gagal! Email salah.</div>');
             redirect('auth');
         }
     }
@@ -172,11 +172,11 @@ class Auth_model extends CI_Model
             $this->db->insert('user_token', $user_token);
             $this->_sendEmail($token, 'forgot');
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Please check your email to reset your password!</div>');
+            Silakan periksa email Anda untuk mengatur ulang password Anda !</div>');
             redirect('auth/forgotpassword');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Email is not registered or activated!</div>');
+            Email tidak terdaftar atau diaktifkan!</div>');
             redirect('auth/forgotpassword');
         }
     }

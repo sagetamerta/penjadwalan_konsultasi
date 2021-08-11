@@ -26,6 +26,8 @@ class Psikolog_model extends CI_Model
             'alamat_psikolog' => $alamat_psikolog
         );
         $this->db->insert('psikolog', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Psikolog baru telah ditambahkan!</div>');
     }
 
     public function editPsikolog()

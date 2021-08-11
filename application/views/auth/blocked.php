@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>403 | Access Forbidden</title>
+    <title>403 | Akses Dilarang</title>
     <style>
         #main {
             height: 100vh;
@@ -22,8 +22,8 @@
     <div class="d-flex justify-content-center align-items-center" id="main">
         <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">404</h1>
         <div class="inline-block align-middle">
-            <h2 class="font-weight-normal lead" id="desc">Access Forbidden.</h2>
-            <a href="<?= base_url(''); ?>">Go back</a>
+            <h2 class="font-weight-normal lead" id="desc">Akses Dilarang.</h2>
+            <a href="<?= base_url(''); ?>">Kembali</a>
         </div>
     </div>
 </body>

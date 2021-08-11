@@ -44,7 +44,7 @@ class Admin extends CI_Controller
 
             redirect('admin/role');
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            New Role has been added!</div>');
+            Role baru telah ditambahkan!</div>');
         } else {
             redirect('admin/role');
         }
@@ -56,7 +56,7 @@ class Admin extends CI_Controller
         redirect('admin/role');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        New Role has been updated!</div>');
+        Role baru telah diperbarui!</div>');
     }
 
     public function roleDelete($role_id)
@@ -65,12 +65,12 @@ class Admin extends CI_Controller
         redirect('admin/role');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Role has been deleted!</div>');
+        Role telah dihapus!</div>');
     }
 
     public function roleAccess($role_id)
     {
-        $data['title'] = 'Role Access';
+        $data['title'] = 'Akses Role';
         $data['user'] = $this->User_model->user();
         $data['role'] = $this->db->get_where('user_role', ['id' => $role_id])->row_array();
 
@@ -89,6 +89,6 @@ class Admin extends CI_Controller
         $this->Admin_model->changeAccess();
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Access Changed!</div>');
+        Akses dirubah!</div>');
     }
 }

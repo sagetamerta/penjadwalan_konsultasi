@@ -12,7 +12,7 @@ class User extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'My Profile';
+        $data['title'] = 'Profil Saya';
         $data['user'] = $this->User_model->user();
 
         $this->load->view('templates/header', $data);
@@ -24,7 +24,7 @@ class User extends CI_Controller
 
     public function edit()
     {
-        $data['title'] = 'Edit Profile';
+        $data['title'] = 'Edit Profil';
         $data['user'] = $this->User_model->user();
 
         $this->form_validation->set_rules('name', 'Full Name', 'required|trim');

@@ -13,7 +13,7 @@
         <div class="col">
             <?php if ($user['role_id'] == 1) : ?>
                 <div class="col">
-                    <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newPsikologModal">Add New Psikolog</a>
+                    <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newPsikologModal"><i class="fas fa-plus"></i> Tambah Psikolog</a>
                 </div>
             <?php endif; ?>
             <div class="col">
@@ -48,7 +48,7 @@
                         <?php if ($user['role_id'] == 1) : ?>
                             <td>
                                 <a href="javascript:;" data-id_psikolog="<?php echo $p->id_psikolog ?>" data-nama_psikolog="<?= $p->nama_psikolog; ?>" data-notelp_psikolog="<?= $p->notelp_psikolog; ?>" data-alamat_psikolog="<?= $p->alamat_psikolog; ?>" data-toggle="modal" data-target="#editPsikologModal" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                <a href="<?= base_url('psikolog/deletePsikolog/') . $p->id_psikolog ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                <a href="<?= base_url('psikolog/deletePsikolog/') . $p->id_psikolog ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin hapus?');"><i class="fas fa-trash"></i></a>
                             </td>
                         <?php endif; ?>
                     </tr>
@@ -63,7 +63,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="newPsikologModalLabel">Add New Psikolog</h5>
+                    <h5 class="modal-title" id="newPsikologModalLabel">Tambah Psikolog</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

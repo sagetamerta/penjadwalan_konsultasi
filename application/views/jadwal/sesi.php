@@ -14,7 +14,7 @@
             <div class="row">
                 <?php if ($user['role_id'] == 1) : ?>
                     <div class="col">
-                        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newSesiModal"><i class="fas fa-plus"></i> Add New Sesi</a>
+                        <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newSesiModal"><i class="fas fa-plus"></i> Tambah Sesi</a>
                     </div>
                 <?php endif; ?>
                 <div class="col">
@@ -61,7 +61,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="newSesiModalLabel">Add New Sesi</h5>
+                    <h5 class="modal-title" id="newSesiModalLabel">Tambah Sesi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>
             </div>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
                     </div>
                 </form>
             </div>

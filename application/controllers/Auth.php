@@ -18,7 +18,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'Login Page';
+            $data['title'] = 'Halaman Login';
             $this->load->view('auth/auth_header', $data);
             $this->load->view('auth/login');
             $this->load->view('auth/auth_footer');
@@ -35,16 +35,16 @@ class Auth extends CI_Controller
 
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
-            'is_unique' => 'This email has already registered!'
+            'is_unique' => 'Email ini sudah terdaftar!'
         ]);
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
-            'matches' => 'Password dont match!',
-            'min_length' => 'Password too short'
+            'matches' => 'Password tidak cocok!',
+            'min_length' => 'Password terlalu pendek'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'User Registration';
+            $data['title'] = 'Halaman Registrasi';
             $this->load->view('auth/auth_header', $data);
             $this->load->view('auth/registration');
             $this->load->view('auth/auth_footer');
@@ -62,7 +62,7 @@ class Auth extends CI_Controller
     {
         $this->Auth_model->logout();
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            You have been logged out</div>');
+            Anda telah keluar dari sesi</div>');
         redirect('auth');
     }
 
@@ -79,7 +79,7 @@ class Auth extends CI_Controller
     {
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'Forgot Password';
+            $data['title'] = 'Lupa Password';
             $this->load->view('auth/auth_header', $data);
             $this->load->view('auth/forgot-password');
             $this->load->view('auth/auth_footer');
@@ -102,12 +102,12 @@ class Auth extends CI_Controller
                 $this->changePassword();
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Reset password failed! Wrong token</div>');
+            Reset password gaga;! Token salah</div>');
                 redirect('auth');
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Reset password failed! Wrong email</div>');
+            Reset password gagal! Email salah</div>');
             redirect('auth');
         }
     }
@@ -121,7 +121,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password1', 'Password', 'trim|required|min_length[3]|matches[password2]');
         $this->form_validation->set_rules('password2', 'Repeat Password', 'trim|required|min_length[3]|matches[password1]');
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'Change Password';
+            $data['title'] = 'Ubah Password';
             $this->load->view('auth/auth_header', $data);
             $this->load->view('auth/change-password');
             $this->load->view('auth/auth_footer');
@@ -129,7 +129,7 @@ class Auth extends CI_Controller
             $this->Auth_model->changePassword();
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Password has been changed! Please login.</div>');
+            Password telah diubah! Silahkan login.</div>');
             redirect('auth');
         }
     }

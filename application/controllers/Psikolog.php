@@ -12,26 +12,16 @@ class Psikolog extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Daftar Psikolog';
+        $data['title'] = 'Kelola Data Psikolog';
         $data['user'] = $this->User_model->user();
 
         $data['psikolog'] = $this->pagination();
 
-        $this->form_validation->set_rules('nama_psikolog', 'nama_psikolog', 'required');
-        $this->form_validation->set_rules('notelp_psikolog', 'notelp_psikolog', 'required');
-        $this->form_validation->set_rules('alamat_psikolog', 'alamat_psikolog', 'required');
-        if ($this->form_validation->run() == false) {
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('psikolog/index', $data);
-            $this->load->view('templates/footer');
-        } else {
-            $this->Psikolog_model->addPsikolog();
-            redirect('psikolog');
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            New Psikolog has been added!</div>');
-        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('psikolog/index', $data);
+        $this->load->view('templates/footer');
     }
 
 
@@ -39,8 +29,9 @@ class Psikolog extends CI_Controller
     {
         $this->Psikolog_model->addPsikolog();
         redirect('psikolog');
+
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            New Psikolog has been added!</div>');
+        Psikolog baru telah ditambahkan!</div>');
     }
 
     public function editPsikolog()
@@ -49,7 +40,7 @@ class Psikolog extends CI_Controller
         redirect('psikolog');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Psikolog has been updated!</div>');
+        Psikolog telah diperbarui!</div>');
     }
 
     public function deletePsikolog($id_psikolog)
@@ -58,7 +49,7 @@ class Psikolog extends CI_Controller
         redirect('psikolog');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Psikolog has been deleted!</div>');
+        Psikolog telah dihapus!</div>');
     }
 
 
