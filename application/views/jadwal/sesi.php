@@ -45,7 +45,7 @@
                             <?php if ($user['role_id'] == 1) : ?>
                                 <td>
                                     <a href="javascript:;" data-id_sesi="<?php echo $h->id_sesi ?>" data-nama_sesi="<?= $h->nama_sesi; ?>" data-toggle="modal" data-target="#editSesiModal" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                    <a href="<?= base_url('jadwal/deleteSesi/') . $h->id_sesi ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                    <a href="<?= base_url('jadwal/deleteSesi/') . $h->id_sesi ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin hapus sesi?');"><i class="fas fa-trash"></i></a>
                                 </td>
                             <?php endif; ?>
                         </tr>
@@ -69,6 +69,7 @@
                 <form action="<?= base_url('jadwal/sesi'); ?>" method="post">
                     <div class="modal-body">
                         <div class="form-group">
+                            <label for="nama_sesi">Nama Sesi</label>
                             <input type="text" class="form-control" id="nama_sesi" name="nama_sesi" placeholder="Nama Sesi">
                         </div>
 

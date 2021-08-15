@@ -48,7 +48,7 @@
                         <td>
                             <a href="<?= base_url('jadwal/detailjadwal/') . $j->id_jadwal ?>" class="btn btn-info"><i class="fa fa-calendar-alt"></i></a>
                             <?php if ($user['role_id'] == 1) : ?>
-                                <a href="<?= base_url('jadwal/deleteJadwal/') . $j->id_jadwal ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin hapus?');"><i class="fa fa-trash-alt"></i></a>
+                                <a href="<?= base_url('jadwal/deleteJadwal/') . $j->id_jadwal ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin hapus jadwal?');"><i class="fa fa-trash-alt"></i></a>
                             <?php else : ?>
                                 <a href="javascript:;" data-id_jadwal="<?php echo $j->id_jadwal ?>" data-verifikasi="<?php echo $j->verifikasi ?>" data-toggle="modal" data-target="#editjadwalModal" class="btn btn-success"><i class="fas fa-check"></i></a>
                             <?php endif; ?>

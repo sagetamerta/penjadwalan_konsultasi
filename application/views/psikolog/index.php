@@ -48,7 +48,7 @@
                         <?php if ($user['role_id'] == 1) : ?>
                             <td>
                                 <a href="javascript:;" data-id_psikolog="<?php echo $p->id_psikolog ?>" data-nama_psikolog="<?= $p->nama_psikolog; ?>" data-notelp_psikolog="<?= $p->notelp_psikolog; ?>" data-alamat_psikolog="<?= $p->alamat_psikolog; ?>" data-toggle="modal" data-target="#editPsikologModal" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                <a href="<?= base_url('psikolog/deletePsikolog/') . $p->id_psikolog ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin hapus?');"><i class="fas fa-trash"></i></a>
+                                <a href="<?= base_url('psikolog/deletePsikolog/') . $p->id_psikolog ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin hapus psikolog?');"><i class="fas fa-trash"></i></a>
                             </td>
                         <?php endif; ?>
                     </tr>

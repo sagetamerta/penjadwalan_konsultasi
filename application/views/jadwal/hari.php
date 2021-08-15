@@ -45,7 +45,7 @@
                             <?php if ($user['role_id'] == 1) : ?>
                                 <td>
                                     <a href="javascript:;" data-id_hari="<?php echo $h->id_hari ?>" data-nama_hari="<?= $h->nama_hari; ?>" data-toggle="modal" data-target="#edithariModal" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                    <a href="<?= base_url('jadwal/deletehari/') . $h->id_hari ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin hapus?');"><i class="fas fa-trash"></i></a>
+                                    <a href="<?= base_url('jadwal/deletehari/') . $h->id_hari ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin hapus hari?');"><i class="fas fa-trash"></i></a>
                                 </td>
                             <?php endif; ?>
                         </tr>
@@ -69,7 +69,8 @@
                 <form action="<?= base_url('jadwal/hari'); ?>" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nama_hari" name="nama_hari" placeholder="Nama hari">
+                            <label for="nama_hari">Nama hari</label>
+                            <input type="text" class="form-control" id="nama_hari" name="nama_hari" placeholder="Nama hari" required>
                         </div>
 
                     </div>

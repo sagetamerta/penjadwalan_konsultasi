@@ -43,6 +43,7 @@
         }
 
         function inisialisasi() {
+            console.log('Populasi awal (parent)');
             for (let i = 0; i < popsize; i++) {
                 data[i] = [];
                 let arr = [];
@@ -52,7 +53,7 @@
                     arr[j] = data[i][j];
                 }
                 arr2 = arr.toString();
-                console.log(i+1, arr2);
+                console.log('Gen ',i+1, arr2);
             }
         }
 
