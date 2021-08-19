@@ -6,15 +6,15 @@
         let fitness = [];
         let fitnessSaget = 0.0;
         let individuTerbaik = 0;
-        let thresholdSaget = 0.0;
+        let thresholdSaget = 0.007;
         let indexTerbaik = 0;
         let maxData = 56;
-        let maxPs = 0;
+        let maxPs = document.getElementById("maxPs").value * 1;
         let getChildCO = 0;
         let ofCrossover = 0;
         let ofMutasi = 0;
-        let popsize = 0;
-        let iterasi = 0;
+        let popsize = 10;
+        let iterasi = 1000;
         let count = 0;
         let allPop = 0;
         let cons1 = 0.0;
@@ -25,22 +25,12 @@
         let fullJadwal = [];
         let jadwal1 = [];
         let jadwal2 = [];
-        let cr = 0.0;
-        let mr = 0.0;
+        let cr = 0.7;
+        let mr = 0.8;
         let jadwalTerbaik = "";
         let cHalangan = 0;
         let halangan = [];
 
-        function getData() {
-            popsize = document.getElementById("popsize").value  * 1;
-            cr = document.getElementById("cr").value * 1;
-            mr = document.getElementById("mr").value * 1;
-            iterasi = document.getElementById("iterasi").value * 1;
-            thresholdSaget = document.getElementById("thresholdSaget").value * 1;
-            maxPs = document.getElementById("maxPs").value * 1;
-            
-            return [popsize, cr, mr, iterasi, thresholdSaget, maxPs];
-        }
 
         function inisialisasi() {
             console.log('Populasi awal (parent)');
@@ -369,7 +359,6 @@
         }
 
         function run(){
-            getData();
             inisialisasi();
             setTimeout(function() {
                 for (let i = 0; i < iterasi; i++) {
@@ -384,7 +373,7 @@
                         break;
                     }
                 }
-            }, 3000) //satuan ms, misal 1000ms = 1 detik
+            }, 500) //satuan ms, misal 1000ms = 1 detik
         }
 
         function getRandomInt(min = 0, max = 0) {

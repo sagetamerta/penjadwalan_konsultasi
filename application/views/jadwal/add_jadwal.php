@@ -1,31 +1,6 @@
     <div class="row">
         <div class="col-lg-6">
             <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-            <div class="form-group">
-                <label for="popsize">Population Size</label>
-                <input type="text" class="form-control" name="popsize" id="popsize" placeholder="ex : 10" required="required">
-                <small>Banyak populasi yang akan dibuat (1-20)</small>
-            </div>
-            <div class="form-group">
-                <label for="cr">Crossover Rate</label>
-                <input type="text" class="form-control" name="cr" id="cr" placeholder="ex : 0.5" required="required">
-                <small>Nilai untuk persilangan (0.5 - 0.8)</small>
-            </div>
-            <div class="form-group">
-                <label for="mr">Mutation Rate</label>
-                <input type="text" class="form-control" name="mr" id="mr" placeholder="ex : 0.5" required="required">
-                <small>Nilai untuk mutasi (0.5 - 0.8)</small>
-            </div>
-            <div class="form-group">
-                <label for="iterasi">Iterasi</label>
-                <input type="text" class="form-control" name="iterasi" id="iterasi" placeholder="ex : 1000" required="required">
-                <small>Seberapa banyak melakukan perulangan sebelum mencapai nilai fitness yang diinginkan (1 - 1000)</small>
-            </div>
-            <div class="form-group">
-                <label for="thresholdSaget"> Nilai Fitness Minimal</label>
-                <input type="text" class="form-control" name="thresholdSaget" id="thresholdSaget" placeholder="ex : 0.007" required="required">
-                <small>Batas untuk menentukan minimal kualitas dari individu ( 0.001 - 0.002)</small>
-            </div>
             <input type="hidden" value="<?= $maxPs; ?>" id="maxPs">
             <button type="button" onclick="run()" class="btn btn-primary mb-5">Hitung Jadwal</button>
         </div>
